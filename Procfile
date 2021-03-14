@@ -1,0 +1,1 @@
+web: gunicorn vendescrow.wsgi --log-file -
