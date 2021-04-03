@@ -100,4 +100,3 @@ virtualenv-clone==0.5.3
 web3==5.17.0
 websockets==8.1
 whitenoise==5.0.1
-wrapt==1.11.2
