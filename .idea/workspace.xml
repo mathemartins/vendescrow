@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/runtime.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,11 +54,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runtime.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <caret column="12" selection-start-column="12" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="100" column="12" lean-forward="true" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -100,18 +109,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rates/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/accounts/api/user/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="224">
@@ -143,7 +140,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/vendescrow/restconf/main.py" />
         <option value="$PROJECT_DIR$/vendescrow/cloudinary_settings.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/vendescrow/restconf/pagination.py" />
         <option value="$PROJECT_DIR$/accounts/constants.py" />
@@ -183,6 +179,7 @@
         <option value="$PROJECT_DIR$/wallets/api/views.py" />
         <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
         <option value="$PROJECT_DIR$/runtime.txt" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
     </option>
   </component>
@@ -355,16 +352,15 @@
       <workItem from="1616693187997" duration="4471000" />
       <workItem from="1616712420630" duration="25133000" />
       <workItem from="1616948172452" duration="287000" />
-      <workItem from="1617123587893" duration="9410000" />
+      <workItem from="1617123587893" duration="9898000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98920000" />
+    <option name="totallyTimeSpent" value="99408000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19440243" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -397,13 +393,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendescrow/cloudinary_settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/accounts/constants.py" />
     <entry file="file://$PROJECT_DIR$/accounts/signals.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -824,6 +813,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="100" column="12" lean-forward="true" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
         </state>
       </provider>
     </entry>

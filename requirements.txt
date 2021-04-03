@@ -61,8 +61,6 @@ mock==3.0.5
 multiaddr==0.0.9
 netaddr==0.8.0
 newrelic==5.14.1.144
-numpy==1.18.4
-pandas==1.0.3
 parsimonious==0.8.1
 pep8==1.7.1
 phonenumbers==8.11.1
