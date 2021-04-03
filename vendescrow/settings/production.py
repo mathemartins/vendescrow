@@ -23,24 +23,56 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = '*w5khesoy7s+mx&6=@m$q*s(n$^86gvfyacktfn+=n30tqj2!-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+BASE_URL = 'https://vendescrow.com'
+ALLOWED_HOSTS = ['*']
+MANAGERS = ('Vend Escrow', "vendescrow@gmail.com")
+ADMINS = MANAGERS
 
-ALLOWED_HOSTS = []
 
-
-# Application definition
-
+# Application Defaults
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'django_jenkins',
 ]
 
+# Third-party
+INSTALLED_APPS += [
+    'django_celery_beat',
+    'phonenumber_field',
+    'crispy_forms',
+    'rest_framework',
+    'corsheaders',
+    'widget_tweaks',
+    'markdown_deux',
+    'pagedown',
+]
+
+# User created
+INSTALLED_APPS += [
+    'accounts',
+    'wallets',
+    'posts',
+    'rates',
+]
+
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_ENDSESSION = False
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,7 +102,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vendescrow.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -80,7 +111,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -100,22 +130,36 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+from vendescrow.cloudinary_settings import *
+from vendescrow.restconf.main import *
+from vendescrow.email_settings import *
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/account/<username>/'
+LOGOUT_REDIRECT_URL = '/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media_root")
+PROTECTED_ROOT = os.path.join(BASE_DIR, "static", "protected_media")
+
+CORS_ORIGIN_ALLOW_ALL = True
+HOST_SCHEME = "http://"
+SECURE_PROXY_SSL_HEADER = None
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_HSTS_SECONDS = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_FRAME_DENY = False
+
+from vendescrow.ssl_config import *
