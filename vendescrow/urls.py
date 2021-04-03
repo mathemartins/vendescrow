@@ -14,9 +14,47 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
+# base system urls
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+# api user authentication and profile urls
+urlpatterns += [
+    path('api/auth/', include(('accounts.api.urls', 'api-auth'), namespace='api-auth')),
+    path('api/accounts/retrieve/', include(("accounts.api.user.urls", 'accounts-api-user-url'), namespace='accounts-api-user-url')),
+]
+
+# api create wallet urls
+urlpatterns += [
+    path('api/wallet/', include(('wallets.api.urls', 'api-wallet'), namespace='api-wallet')),
+]
+
+# api posts urls
+urlpatterns += [
+    url(r'^api/posts/', include(("posts.api.urls", 'posts-api'), namespace='posts-api')),
+]
+
+# api rates urls
+urlpatterns += [
+    url(r'^api/fiat-rates/', include(("rates.api.urls", 'fiate_rates-api'), namespace='fiate_rates-api')),
+]
+
+# authentication urls
+urlpatterns += [
+    path('accounts/', RedirectView.as_view(url='/account')),
+    path('account/', include(('accounts.urls', 'account-url'), namespace='account-url')),
+    path('accounts/', include(("accounts.passwords.urls", 'accounts-password-url'), namespace='account-password')),
+    path('accounts-reset-done/', include("accounts.passwords.urls")),
+]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

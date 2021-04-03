@@ -42,10 +42,17 @@ INSTALLED_APPS += [
     'rest_framework',
     'corsheaders',
     'widget_tweaks',
+    'markdown_deux',
+    'pagedown',
 ]
 
 # User created
-INSTALLED_APPS += []
+INSTALLED_APPS += [
+    'accounts',
+    'wallets',
+    'posts',
+    'rates',
+]
 
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -57,7 +64,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
