@@ -47,7 +47,8 @@ class UserLoginSerializer(serializers.Serializer):
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     phone = PhoneNumberField(write_only=True)
-    fullName = serializers.CharField(write_only=True)
+    firstName = serializers.CharField(write_only=True)
+    lastName = serializers.CharField(write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     token = serializers.SerializerMethodField(read_only=True)
     expires = serializers.SerializerMethodField(read_only=True)
@@ -55,7 +56,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        error_message=''
+        error_message = ''
         fields = [
             'username',
             'fullName',
@@ -97,8 +98,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user_obj = User(
             email=validated_data.get('email'),
             username=validated_data.get('username'),
-            first_name=str(validated_data.get('fullName')).split()[0],
-            last_name=str(validated_data.get('fullName')).split()[1],
+            first_name=validated_data.get('firstName'),
+            last_name=validated_data.get('lastName'),
+            # first_name=str(validated_data.get('fullName')).split()[0],
+            # last_name=str(validated_data.get('fullName')).split()[1],
         )
         user_obj.set_password(validated_data.get('password'))
         user_obj.is_active = True
