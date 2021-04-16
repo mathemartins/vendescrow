@@ -59,7 +59,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         error_message = ''
         fields = [
             'username',
-            'fullName',
+            'firstName',
+            'lastName',
             'email',
             'phone',
             'password',
