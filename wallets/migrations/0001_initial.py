@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Ethereum_Wallet',
+            name='EthereumWallet',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('short_name', models.CharField(default='ETH', max_length=12)),

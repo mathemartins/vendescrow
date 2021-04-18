@@ -12,7 +12,7 @@ from django.db import models
 #     pass
 
 
-class Ethereum_Wallet(models.Model):
+class EthereumWallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, default='Ethereum')
     short_name = models.CharField(max_length=12, default='ETH')

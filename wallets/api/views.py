@@ -10,7 +10,7 @@ from web3 import Web3
 
 from accounts.models import Profile
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL
-from wallets.models import Ethereum_Wallet
+from wallets.models import EthereumWallet
 
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
@@ -25,7 +25,7 @@ class EthereumAddressDetailView(RetrieveAPIView):
             status_code = status.HTTP_200_OK
             if web3.isConnected():
                 try:
-                    user_ethereum_wallet = Ethereum_Wallet.objects.get(user=request.user)
+                    user_ethereum_wallet = EthereumWallet.objects.get(user=request.user)
 
                     decrypted_eth_pk = web3.eth.account.decrypt(
                         keyfile_json=user_ethereum_wallet.encrypted_private_key,
@@ -54,11 +54,11 @@ class EthereumAddressDetailView(RetrieveAPIView):
                             'decrypted_private_key': str(hex_value)
                         }]
                     }
-                except Ethereum_Wallet.DoesNotExist:
+                except EthereumWallet.DoesNotExist:
                     eth_account = web3.eth.account.create()
                     ethereum_icon_url = 'https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/116_Ethereum_logo_logos-512.png'
 
-                    new_eth_wallet = Ethereum_Wallet.objects.create(
+                    new_eth_wallet = EthereumWallet.objects.create(
                         user=request.user,
                         name='Ethereum',
                         short_name='ETH',
