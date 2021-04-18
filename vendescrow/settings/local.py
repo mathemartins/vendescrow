@@ -52,6 +52,7 @@ INSTALLED_APPS += [
     'wallets',
     'posts',
     'rates',
+    'p2p',
 ]
 
 
