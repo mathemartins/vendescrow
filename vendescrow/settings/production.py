@@ -24,7 +24,7 @@ SECRET_KEY = '*w5khesoy7s+mx&6=@m$q*s(n$^86gvfyacktfn+=n30tqj2!-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-BASE_URL = 'https://vendescrow.com'
+BASE_URL = 'https://vendescrow.herokuapp.com'
 ALLOWED_HOSTS = ['*']
 MANAGERS = ('Vend Escrow', "vendescrow@gmail.com")
 ADMINS = MANAGERS
