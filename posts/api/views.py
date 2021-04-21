@@ -1,7 +1,12 @@
 from django.db.models import Q
+from rest_framework import status
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
+from accounts.models import Profile
 from posts.models import Post
 
 from .pagination import PostLimitOffsetPagination, PostPageNumberPagination
@@ -27,6 +32,40 @@ class PostDetailAPIView(RetrieveAPIView):
     serializer_class = PostDetailSerializer
     lookup_field = 'slug'
     permission_classes = [AllowAny]
+
+
+class PostDetailAPIViewV2(RetrieveAPIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        try:
+            status_code = status.HTTP_200_OK
+            instance = Post.objects.get(image=request.POST.get('imageUrl'))
+            response = {
+                'success': True,
+                'status code': status_code,
+                'message': 'Post Detail fetched successfully',
+                'data': [{
+                    'url': instance.get_api_url(),
+                    'id': instance.id,
+                    'title': instance.title,
+                    'slug': instance.slug,
+                    'content': instance.content,
+                    'html': instance.get_markdown(),
+                    'publish': instance.publish,
+                    'image': instance.image,
+                }]
+            }
+
+        except Exception as e:
+            status_code = status.HTTP_400_BAD_REQUEST
+            response = {
+                'success': 'false',
+                'status code': status.HTTP_400_BAD_REQUEST,
+                'message': 'User does not exists',
+                'error': str(e)
+            }
+        return Response(response, status=status_code)
 
 
 class PostUpdateAPIView(RetrieveUpdateAPIView):
