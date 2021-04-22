@@ -22,6 +22,7 @@ from django.views.generic import RedirectView
 # base system urls
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('posts/', include(('posts.urls', 'posts-url'), namespace='posts-url')),
 ]
 
 # api user authentication and profile urls
