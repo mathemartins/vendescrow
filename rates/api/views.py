@@ -1,11 +1,12 @@
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from accounts.models import Profile
+from rates.api.serializers import FiatRateListSerializer
 from rates.models import FiatRate
 
 
@@ -46,3 +47,12 @@ class FiatRateAPIView(RetrieveAPIView):
                 }]
             }
         return Response(response, status=status_code)
+
+
+class FiatListView(ListAPIView):
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+    serializer_class = FiatRateListSerializer
+    queryset = FiatRate.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    paginate_by = 15
+
