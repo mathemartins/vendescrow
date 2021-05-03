@@ -20,7 +20,7 @@ class EthereumWallet(models.Model):
     encrypted_private_key = models.TextField(blank=True, null=True)
     public_key = models.CharField(max_length=256, blank=True, null=True)
     frozen = models.BooleanField(default=False)
-    amount = models.DecimalField(max_digits=999, decimal_places=10, default=0, blank=True, null=True)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
