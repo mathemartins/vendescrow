@@ -60,7 +60,7 @@ class PostListAPIView(ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Post.objects.all()
-        query = self.request.GET.get("q")
+        query = self.request.GET.get("q", )
         if query:
             queryset_list = queryset_list.filter(
                 Q(title__icontains=query) |

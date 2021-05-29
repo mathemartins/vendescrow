@@ -54,7 +54,7 @@ class UserUpdateView(APIView):
     def post(self, request, *args, **kwargs):
         print(request.data)
         data = request.data
-        ssn = data.get('ssn')
+        ssn = data.get('ssn', )
 
         user_profile_obj = Profile.objects.get(user=self.request.user)
         user_profile_obj.ssn = ssn

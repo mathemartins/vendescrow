@@ -28,8 +28,8 @@ class UserLoginSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
-        username = data.get("username", None)
-        password = data.get("password", None)
+        username = data.get("username", )
+        password = data.get("password", )
         user = authenticate(username=username, password=password)
         if user is None:
             raise serializers.ValidationError('User with username and password does not exists.')
@@ -89,7 +89,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return jwt_encode_handler(payload)
 
     def validate(self, data):
-        pw = data.get('password')
+        pw = data.get('password', )
         pw2 = data.pop('password2')
         if pw != pw2:
             raise serializers.ValidationError("Passwords must match")
@@ -97,18 +97,18 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_obj = User(
-            email=validated_data.get('email'),
-            username=validated_data.get('username'),
-            first_name=validated_data.get('firstName'),
-            last_name=validated_data.get('lastName'),
+            email=validated_data.get('email', ),
+            username=validated_data.get('username', ),
+            first_name=validated_data.get('firstName', ),
+            last_name=validated_data.get('lastName', ),
             # first_name=str(validated_data.get('fullName')).split()[0],
             # last_name=str(validated_data.get('fullName')).split()[1],
         )
-        user_obj.set_password(validated_data.get('password'))
+        user_obj.set_password(validated_data.get('password', ))
         user_obj.is_active = True
         user_obj.save()
 
-        pn = phonenumbers.parse(str(validated_data.get('phone')))
+        pn = phonenumbers.parse(str(validated_data.get('phone', )))
         country_affix = region_code_for_country_code(pn.country_code)
         print(country_affix)
 
@@ -116,7 +116,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         print(country_inst, country_inst.name)
 
         profile = Profile.objects.get(user=user_obj)
-        profile.phone = validated_data.get('phone')
+        profile.phone = validated_data.get('phone', )
         profile.country = country_inst
         profile.country_flag = country_inst.flag
         profile.save()

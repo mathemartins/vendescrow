@@ -96,7 +96,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         return super(UserProfileView, self).render_to_response(context, **response_kwargs)
 
     def get_object(self, *args, **kwargs):
-        slug = self.kwargs.get('slug')
+        slug = self.kwargs.get('slug', )
         try:
             instance = Profile.objects.get(slug=slug)
         except Profile.DoesNotExist:

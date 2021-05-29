@@ -19,6 +19,7 @@ class PostDetailViewController(View):
 
     def post(self, request):
         data = json.loads(request.body.decode("utf-8"))
+        print(data)
         instance = Post.objects.get(image=data.get('imageUrl'))
         payload = {
             "url": instance.get_api_url(),

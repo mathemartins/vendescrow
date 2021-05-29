@@ -3,13 +3,30 @@ from django.db import models
 
 
 # Create your models here.
-# class BitcoinWallet(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     short_name = models.CharField(max_length=12, default='BTC')
-#     icon = models.URLField(blank=True, null=True)
-#     private_key = models.CharField(max_length=256)
-#     public_key = models.CharField(max_length=256)
-#     pass
+
+class BitcoinWallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='Bitcoin')
+    short_name = models.CharField(max_length=12, default='BTC')
+    icon = models.URLField(blank=True, null=True)
+    private_key = models.TextField(blank=True, null=True)
+    public_key = models.CharField(max_length=256, blank=True, null=True)
+    address = models.CharField(max_length=256, blank=True, null=True)
+    wif = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
+    frozen = models.BooleanField(default=False)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "bitcoin_wallet"
+        verbose_name = "Bitcoin Wallet"
+        verbose_name_plural = "Bitcoin Wallets"
+
+    def __str__(self):
+        return self.address
 
 
 class EthereumWallet(models.Model):
@@ -19,6 +36,8 @@ class EthereumWallet(models.Model):
     icon = models.URLField(blank=True, null=True)
     encrypted_private_key = models.TextField(blank=True, null=True)
     public_key = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -28,6 +47,52 @@ class EthereumWallet(models.Model):
         db_table = "ethereum_wallet"
         verbose_name = "Ethereum Wallet"
         verbose_name_plural = "Ethereum Wallets"
+
+    def __str__(self):
+        return self.public_key
+
+
+class TetherUSDWallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='Tether USD')
+    short_name = models.CharField(max_length=12, default='USDT')
+    icon = models.URLField(blank=True, null=True)
+    encrypted_private_key = models.TextField(blank=True, null=True)
+    public_key = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
+    frozen = models.BooleanField(default=False)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "tetherusd_wallet"
+        verbose_name = "TetherUSD Wallet"
+        verbose_name_plural = "TetherUSD Wallets"
+
+    def __str__(self):
+        return self.public_key
+
+
+class VendTokenWallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='VendToken')
+    short_name = models.CharField(max_length=12, default='VDT')
+    icon = models.URLField(blank=True, null=True)
+    encrypted_private_key = models.TextField(blank=True, null=True)
+    public_key = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
+    frozen = models.BooleanField(default=False)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "vendtoken_wallet"
+        verbose_name = "VendToken Wallet"
+        verbose_name_plural = "VendToken Wallets"
 
     def __str__(self):
         return self.public_key
@@ -57,5 +122,5 @@ class EthereumWallet(models.Model):
 #     pass
 #
 #
-# class VendWallet(models.Model):
+# class VendTokenWallet(models.Model):
 #     pass
