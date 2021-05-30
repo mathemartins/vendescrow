@@ -117,6 +117,7 @@ class Profile(models.Model):
     country = CountryField(blank=True, null=True, max_length=255)
     country_flag = models.CharField(max_length=200, blank=True, null=True)
     ssn = models.CharField(blank=True, null=True, max_length=20, help_text='Social Security Number/National Identity Number')
+    trades = models.PositiveIntegerField(default=0)
     keycode = models.CharField(max_length=10, blank=True, null=True, unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)

@@ -43,7 +43,7 @@ urlpatterns += [
 
 # api rates urls
 urlpatterns += [
-    url(r'^api/fiat-rates/', include(("rates.api.urls", 'fiate_rates-api'), namespace='fiate_rates-api')),
+    url(r'^api/fiat-rates/', include(("rates.api.urls", 'fiat_rates-api'), namespace='fiat_rates-api')),
 ]
 
 # authentication urls

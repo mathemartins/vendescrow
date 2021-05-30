@@ -29,6 +29,81 @@ class BitcoinWallet(models.Model):
         return self.address
 
 
+class DogecoinWallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='Dogecoin')
+    short_name = models.CharField(max_length=12, default='DOGE')
+    icon = models.URLField(blank=True, null=True)
+    private_key = models.TextField(blank=True, null=True)
+    public_key = models.CharField(max_length=256, blank=True, null=True)
+    address = models.CharField(max_length=256, blank=True, null=True)
+    wif = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
+    frozen = models.BooleanField(default=False)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "dogecoin_wallet"
+        verbose_name = "Dogecoin Wallet"
+        verbose_name_plural = "Dogecoin Wallets"
+
+    def __str__(self):
+        return self.address
+
+
+class LitecoinWallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='Litecoin')
+    short_name = models.CharField(max_length=12, default='LTC')
+    icon = models.URLField(blank=True, null=True)
+    private_key = models.TextField(blank=True, null=True)
+    public_key = models.CharField(max_length=256, blank=True, null=True)
+    address = models.CharField(max_length=256, blank=True, null=True)
+    wif = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
+    frozen = models.BooleanField(default=False)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "litecoin_wallet"
+        verbose_name = "Litecoin Wallet"
+        verbose_name_plural = "Litecoin Wallets"
+
+    def __str__(self):
+        return self.address
+
+
+class DashWallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='Dash')
+    short_name = models.CharField(max_length=12, default='DASH')
+    icon = models.URLField(blank=True, null=True)
+    private_key = models.TextField(blank=True, null=True)
+    public_key = models.CharField(max_length=256, blank=True, null=True)
+    address = models.CharField(max_length=256, blank=True, null=True)
+    wif = models.CharField(max_length=256, blank=True, null=True)
+    previous_bal = models.CharField(max_length=18, default=0, blank=True, null=True)
+    available = models.CharField(max_length=18, default=0, blank=True, null=True)
+    frozen = models.BooleanField(default=False)
+    amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "Dash_wallet"
+        verbose_name = "Dash Wallet"
+        verbose_name_plural = "Dash Wallets"
+
+    def __str__(self):
+        return self.address
+
+
 class EthereumWallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, default='Ethereum')
@@ -96,31 +171,3 @@ class VendTokenWallet(models.Model):
 
     def __str__(self):
         return self.public_key
-
-
-# class LitecoinWallet(models.Model):
-#     pass
-#
-#
-# class Dodgecoin(models.Model):
-#     pass
-#
-#
-# class BitcoinCashWallet(models.Model):
-#     pass
-#
-#
-# class Ripple(models.Model):
-#     pass
-#
-#
-# class TronWallet(models.Model):
-#     pass
-#
-#
-# class KleverWallet(models.Model):
-#     pass
-#
-#
-# class VendTokenWallet(models.Model):
-#     pass
