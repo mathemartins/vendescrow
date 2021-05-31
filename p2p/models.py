@@ -6,8 +6,8 @@ from django.db import models
 
 class PeerToPeerTrade(models.Model):
     TRADE_TYPE = (
-        ('BUY', 'BUY'),
-        ('SELL', 'SELL'),
+        ('I WANT TO BUY', 'I WANT TO BUY'),
+        ('I WANT TO SELL', 'I WANT TO SELL'),
     )
 
     ASSET = (
@@ -23,7 +23,7 @@ class PeerToPeerTrade(models.Model):
     vendor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='asset_owner')
     purchaser = models.ForeignKey(User, on_delete=models.CASCADE, related_name='asset_buyer', blank=True, null=True)
     trades = models.PositiveIntegerField(default=0)
-    trade_listed_as = models.CharField(choices=TRADE_TYPE, max_length=20, default='SELL')
+    trade_listed_as = models.CharField(choices=TRADE_TYPE, max_length=20, default='I WANT TO SELL')
     vendor_rate_in_dollar = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     crypto_trading_amount = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
     min_trading_amount_in_fiat = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)

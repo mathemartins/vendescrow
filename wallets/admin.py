@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from wallets.models import EthereumWallet, TetherUSDWallet, VendTokenWallet, BitcoinWallet, BitcoinCashWallet, \
-    LitecoinWallet, DashWallet, DogecoinWallet
+from wallets.models import EthereumWallet, TetherUSDWallet, VendTokenWallet, BitcoinWallet, LitecoinWallet, DashWallet, \
+    DogecoinWallet
 
 
 # Register your models here.
