@@ -10,6 +10,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from web3 import Web3
 
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL, GINACHE_URL
+from vendescrow.blockchain.utils import asset_conversion
 from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, DogecoinWallet, LitecoinWallet, DashWallet
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
@@ -24,7 +25,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
             import requests
             user_bitcoin_wallet = BitcoinWallet.objects.get(user=request.user)
             balance = requests.get(
-                'https://api.blockcypher.com/v1/btc/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
+                'https://api.blockcypher.com/v1/btc/test3/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
                     address=user_bitcoin_wallet.address))
             jsonBal = balance.content.decode('utf-8').replace("'", '"')
             print(jsonBal)
@@ -59,7 +60,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
         except BitcoinWallet.DoesNotExist:
             import requests
             btc_account_request = requests.post(
-                'https://api.blockcypher.com/v1/btc/main/addrs?token=79d9c1fb002c4543a0befb9e83d81a5c&bech32=true')
+                'https://api.blockcypher.com/v1/btc/test3/addrs?token=79d9c1fb002c4543a0befb9e83d81a5c&bech32=true')
             btc_account = btc_account_request.content.decode('utf-8').replace("'", '"')
             print(btc_account)
             btc_account = json.loads(btc_account)
@@ -78,7 +79,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
             )
 
             balance = requests.get(
-                'https://api.blockcypher.com/v1/btc/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
+                'https://api.blockcypher.com/v1/btc/test3/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
                     address=btc_account['address']))
             jsonBal = balance.content.decode('utf-8').replace("'", '"')
             jsonBal = json.loads(jsonBal)
@@ -566,3 +567,43 @@ class TransferEthereum(APIView):
             },
             status=status.HTTP_201_CREATED
         )
+
+
+class TransferOtherAsset(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+
+    def post(self, request, *args, **kwargs):
+        if not web3.isConnected():
+            return Response({'message': "Not connected to blockchain"}, status=status.HTTP_403_FORBIDDEN)
+
+        asset = kwargs.get('slug').upper()
+        try:
+            instance = BitcoinWallet.objects.get(short_name=asset, user=self.request.user)
+        except BitcoinWallet.DoesNotExist:
+            instance = LitecoinWallet.objects.get(short_name=asset, user=self.request.user)
+        except LitecoinWallet.DoesNotExist:
+            instance = DogecoinWallet.objects.get(short_name=asset, user=self.request.user)
+        except DogecoinWallet.DoesNotExist:
+            instance = DashWallet.objects.get(short_name=asset, user=self.request.user)
+        except DashWallet.DoesNotExist:
+            instance = None
+
+        if instance:
+            Klass = instance.__class__
+            sender = Klass.objects.get(user=self.request.user)
+            receiver_address = self.request.data.get('receiverAddress')
+            print(receiver_address)
+            amount = float(self.request.data.get('amount'))
+            satoshi_amount = int(asset_conversion(amount, 'btc'))
+            print(amount, satoshi_amount)
+            # return build_transaction_and_send(
+            #     sender_address=sender.address,
+            #     sender_private_key=sender.private_key,
+            #     sender_public_key=sender.public_key,
+            #     receiver_address=receiver_address,
+            #     units_in_satoshi_or_koinus=satoshi_amount,
+            #     coin_symbol='btc-testnet'
+            # )
+        else:
+            return Response({'message': 'The listed asset is not supported on our platform'}, status=status.HTTP_400_BAD_REQUEST)

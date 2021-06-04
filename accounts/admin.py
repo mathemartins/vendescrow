@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from accounts.models import EmailActivation, Profile
+from accounts.models import EmailActivation, Profile, UserLock
 
 
 class EmailActivationAdmin(admin.ModelAdmin):
@@ -28,6 +28,14 @@ class ProfileAdmin(admin.ModelAdmin):
                                'fields': (('user',), 'keycode',)}),
         ('Complete Full Information',
          {'classes': ('collapse',), 'fields': ('phone', 'ssn', 'slug', 'country', 'country_flag')}),)
+
+
+@admin.register(UserLock)
+class UserLockModelAdmin(admin.ModelAdmin):
+    list_display = ('user', 'lock_key')
+    list_display_links = ('user',)
+    list_filter = ('user', 'lock_key')
+    search_fields = ('user',)
 
 
 admin.site.site_header = 'Vend Escrow'

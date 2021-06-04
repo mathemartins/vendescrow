@@ -1,13 +1,15 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from accounts.api.permissions import AnonPermissionOnly
 from accounts.api.serializers import UserLoginSerializer, UserRegisterSerializer
-
+from accounts.models import UserLock
 
 User = get_user_model()
 
@@ -38,3 +40,22 @@ class UserRegistrationView(CreateAPIView):
 
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
+
+
+class UserLockView(APIView):
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        data = request.data
+        pin = data.get('pin')
+
+        try:
+            user_lock_obj = UserLock.objects.get(user=self.request.user)
+            user_lock_obj.lock_key = int(pin)
+            user_lock_obj.save()
+            return Response({'message': 'Data Updated Successfully', 'user': str(self.request.user)}, status=201)
+        except UserLock.DoesNotExist:
+            UserLock.objects.create(user=self.request.user, lock_key=int(pin))
+            return Response({'message': 'Data Received Successfully', 'user': str(self.request.user)}, status=201)
