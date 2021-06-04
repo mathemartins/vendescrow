@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/vendescrow/blockchain/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Alphador.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Alphador.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/api/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,14 +50,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/accounts/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="60" column="114" lean-forward="true" selection-start-line="60" selection-start-column="114" selection-end-line="60" selection-end-column="114" />
+            <state relative-caret-position="145">
+              <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="97" column="23" lean-forward="true" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -175,7 +174,6 @@
         <option value="$PROJECT_DIR$/rates/admin.py" />
         <option value="$PROJECT_DIR$/rates/models.py" />
         <option value="$PROJECT_DIR$/runtime.txt" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/accounts/api/serializers.py" />
         <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
         <option value="$PROJECT_DIR$/posts/api/serializers.py" />
@@ -202,6 +200,7 @@
         <option value="$PROJECT_DIR$/accounts/api/user/urls.py" />
         <option value="$PROJECT_DIR$/accounts/api/urls.py" />
         <option value="$PROJECT_DIR$/accounts/api/views.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
     </option>
   </component>
@@ -381,12 +380,12 @@
       <workItem from="1620458918920" duration="619000" />
       <workItem from="1620479296851" duration="42000" />
       <workItem from="1622275852954" duration="23459000" />
-      <workItem from="1622387263396" duration="87944000" />
+      <workItem from="1622387263396" duration="88761000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330636000" />
+    <option name="totallyTimeSpent" value="331453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -397,7 +396,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.3747954" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.3747954" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -407,7 +406,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Pylint" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.5270049" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.5270049" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Sourcery" order="14" />
       <window_info anchor="bottom" id="Python Console" order="15" />
@@ -427,13 +426,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="10" selection-start-column="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="94" column="14" lean-forward="true" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -853,11 +845,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/accounts/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="60" column="114" lean-forward="true" selection-start-line="60" selection-start-column="114" selection-end-line="60" selection-end-column="114" />
+        <state relative-caret-position="145">
+          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="97" column="23" lean-forward="true" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
         </state>
       </provider>
     </entry>
