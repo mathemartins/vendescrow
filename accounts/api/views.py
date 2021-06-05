@@ -60,7 +60,7 @@ class UserLockView(APIView):
                     'lastName': request.user.last_name,
                     'email': request.user.email,
                     'active': request.user.is_active,
-                    'pin': user_lock_obj.lock_key,
+                    'pin': str(user_lock_obj.lock_key),
                 }]
             }
 
