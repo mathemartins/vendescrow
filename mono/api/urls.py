@@ -1,8 +1,7 @@
 from django.conf.urls import url
 
-from .views import FiatRateAPIView, FiatListView
+from .views import AccountLinkageView
 
 urlpatterns = [
-    url(r'^$', FiatRateAPIView.as_view(), name='list'),
-    url(r'^data/$', FiatListView.as_view(), name='data-list'),
+    url(r'^$', AccountLinkageView.as_view(), name='account-linkage'),
 ]

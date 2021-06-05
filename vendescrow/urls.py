@@ -46,6 +46,11 @@ urlpatterns += [
     url(r'^api/fiat-rates/', include(("rates.api.urls", 'fiat_rates-api'), namespace='fiat_rates-api')),
 ]
 
+# api mono account linkage
+urlpatterns += [
+    url(r'^api/connect-mono/', include(("mono.api.urls", 'mono_connect-api'), namespace='mono_connect-api')),
+]
+
 # authentication urls
 urlpatterns += [
     path('accounts/', RedirectView.as_view(url='/account')),

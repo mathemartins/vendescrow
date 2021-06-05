@@ -6,6 +6,7 @@ from django.db import models
 
 class AccountLinkage(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    fullName = models.CharField(max_length=299, blank=True, null=True)
     mono_code = models.CharField(max_length=299, blank=True, null=True)
     exchange_token = models.CharField(max_length=299, blank=True, null=True)
 
