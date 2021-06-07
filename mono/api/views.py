@@ -34,7 +34,8 @@ class AccountLinkageView(APIView):
                     'bank': user_account_linkage.bank,
                     'accountNumber': user_account_linkage.account_number,
                     'accountType': user_account_linkage.account_type,
-                    'currency': user_account_linkage.currency
+                    'currency': user_account_linkage.currency,
+                    'bvn': user_account_linkage.bvn
                 }]
             }
 
