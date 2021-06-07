@@ -30,6 +30,11 @@ class AccountLinkageView(APIView):
                     'active': request.user.is_active,
                     'monoCode': user_account_linkage.mono_code,
                     'exchangeToken': user_account_linkage.exchange_token,
+                    'fullName': user_account_linkage.fullName,
+                    'bank': user_account_linkage.bank,
+                    'accountNumber': user_account_linkage.account_number,
+                    'accountType': user_account_linkage.account_type,
+                    'currency': user_account_linkage.currency
                 }]
             }
 
