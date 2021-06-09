@@ -16,6 +16,32 @@ from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, Dogec
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
 
 
+class BitcoinWalletCallView(RetrieveAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+
+    def get(self, request, **kwargs):
+        user_bitcoin_wallet = BitcoinWallet.objects.get(user=request.user)
+        response = {
+            'success': True,
+            'statusCode': status.HTTP_200_OK,
+            'message': 'Bitcoin Address Retrieved',
+            'data': [{
+                'username': request.user.username,
+                'name': user_bitcoin_wallet.name,
+                'balance': user_bitcoin_wallet.available,
+                'short_name': user_bitcoin_wallet.short_name,
+                'icon': user_bitcoin_wallet.icon,
+                'private': user_bitcoin_wallet.private_key,
+                'public': user_bitcoin_wallet.public_key,
+                'address': str(user_bitcoin_wallet.address),
+                'frozen': user_bitcoin_wallet.frozen,
+                'amount': user_bitcoin_wallet.amount,
+            }]
+        }
+        return Response(response, status=status.HTTP_200_OK)
+
+
 class BitcoinAddressDetailView(RetrieveAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]

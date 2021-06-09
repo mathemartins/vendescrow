@@ -1,11 +1,12 @@
 from django.urls import path
 
 from .views import EthereumAddressDetailView, BitcoinAddressDetailView, TransferEthereum, LitecoinAddressDetailView, \
-    DogecoinAddressDetailView, DashAddressDetailView, TransferOtherAsset
+    DogecoinAddressDetailView, DashAddressDetailView, TransferOtherAsset, BitcoinWalletCallView
 
 urlpatterns = [
     path('', EthereumAddressDetailView.as_view(), name='user-wallet'),
     path('btc/', BitcoinAddressDetailView.as_view(), name='bitcoin-wallet'),
+    path('return/btc/', BitcoinWalletCallView.as_view(), name='bitcoin-wallet'),
     path('ltc/', LitecoinAddressDetailView.as_view(), name='litecoin-wallet'),
     path('doge/', DogecoinAddressDetailView.as_view(), name='doge-wallet'),
     path('dash/', DashAddressDetailView.as_view(), name='dash-wallet'),
