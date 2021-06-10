@@ -547,6 +547,7 @@ class TransferOtherAsset(APIView):
                     if float(sender.amount) >= (float(min_fee) + float(amount)):
                         sender.amount = str(float(sender.amount) - float(amount))
                         is_vendescrow_user.amount = str(float(is_vendescrow_user.amount) + float(amount))
+                        print(sender.amount, is_vendescrow_user.amount)
 
                         sender.save()
                         is_vendescrow_user.save()
