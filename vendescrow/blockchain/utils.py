@@ -78,6 +78,8 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
     block_io.summarize_prepared_transaction(prepare_trx)
     thisCheck = block_io.create_and_sign_transaction(prepare_data=prepare_trx)
     print(thisCheck)
+    submit_url = "https://block.io/api/v2/submit_transaction/?api_key={apiKey}"
+    return requests.post(submit_url, thisCheck, proxies=proxies)
 
 
 # Transfer Crypto Asset
