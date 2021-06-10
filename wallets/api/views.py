@@ -538,7 +538,7 @@ class TransferOtherAsset(APIView):
                 vend_fee = '0.00016'
                 min_fee = '0.00002'
 
-                if Klass.objects.get(address=receiver_address):
+                try:
                     is_vendescrow_user = Klass.objects.get(address=receiver_address)
                     # send crypto
 
@@ -573,7 +573,7 @@ class TransferOtherAsset(APIView):
                         return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
                     else:
                         raise ValueError('Cannot make transaction, insufficient balance')
-                else:
+                except Klass.DoesNotExist:
                     print('not vendescrow user')
                     # send crypto outside
                     transfer_crypto_with_sender_address(
