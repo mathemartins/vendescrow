@@ -533,15 +533,13 @@ class TransferOtherAsset(APIView):
             amount = self.request.data.get('amount')
 
             if str(asset) == 'BTC':
-                print('here is btc')
                 network = bitcoin_testnet
                 vendescrow_default_address = '2N8jbkx2gfMU9vNrgHPzn9vnns3TxiEdghC'
                 vend_fee = '0.00016'
                 min_fee = '0.00002'
 
-                is_vendescrow_user = Klass.objects.get(address=receiver_address)
-
-                if is_vendescrow_user:
+                if Klass.objects.get(address=receiver_address):
+                    is_vendescrow_user = Klass.objects.get(address=receiver_address)
                     # send crypto
 
                     # confirm if user have that same amount
@@ -576,6 +574,7 @@ class TransferOtherAsset(APIView):
                     else:
                         raise ValueError('Cannot make transaction, insufficient balance')
                 else:
+                    print('not vendescrow user')
                     # send crypto outside
                     transfer_crypto_with_sender_address(
                         sender_address=sender.address,
