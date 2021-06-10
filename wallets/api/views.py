@@ -514,6 +514,7 @@ class TransferOtherAsset(APIView):
             return Response({'message': "Not connected to blockchain"}, status=status.HTTP_403_FORBIDDEN)
 
         asset = kwargs.get('slug').upper()
+        print(asset)
         try:
             instance = BitcoinWallet.objects.get(short_name=asset, user=self.request.user)
         except BitcoinWallet.DoesNotExist:
@@ -524,6 +525,7 @@ class TransferOtherAsset(APIView):
             instance = None
 
         if instance:
+            instance
             Klass = instance.__class__
             sender = Klass.objects.get(user=self.request.user)
             receiver_address = self.request.data.get('receiverAddress')
