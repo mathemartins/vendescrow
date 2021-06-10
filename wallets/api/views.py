@@ -9,11 +9,19 @@ from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from web3 import Web3
 
+from transactions.models import Transaction
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL, GINACHE_URL
-from vendescrow.blockchain.utils import asset_conversion
+from vendescrow.blockchain.utils import get_address, get_archive_address, transfer_crypto, transfer_crypto_for_vend
 from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, DogecoinWallet, LitecoinWallet, DashWallet
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
+
+litecoin: str = '424f-f409-0198-4f79'
+bitcoin: str = '413d-28c6-cc3c-10b3'
+dogecoin: str = '2369-cce8-ec84-e3fa'
+litecoin_testnet: str = 'f0c1-4225-3466-1f69'
+bitcoin_testnet: str = '75c8-afcc-010a-83a5'
+dogecoin_testnet: str = '2ff6-9bd9-ed93-a1b0'
 
 
 class BitcoinWalletCallView(RetrieveAPIView):
@@ -48,23 +56,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
 
     def get(self, request, **kwargs):
         try:
-            import requests
             user_bitcoin_wallet = BitcoinWallet.objects.get(user=request.user)
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/btc/test3/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=user_bitcoin_wallet.address))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            print(jsonBal)
-            jsonBal = json.loads(jsonBal)
-            print(type(jsonBal))
-            balance_in_btc = float(jsonBal.get('balance')) / 100000000
-
-            if balance_in_btc != float(user_bitcoin_wallet.previous_bal):
-                added_asset = float(balance_in_btc) - float(user_bitcoin_wallet.previous_bal)
-                print(added_asset)
-                user_bitcoin_wallet.available = float(user_bitcoin_wallet.available) + added_asset
-                user_bitcoin_wallet.previous_bal = float(user_bitcoin_wallet.previous_bal) + added_asset
-                user_bitcoin_wallet.save()
 
             response = {
                 'success': True,
@@ -84,13 +76,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                 }]
             }
         except BitcoinWallet.DoesNotExist:
-            import requests
-            btc_account_request = requests.post(
-                'https://api.blockcypher.com/v1/btc/test3/addrs?token=79d9c1fb002c4543a0befb9e83d81a5c&bech32=true')
-            btc_account = btc_account_request.content.decode('utf-8').replace("'", '"')
-            print(btc_account)
-            btc_account = json.loads(btc_account)
-            print(type(btc_account))
+            btc_account = get_address(crypto_network_api=bitcoin_testnet, username=request.user.username)
             btc_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
 
             new_btc_wallet = BitcoinWallet.objects.create(
@@ -98,18 +84,11 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                 name='Bitcoin',
                 short_name='BTC',
                 icon=btc_icon_url,
-                private_key=btc_account.get('private'),
-                public_key=btc_account.get('public'),
-                address=btc_account.get('address'),
-                wif=btc_account.get('wif'),
+                private_key=btc_account.get('managed'),
+                public_key=btc_account.get('managed'),
+                address=btc_account['data'].get('address'),
+                wif=btc_account.get('managed'),
             )
-
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/btc/test3/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=btc_account['address']))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            jsonBal = json.loads(jsonBal)
-            balance_in_btc = float(jsonBal.get('balance')) / 100000000
 
             response = {
                 'success': True,
@@ -118,7 +97,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                 'data': [{
                     'username': request.user.username,
                     'name': new_btc_wallet.name,
-                    'balance': balance_in_btc,
+                    'balance': '0',
                     'short_name': new_btc_wallet.short_name,
                     'icon': btc_icon_url,
                     'private': new_btc_wallet.private_key,
@@ -131,92 +110,29 @@ class BitcoinAddressDetailView(RetrieveAPIView):
         return Response(response, status=status.HTTP_200_OK)
 
 
-class DogecoinAddressDetailView(RetrieveAPIView):
+class LitecoinWalletCallView(RetrieveAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
 
     def get(self, request, **kwargs):
-        try:
-            import requests
-            user_dogecoin_wallet = DogecoinWallet.objects.get(user=request.user)
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/doge/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=user_dogecoin_wallet.address))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            print(jsonBal)
-            jsonBal = json.loads(jsonBal)
-            print(type(jsonBal))
-            balance_in_doge = float(jsonBal.get('balance')) / 100000000
-
-            if balance_in_doge != float(user_dogecoin_wallet.previous_bal):
-                added_asset = float(balance_in_doge) - float(user_dogecoin_wallet.previous_bal)
-                print(added_asset)
-                user_dogecoin_wallet.available = float(user_dogecoin_wallet.available) + added_asset
-                user_dogecoin_wallet.previous_bal = float(user_dogecoin_wallet.previous_bal) + added_asset
-                user_dogecoin_wallet.save()
-
-            response = {
-                'success': True,
-                'statusCode': status.HTTP_200_OK,
-                'message': 'Bitcoin Address Retrieved',
-                'data': [{
-                    'username': request.user.username,
-                    'name': user_dogecoin_wallet.name,
-                    'balance': user_dogecoin_wallet.available,
-                    'short_name': user_dogecoin_wallet.short_name,
-                    'icon': user_dogecoin_wallet.icon,
-                    'private': user_dogecoin_wallet.private_key,
-                    'public': user_dogecoin_wallet.public_key,
-                    'address': str(user_dogecoin_wallet.address),
-                    'frozen': user_dogecoin_wallet.frozen,
-                    'amount': user_dogecoin_wallet.amount,
-                }]
-            }
-        except DogecoinWallet.DoesNotExist:
-            import requests
-            doge_account_request = requests.post(
-                'https://api.blockcypher.com/v1/doge/main/addrs?token=79d9c1fb002c4543a0befb9e83d81a5c&bech32=true')
-            doge_account = doge_account_request.content.decode('utf-8').replace("'", '"')
-            print(doge_account)
-            doge_account = json.loads(doge_account)
-            print(type(doge_account))
-            doge_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
-
-            new_doge_wallet = DogecoinWallet.objects.create(
-                user=request.user,
-                name='Dogecoin',
-                short_name='DOGE',
-                icon=doge_icon_url,
-                private_key=doge_account.get('private'),
-                public_key=doge_account.get('public'),
-                address=doge_account.get('address'),
-                wif=doge_account.get('wif'),
-            )
-
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/doge/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=doge_account['address']))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            jsonBal = json.loads(jsonBal)
-            balance_in_doge = float(jsonBal.get('balance')) / 100000000
-
-            response = {
-                'success': True,
-                'statusCode': status.HTTP_200_OK,
-                'message': 'Dogecoin Address Created',
-                'data': [{
-                    'username': request.user.username,
-                    'name': new_doge_wallet.name,
-                    'balance': balance_in_doge,
-                    'short_name': new_doge_wallet.short_name,
-                    'icon': doge_icon_url,
-                    'private': new_doge_wallet.private_key,
-                    'public': new_doge_wallet.public_key,
-                    'address': str(new_doge_wallet.address),
-                    'frozen': new_doge_wallet.frozen,
-                    'amount': new_doge_wallet.amount,
-                }]
-            }
+        user_litecoin_wallet = LitecoinWallet.objects.get(user=request.user)
+        response = {
+            'success': True,
+            'statusCode': status.HTTP_200_OK,
+            'message': 'Litecoin Address Retrieved',
+            'data': [{
+                'username': request.user.username,
+                'name': user_litecoin_wallet.name,
+                'balance': user_litecoin_wallet.available,
+                'short_name': user_litecoin_wallet.short_name,
+                'icon': user_litecoin_wallet.icon,
+                'private': user_litecoin_wallet.private_key,
+                'public': user_litecoin_wallet.public_key,
+                'address': str(user_litecoin_wallet.address),
+                'frozen': user_litecoin_wallet.frozen,
+                'amount': user_litecoin_wallet.amount,
+            }]
+        }
         return Response(response, status=status.HTTP_200_OK)
 
 
@@ -226,24 +142,7 @@ class LitecoinAddressDetailView(RetrieveAPIView):
 
     def get(self, request, **kwargs):
         try:
-            import requests
             user_litecoin_wallet = LitecoinWallet.objects.get(user=request.user)
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/ltc/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=user_litecoin_wallet.address))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            print(jsonBal)
-            jsonBal = json.loads(jsonBal)
-            print(type(jsonBal))
-            balance_in_ltc = float(jsonBal.get('balance')) / 100000000
-
-            if balance_in_ltc != float(user_litecoin_wallet.previous_bal):
-                added_asset = float(balance_in_ltc) - float(user_litecoin_wallet.previous_bal)
-                print(added_asset)
-                user_litecoin_wallet.available = float(user_litecoin_wallet.available) + added_asset
-                user_litecoin_wallet.previous_bal = float(user_litecoin_wallet.previous_bal) + added_asset
-                user_litecoin_wallet.save()
-
             response = {
                 'success': True,
                 'statusCode': status.HTTP_200_OK,
@@ -262,32 +161,19 @@ class LitecoinAddressDetailView(RetrieveAPIView):
                 }]
             }
         except LitecoinWallet.DoesNotExist:
-            import requests
-            ltc_account_request = requests.post(
-                'https://api.blockcypher.com/v1/ltc/main/addrs?token=79d9c1fb002c4543a0befb9e83d81a5c&bech32=true')
-            ltc_account = ltc_account_request.content.decode('utf-8').replace("'", '"')
-            print(ltc_account)
-            ltc_account = json.loads(ltc_account)
-            print(type(ltc_account))
-            ltc_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
+            ltc_account = get_address(crypto_network_api=litecoin_testnet, username=request.user.username)
+            ltc_icon_url = 'https://cryptologos.cc/logos/litecoin-ltc-logo.png'
 
             new_ltc_wallet = LitecoinWallet.objects.create(
                 user=request.user,
                 name='Litecoin',
                 short_name='LTC',
                 icon=ltc_icon_url,
-                private_key=ltc_account.get('private'),
-                public_key=ltc_account.get('public'),
-                address=ltc_account.get('address'),
-                wif=ltc_account.get('wif'),
+                private_key=ltc_account.get('managed'),
+                public_key=ltc_account.get('managed'),
+                address=ltc_account['data'].get('address'),
+                wif=ltc_account.get('managed'),
             )
-
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/ltc/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=ltc_account['address']))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            jsonBal = json.loads(jsonBal)
-            balance_in_ltc = float(jsonBal.get('balance')) / 100000000
 
             response = {
                 'success': True,
@@ -296,7 +182,7 @@ class LitecoinAddressDetailView(RetrieveAPIView):
                 'data': [{
                     'username': request.user.username,
                     'name': new_ltc_wallet.name,
-                    'balance': balance_in_ltc,
+                    'balance': '0',
                     'short_name': new_ltc_wallet.short_name,
                     'icon': ltc_icon_url,
                     'private': new_ltc_wallet.private_key,
@@ -309,92 +195,115 @@ class LitecoinAddressDetailView(RetrieveAPIView):
         return Response(response, status=status.HTTP_200_OK)
 
 
-class DashAddressDetailView(RetrieveAPIView):
+class DogecoinWalletCallView(RetrieveAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+
+    def get(self, request, **kwargs):
+        user_dogecoin_wallet = DogecoinWallet.objects.get(user=request.user)
+        response = {
+            'success': True,
+            'statusCode': status.HTTP_200_OK,
+            'message': 'Dogecoin Address Retrieved',
+            'data': [{
+                'username': request.user.username,
+                'name': user_dogecoin_wallet.name,
+                'balance': user_dogecoin_wallet.available,
+                'short_name': user_dogecoin_wallet.short_name,
+                'icon': user_dogecoin_wallet.icon,
+                'private': user_dogecoin_wallet.private_key,
+                'public': user_dogecoin_wallet.public_key,
+                'address': str(user_dogecoin_wallet.address),
+                'frozen': user_dogecoin_wallet.frozen,
+                'amount': user_dogecoin_wallet.amount,
+            }]
+        }
+        return Response(response, status=status.HTTP_200_OK)
+
+
+class DogecoinAddressDetailView(RetrieveAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
 
     def get(self, request, **kwargs):
         try:
-            import requests
-            user_dash_wallet = DashWallet.objects.get(user=request.user)
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/dash/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=user_dash_wallet.address))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            print(jsonBal)
-            jsonBal = json.loads(jsonBal)
-            print(type(jsonBal))
-            balance_in_dash = float(jsonBal.get('balance')) / 100000000
-
-            if balance_in_dash != float(user_dash_wallet.previous_bal):
-                added_asset = float(balance_in_dash) - float(user_dash_wallet.previous_bal)
-                print(added_asset)
-                user_dash_wallet.available = float(user_dash_wallet.available) + added_asset
-                user_dash_wallet.previous_bal = float(user_dash_wallet.previous_bal) + added_asset
-                user_dash_wallet.save()
+            user_dogecoin_wallet = DogecoinWallet.objects.get(user=request.user)
 
             response = {
                 'success': True,
                 'statusCode': status.HTTP_200_OK,
-                'message': 'Dash Address Retrieved',
+                'message': 'Dogecoin Address Retrieved',
                 'data': [{
                     'username': request.user.username,
-                    'name': user_dash_wallet.name,
-                    'balance': user_dash_wallet.available,
-                    'short_name': user_dash_wallet.short_name,
-                    'icon': user_dash_wallet.icon,
-                    'private': user_dash_wallet.private_key,
-                    'public': user_dash_wallet.public_key,
-                    'address': str(user_dash_wallet.address),
-                    'frozen': user_dash_wallet.frozen,
-                    'amount': user_dash_wallet.amount,
+                    'name': user_dogecoin_wallet.name,
+                    'balance': user_dogecoin_wallet.available,
+                    'short_name': user_dogecoin_wallet.short_name,
+                    'icon': user_dogecoin_wallet.icon,
+                    'private': user_dogecoin_wallet.private_key,
+                    'public': user_dogecoin_wallet.public_key,
+                    'address': str(user_dogecoin_wallet.address),
+                    'frozen': user_dogecoin_wallet.frozen,
+                    'amount': user_dogecoin_wallet.amount,
                 }]
             }
-        except DashWallet.DoesNotExist:
-            import requests
-            dash_account_request = requests.post(
-                'https://api.blockcypher.com/v1/dash/main/addrs?token=79d9c1fb002c4543a0befb9e83d81a5c&bech32=true')
-            dash_account = dash_account_request.content.decode('utf-8').replace("'", '"')
-            print(dash_account)
-            dash_account = json.loads(dash_account)
-            print(type(dash_account))
-            dash_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
+        except DogecoinWallet.DoesNotExist:
+            doge_account = get_address(crypto_network_api=dogecoin_testnet, username=request.user.username)
+            doge_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
 
-            new_dash_wallet = DashWallet.objects.create(
+            new_doge_wallet = DogecoinWallet.objects.create(
                 user=request.user,
-                name='Dash',
-                short_name='DASH',
-                icon=dash_icon_url,
-                private_key=dash_account.get('private'),
-                public_key=dash_account.get('public'),
-                address=dash_account.get('address'),
-                wif=dash_account.get('wif'),
+                name='Dogecoin',
+                short_name='DOGE',
+                icon=doge_icon_url,
+                private_key=doge_account.get('managed'),
+                public_key=doge_account.get('managed'),
+                address=doge_account['data'].get('address'),
+                wif=doge_account.get('managed'),
             )
 
-            balance = requests.get(
-                'https://api.blockcypher.com/v1/dash/main/addrs/{address}/balance?token=79d9c1fb002c4543a0befb9e83d81a5c'.format(
-                    address=dash_account['address']))
-            jsonBal = balance.content.decode('utf-8').replace("'", '"')
-            jsonBal = json.loads(jsonBal)
-            balance_in_dash = float(jsonBal.get('balance')) / 100000000
-
             response = {
                 'success': True,
                 'statusCode': status.HTTP_200_OK,
-                'message': 'Dash Address Created',
+                'message': 'Dogecoin Address Created',
                 'data': [{
                     'username': request.user.username,
-                    'name': new_dash_wallet.name,
-                    'balance': balance_in_dash,
-                    'short_name': new_dash_wallet.short_name,
-                    'icon': dash_icon_url,
-                    'private': new_dash_wallet.private_key,
-                    'public': new_dash_wallet.public_key,
-                    'address': str(new_dash_wallet.address),
-                    'frozen': new_dash_wallet.frozen,
-                    'amount': new_dash_wallet.amount,
+                    'name': new_doge_wallet.name,
+                    'balance': '0',
+                    'short_name': new_doge_wallet.short_name,
+                    'icon': doge_icon_url,
+                    'private': new_doge_wallet.private_key,
+                    'public': new_doge_wallet.public_key,
+                    'address': str(new_doge_wallet.address),
+                    'frozen': new_doge_wallet.frozen,
+                    'amount': new_doge_wallet.amount,
                 }]
             }
+        return Response(response, status=status.HTTP_200_OK)
+
+
+class EthereumWalletCallView(RetrieveAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+
+    def get(self, request, **kwargs):
+        user_ethereum_wallet = EthereumWallet.objects.get(user=request.user)
+        response = {
+            'success': True,
+            'statusCode': status.HTTP_200_OK,
+            'message': 'Dogecoin Address Retrieved',
+            'data': [{
+                'username': request.user.username,
+                'name': user_ethereum_wallet.name,
+                'balance': user_ethereum_wallet.available,
+                'short_name': user_ethereum_wallet.short_name,
+                'icon': user_ethereum_wallet.icon,
+                'private': user_ethereum_wallet.private_key,
+                'public': user_ethereum_wallet.public_key,
+                'address': str(user_ethereum_wallet.address),
+                'frozen': user_ethereum_wallet.frozen,
+                'amount': user_ethereum_wallet.amount,
+            }]
+        }
         return Response(response, status=status.HTTP_200_OK)
 
 
@@ -611,25 +520,82 @@ class TransferOtherAsset(APIView):
         except LitecoinWallet.DoesNotExist:
             instance = DogecoinWallet.objects.get(short_name=asset, user=self.request.user)
         except DogecoinWallet.DoesNotExist:
-            instance = DashWallet.objects.get(short_name=asset, user=self.request.user)
-        except DashWallet.DoesNotExist:
             instance = None
 
         if instance:
             Klass = instance.__class__
             sender = Klass.objects.get(user=self.request.user)
             receiver_address = self.request.data.get('receiverAddress')
-            print(receiver_address)
-            amount = float(self.request.data.get('amount'))
-            satoshi_amount = int(asset_conversion(amount, 'btc'))
-            print(amount, satoshi_amount)
-            # return build_transaction_and_send(
-            #     sender_address=sender.address,
-            #     sender_private_key=sender.private_key,
-            #     sender_public_key=sender.public_key,
-            #     receiver_address=receiver_address,
-            #     units_in_satoshi_or_koinus=satoshi_amount,
-            #     coin_symbol='btc-testnet'
-            # )
+            amount = self.request.data.get('amount')
+
+            if asset is 'BTC':
+                network = bitcoin_testnet
+                vendescrow_default_address = '2N8jbkx2gfMU9vNrgHPzn9vnns3TxiEdghC'
+                vend_fee = '0.00016'
+            elif asset is 'LTC':
+                network = litecoin_testnet
+                vendescrow_default_address = 'QTeNZa6VNAEie6J5dsyhAq2Mr3TyBXEgWk'
+                vend_fee = '0.035'
+            elif asset is 'DOGE':
+                network = dogecoin_testnet
+                vendescrow_default_address = '2MuRdVRRgrt6Sm2oMc4hg4Z8g1VYYpNTfcP'
+                vend_fee = '9.21'
+
+            is_vendescrow_user = Klass.objects.get(address=receiver_address)
+            if is_vendescrow_user:
+                # send crypto
+
+                # confirm if user have that same amount
+                sender_balance = sender.amount
+                if float(sender_balance) >= (float(0.0002) + float(amount)):
+                    sender_balance -= amount
+                    is_vendescrow_user.amount += amount
+
+                    # transfer to vendescrow
+                    trx_internal_hash = transfer_crypto_for_vend(
+                        amount=vend_fee,
+                        sender_address=sender.address,
+                        receiver_address=vendescrow_default_address,
+                        crypto_network_api=network,
+                        priority='high'
+                    )
+
+                    # update the transaction if its between two vendescrow users
+                    Transaction.objects.create(
+                        sender=request.user.username,
+                        receiver=is_vendescrow_user.user,
+                        amount=amount,
+                        transaction_hash=trx_internal_hash['data'].get('txid'),
+                        asset_type=asset
+                    )
+
+                    # update transfer record to vendescrow
+                    Transaction.objects.create(
+                        sender=request.user.username,
+                        receiver=vendescrow_default_address,
+                        amount=vend_fee,
+                        transaction_hash=trx_internal_hash['data'].get('txid'),
+                        asset_type=asset
+                    )
+                else:
+                    raise ValueError('Cannot make transaction, insufficient balance')
+            else:
+                # send crypto outside
+                trx_hash = transfer_crypto(
+                    amount=amount,
+                    receiver_address=receiver_address,
+                    crypto_network_api=network,
+                    priority='high'
+                )
+
+                # update the transaction for external
+                Transaction.objects.create(
+                    sender=request.user,
+                    receiver=receiver_address,
+                    amount=amount,
+                    transaction_hash=trx_hash['data'].get('txid'),
+                    asset_type=asset
+                )
         else:
-            return Response({'message': 'The listed asset is not supported on our platform'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'The listed asset is not supported on our platform'},
+                            status=status.HTTP_400_BAD_REQUEST)

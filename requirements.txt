@@ -7,6 +7,7 @@ base58==2.1.0
 billiard==3.6.3.0
 bitarray==1.2.2
 blockcypher==1.0.91
+block-io==2.0.3
 celery==4.4.7
 certifi==2019.11.28
 chardet==3.0.4
@@ -69,7 +70,7 @@ Pillow==7.0.0
 pipenv==2018.11.26
 protobuf==3.15.6
 psycopg2==2.8.4
-pycryptodome==3.9.4
+pycryptodome==3.9.9
 pyflakes3k==0.4.3
 PyJWT==1.7.1
 pylint==2.4.4
@@ -81,7 +82,7 @@ python-stdnum==1.13
 pytz==2021.1
 rave-python==1.1.2
 redis==3.5.3
-requests==2.22.0
+requests==2.25.0
 rlp==2.0.1
 sendgrid==6.1.0
 six==1.13.0

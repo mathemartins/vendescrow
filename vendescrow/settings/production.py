@@ -65,6 +65,7 @@ INSTALLED_APPS += [
     'p2p',
     'fiatwallet',
     'mono',
+    'transactions',
 ]
 
 
