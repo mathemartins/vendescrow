@@ -32,13 +32,6 @@ ALLOWED_HOSTS = ['*']
 MANAGERS = ('Vend Escrow', "vendescrow@gmail.com")
 ADMINS = MANAGERS
 
-proxies = {
-    "http": os.environ['QUOTAGUARDSTATIC_URL'],
-    "https": os.environ['QUOTAGUARDSTATIC_URL'],
-}
-
-response = requests.get('http://ip.quotaguard.com/', proxies=proxies)
-print(response.text)
 
 # Application Defaults
 INSTALLED_APPS = [
@@ -181,3 +174,11 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = False
 
 from vendescrow.ssl_config import *
+
+proxies = {
+    "http": os.environ['QUOTAGUARDSTATIC_URL'],
+    "https": os.environ['QUOTAGUARDSTATIC_URL'],
+}
+
+response = requests.get('http://ip.quotaguard.com/', proxies=proxies)
+print(response.text)
