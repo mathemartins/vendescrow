@@ -545,8 +545,8 @@ class TransferOtherAsset(APIView):
 
                     # confirm if user have that same amount
                     if float(sender.amount) >= (float(min_fee) + float(amount)):
-                        sender.amount -= amount
-                        is_vendescrow_user.amount += amount
+                        sender.amount = str(float(sender.amount) - float(amount))
+                        is_vendescrow_user.amount = str(float(is_vendescrow_user.amount) + float(amount))
 
                         sender.save()
                         is_vendescrow_user.save()
