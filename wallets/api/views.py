@@ -571,6 +571,7 @@ class TransferOtherAsset(APIView):
                                 amount=vend_fee,
                                 asset_type=asset
                             )
+                        return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
                     else:
                         raise ValueError('Cannot make transaction, insufficient balance')
                 else:
