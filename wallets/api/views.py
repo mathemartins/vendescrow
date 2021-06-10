@@ -12,7 +12,8 @@ from web3 import Web3
 
 from transactions.models import Transaction
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL, GINACHE_URL
-from vendescrow.blockchain.utils import transfer_crypto, transfer_crypto_for_vend, create_address
+from vendescrow.blockchain.utils import transfer_crypto, transfer_crypto_for_vend, create_address, \
+    transfer_crypto_with_sender_address
 from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, DogecoinWallet, LitecoinWallet, DashWallet
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
@@ -525,13 +526,14 @@ class TransferOtherAsset(APIView):
             instance = None
 
         if instance:
-            instance
+            print(instance)
             Klass = instance.__class__
             sender = Klass.objects.get(user=self.request.user)
             receiver_address = self.request.data.get('receiverAddress')
             amount = self.request.data.get('amount')
 
             if asset is 'BTC':
+                print('here is btc')
                 network = bitcoin_testnet
                 vendescrow_default_address = '2N8jbkx2gfMU9vNrgHPzn9vnns3TxiEdghC'
                 vend_fee = '0.00016'
@@ -572,11 +574,10 @@ class TransferOtherAsset(APIView):
                         raise ValueError('Cannot make transaction, insufficient balance')
                 else:
                     # send crypto outside
-                    transfer_crypto(
+                    transfer_crypto_with_sender_address(
                         amount=amount,
                         receiver_address=receiver_address,
                         crypto_network_api=network,
-                        priority='high'
                     )
 
             elif asset is 'LTC':

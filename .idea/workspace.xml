@@ -54,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/blockchain/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="76" column="52" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
+            <state relative-caret-position="141">
+              <caret line="59" column="39" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="39" />
               <folding>
                 <element signature="e#31#42#0" expanded="true" />
               </folding>
@@ -78,8 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wallets/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="527" column="20" lean-forward="true" selection-start-line="527" selection-start-column="20" selection-end-line="527" selection-end-column="20" />
+            <state relative-caret-position="243">
+              <caret line="535" column="34" selection-start-line="535" selection-start-column="34" selection-end-line="535" selection-end-column="34" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#1066#2146#0" />
@@ -356,18 +356,18 @@
       <workItem from="1620479296851" duration="42000" />
       <workItem from="1622275852954" duration="23459000" />
       <workItem from="1622387263396" duration="128424000" />
-      <workItem from="1623227207392" duration="63467000" />
+      <workItem from="1623227207392" duration="64243000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="434583000" />
+    <option name="totallyTimeSpent" value="435359000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21860817" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21860817" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -807,16 +807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/blockchain/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="76" column="52" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
-          <folding>
-            <element signature="e#31#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wallets/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -837,10 +827,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vendescrow/blockchain/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="59" column="39" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="39" />
+          <folding>
+            <element signature="e#31#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wallets/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="527" column="20" lean-forward="true" selection-start-line="527" selection-start-column="20" selection-end-line="527" selection-end-column="20" />
+        <state relative-caret-position="243">
+          <caret line="535" column="34" selection-start-line="535" selection-start-column="34" selection-end-line="535" selection-end-column="34" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#1066#2146#0" />
