@@ -540,6 +540,7 @@ class TransferOtherAsset(APIView):
                 min_fee = '0.00002'
 
                 is_vendescrow_user = Klass.objects.get(address=receiver_address)
+
                 if is_vendescrow_user:
                     # send crypto
 
@@ -577,6 +578,7 @@ class TransferOtherAsset(APIView):
                 else:
                     # send crypto outside
                     transfer_crypto_with_sender_address(
+                        sender_address=sender.address,
                         amount=amount,
                         receiver_address=receiver_address,
                         crypto_network_api=network,
