@@ -1,5 +1,6 @@
 import json
 
+import requests
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.generics import RetrieveAPIView
@@ -22,6 +23,14 @@ dogecoin: str = '2369-cce8-ec84-e3fa'
 litecoin_testnet: str = 'f0c1-4225-3466-1f69'
 bitcoin_testnet: str = '75c8-afcc-010a-83a5'
 dogecoin_testnet: str = '2ff6-9bd9-ed93-a1b0'
+
+proxies = {
+    "http": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
+    "https": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
+}
+
+response = requests.get('http://ip.quotaguard.com/', proxies=proxies)
+print(response.text)
 
 
 class BitcoinWalletCallView(RetrieveAPIView):
@@ -76,7 +85,15 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                 }]
             }
         except BitcoinWallet.DoesNotExist:
-            btc_account = get_address(crypto_network_api=bitcoin_testnet, username=request.user.username)
+            # btc_account = get_address(crypto_network_api=bitcoin_testnet, username=request.user.username)
+            import requests
+            url = "https://block.io/api/v2/get_new_address/?api_key={apiKey}&label={username}".format(apiKey=bitcoin_testnet, username=request.user.username)
+            requests.get(url=url, proxies=proxies)
+            response_data: dict = json.loads(response.content.decode('utf-8'))
+            print(response_data)
+
+
+            btc_account = response_data
             btc_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
 
             new_btc_wallet = BitcoinWallet.objects.create(
