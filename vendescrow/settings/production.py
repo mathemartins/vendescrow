@@ -176,8 +176,8 @@ SECURE_FRAME_DENY = False
 from vendescrow.ssl_config import *
 
 proxies = {
-    "http": os.environ['QUOTAGUARDSTATIC_URL'],
-    "https": os.environ['QUOTAGUARDSTATIC_URL'],
+    "http": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
+    "https": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
 }
 
 response = requests.get('http://ip.quotaguard.com/', proxies=proxies)
