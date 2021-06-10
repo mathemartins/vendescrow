@@ -535,7 +535,7 @@ class TransferOtherAsset(APIView):
             elif asset is 'LTC':
                 network = litecoin_testnet
                 vendescrow_default_address = 'QTeNZa6VNAEie6J5dsyhAq2Mr3TyBXEgWk'
-                vend_fee = '0.035'
+                vend_fee = '0.0175'
             elif asset is 'DOGE':
                 network = dogecoin_testnet
                 vendescrow_default_address = '2MuRdVRRgrt6Sm2oMc4hg4Z8g1VYYpNTfcP'
