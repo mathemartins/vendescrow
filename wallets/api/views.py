@@ -532,7 +532,7 @@ class TransferOtherAsset(APIView):
             receiver_address = self.request.data.get('receiverAddress')
             amount = self.request.data.get('amount')
 
-            if asset is 'BTC':
+            if str(asset) == 'BTC':
                 print('here is btc')
                 network = bitcoin_testnet
                 vendescrow_default_address = '2N8jbkx2gfMU9vNrgHPzn9vnns3TxiEdghC'
