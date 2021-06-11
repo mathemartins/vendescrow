@@ -57,22 +57,30 @@ def transfer_crypto_for_vend(amount: str, sender_address: str, receiver_address:
     return block_io.submit_transaction(transaction_data=create_and_sign_trx)
 
 
+def get_network_fee(crypto_network_api: str, receiver_address: str, amount: str):
+        import requests
+
+        network_fee_url = "https://block.io/api/v2/get_network_fee_estimate/?api_key={apiKey}&to_addresses={receiver_address}&amounts={amount}".format(
+            apiKey=crypto_network_api,
+            receiver_address=receiver_address,
+            amount=amount,
+        )
+        network_fee_res = requests.get(url=network_fee_url, proxies=proxies)
+        network_fee_data: dict = json.loads(network_fee_res.content.decode('utf-8'))
+        return network_fee_data['data'].get('estimated_network_fee')
+
+
 def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address: str, receiver_address: str,
                                         amount: str):
     import requests
-    url = "https://block.io/api/v2/prepare_transaction/?api_key={apiKey}&from_addresses={sender_address}&to_addresses={receiver_address}&amounts={amount}&priority=high".format(
+    url = "https://block.io/api/v2/prepare_transaction/?api_key={apiKey}&from_addresses={sender_address}&to_addresses={receiver_address}&amounts={amount}".format(
         apiKey=crypto_network_api,
         sender_address=sender_address,
         receiver_address=receiver_address,
         amount=amount,
     )
     res = requests.get(url=url, proxies=proxies)
-    prepare_trx = json.loads(res.content.decode('utf-8'))
-
-    input = prepare_trx['data'].get('inputs')
-    output = prepare_trx['data'].get('outputs')
-    encrypted_user_key = prepare_trx['data']['user_key'].get('encrypted_passphrase')
-    input_address_data = prepare_trx['data'].get('input_address_data')
+    prepare_trx: dict = json.loads(res.content.decode('utf-8'))
 
     block_io = BlockIo(crypto_network_api, pin, version)
     block_io.summarize_prepared_transaction(prepare_trx)
