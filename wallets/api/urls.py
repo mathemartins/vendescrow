@@ -5,7 +5,7 @@ from .views import EthereumAddressDetailView, BitcoinAddressDetailView, Transfer
     DogecoinWalletCallView, EthereumWalletCallView
 
 urlpatterns = [
-    path('', EthereumAddressDetailView.as_view(), name='eth-wallet'),
+    path('eth/', EthereumAddressDetailView.as_view(), name='eth-wallet'),
     path('return/eth/', EthereumWalletCallView.as_view(), name='eth-wallet-get'),
 
     path('btc/', BitcoinAddressDetailView.as_view(), name='bitcoin-wallet'),

@@ -12,7 +12,7 @@ from web3 import Web3
 
 from transactions.models import Transaction
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL, GINACHE_URL
-from vendescrow.blockchain.utils import create_address, transfer_crypto_with_sender_address
+from vendescrow.blockchain.utils import create_address, transfer_crypto_with_sender_address, get_network_fee
 from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, DogecoinWallet, LitecoinWallet, DashWallet
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
@@ -23,6 +23,61 @@ dogecoin: str = '2369-cce8-ec84-e3fa'
 litecoin_testnet: str = 'f0c1-4225-3466-1f69'
 bitcoin_testnet: str = '75c8-afcc-010a-83a5'
 dogecoin_testnet: str = '2ff6-9bd9-ed93-a1b0'
+
+
+class BTCLTCDOGENetworkFeeView(RetrieveAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+
+    def post(self, request, **kwargs):
+        if str(self.request.data.get('asset')) == 'btc':
+            network_api = bitcoin_testnet
+            receiver_address = self.request.data.get('receiverAddress')
+            amount = self.request.data.get('amount')
+
+            gas_fee = get_network_fee(crypto_network_api=network_api, receiver_address=receiver_address, amount=amount)
+
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Current Network Retrieved',
+                'data': [{
+                    'estimated_gas': gas_fee,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        elif str(self.request.data.get('asset')) == 'ltc':
+            network_api = litecoin_testnet
+            receiver_address = self.request.data.get('receiverAddress')
+            amount = self.request.data.get('amount')
+
+            gas_fee = get_network_fee(crypto_network_api=network_api, receiver_address=receiver_address, amount=amount)
+
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Current Network Retrieved',
+                'data': [{
+                    'estimated_gas': gas_fee,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        elif str(self.request.data.get('asset')) == 'doge':
+            network_api = bitcoin_testnet
+            receiver_address = self.request.data.get('receiverAddress')
+            amount = self.request.data.get('amount')
+
+            gas_fee = get_network_fee(crypto_network_api=network_api, receiver_address=receiver_address, amount=amount)
+
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Current Network Retrieved',
+                'data': [{
+                    'estimated_gas': gas_fee,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
 
 
 class BitcoinWalletCallView(RetrieveAPIView):
@@ -275,7 +330,7 @@ class DogecoinAddressDetailView(RetrieveAPIView):
             }
         except DogecoinWallet.DoesNotExist:
             doge_account = create_address(crypto_network_api=dogecoin_testnet, username=request.user.username)
-            doge_icon_url = 'https://www.seekpng.com/png/detail/308-3087811_dogecoin-logo-png-transparent-dogecoin.png'
+            doge_icon_url = 'https://e7.pngegg.com/pngimages/707/440/png-clipart-dogecoin-cryptocurrency-scalable-graphics-dogecoin-text-trademark-thumbnail.png'
 
             new_doge_wallet = DogecoinWallet.objects.create(
                 user=request.user,
@@ -413,7 +468,7 @@ class EthereumAddressDetailView(RetrieveAPIView):
                     }
                 except EthereumWallet.DoesNotExist:
                     eth_account = web3.eth.account.create()
-                    ethereum_icon_url = 'https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/116_Ethereum_logo_logos-512.png'
+                    ethereum_icon_url = 'https://cryptologos.cc/logos/ethereum-eth-logo.png'
                     usdt_icon_url = 'https://cryptologos.cc/logos/tether-usdt-logo.png'
 
                     new_eth_wallet = EthereumWallet.objects.create(
@@ -554,180 +609,176 @@ class TransferOtherAsset(APIView):
         except DogecoinWallet.DoesNotExist:
             instance = None
 
-        if instance:
-            print(instance)
-            Klass = instance.__class__
-            sender = Klass.objects.get(user=self.request.user)
-            receiver_address = self.request.data.get('receiverAddress')
-            amount = self.request.data.get('amount')
-
-            if str(asset) == 'BTC':
-                network = bitcoin_testnet
-                vendescrow_default_address = '2N8jbkx2gfMU9vNrgHPzn9vnns3TxiEdghC'
-                vend_fee = '0.00016'
-                min_fee = '0.00002'
-
-                try:
-                    is_vendescrow_user = Klass.objects.get(address=receiver_address)
-                    # send crypto
-
-                    # confirm if user have that same amount
-                    if float(sender.amount) >= (float(min_fee) + float(amount)):
-                        sender.amount = str(round(float(sender.amount) - float(amount), 8))
-                        is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
-                        print(sender.amount, is_vendescrow_user.amount)
-
-                        sender.save()
-                        is_vendescrow_user.save()
-
-                        # update the transaction if its between two vendescrow users
-                        Transaction.objects.create(
-                            sender=request.user.username,
-                            receiver=is_vendescrow_user.user,
-                            amount=amount,
-                            transaction_hash='timestamp',
-                            asset_type=asset
-                        )
-
-                        try:
-                            this_trx = Transaction.objects.get(receiver=vendescrow_default_address, asset_type=asset)
-                            this_trx.amount = str(float(vend_fee) + float(this_trx.amount))
-                            this_trx.save()
-                        except Transaction.DoesNotExist:
-                            Transaction.objects.create(
-                                receiver=vendescrow_default_address,
-                                amount=vend_fee,
-                                asset_type=asset
-                            )
-                        return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
-                    else:
-                        raise ValueError('Cannot make transaction, insufficient balance')
-                except Klass.DoesNotExist:
-                    print('not vendescrow user')
-                    # send crypto outside
-                    trx_data = transfer_crypto_with_sender_address(
-                        amount=amount,
-                        receiver_address=receiver_address,
-                        crypto_network_api=network,
-                    )
-                    trx_hash = str(trx_data['data'].get('txid'))
-                    response = {
-                        'message': 'Transaction successful',
-                        'trx': trx_hash
-                    }
-                    return Response(response, status=status.HTTP_200_OK)
-
-            elif asset is 'LTC':
-                network = litecoin_testnet
-                vendescrow_default_address = 'QTeNZa6VNAEie6J5dsyhAq2Mr3TyBXEgWk'
-                vend_fee = '0.0175'
-                min_fee = '0.0002'
-
-                try:
-                    is_vendescrow_user = Klass.objects.get(address=receiver_address)
-                    # send crypto
-
-                    # confirm if user have that same amount
-                    if float(sender.amount) >= (float(min_fee) + float(amount)):
-                        sender.amount = str(round(float(sender.amount) - float(amount), 8))
-                        is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
-                        print(sender.amount, is_vendescrow_user.amount)
-
-                        sender.save()
-                        is_vendescrow_user.save()
-
-                        # update the transaction if its between two vendescrow users
-                        Transaction.objects.create(
-                            sender=request.user.username,
-                            receiver=is_vendescrow_user.user,
-                            amount=amount,
-                            transaction_hash='timestamp',
-                            asset_type=asset
-                        )
-
-                        try:
-                            this_trx = Transaction.objects.get(receiver=vendescrow_default_address, asset_type=asset)
-                            this_trx.amount = str(float(vend_fee) + float(this_trx.amount))
-                            this_trx.save()
-                        except Transaction.DoesNotExist:
-                            Transaction.objects.create(
-                                receiver=vendescrow_default_address,
-                                amount=vend_fee,
-                                asset_type=asset
-                            )
-                        return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
-                    else:
-                        raise ValueError('Cannot make transaction, insufficient balance')
-                except Klass.DoesNotExist:
-                    print('not vendescrow user')
-                    # send crypto outside
-                    trx_data = transfer_crypto_with_sender_address(
-                        amount=amount,
-                        receiver_address=receiver_address,
-                        crypto_network_api=network,
-                    )
-                    trx_hash = str(trx_data['data'].get('txid'))
-                    response = {
-                        'message': 'Transaction successful',
-                        'trx': trx_hash
-                    }
-                    return Response(response, status=status.HTTP_200_OK)
-
-            elif asset is 'DOGE':
-                network = dogecoin_testnet
-                vendescrow_default_address = '2MuRdVRRgrt6Sm2oMc4hg4Z8g1VYYpNTfcP'
-                vend_fee = '9.21'
-                min_fee = '2'
-
-                try:
-                    is_vendescrow_user = Klass.objects.get(address=receiver_address)
-                    # send crypto
-
-                    # confirm if user have that same amount
-                    if float(sender.amount) >= (float(min_fee) + float(amount)):
-                        sender.amount = str(round(float(sender.amount) - float(amount), 8))
-                        is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
-                        print(sender.amount, is_vendescrow_user.amount)
-
-                        sender.save()
-                        is_vendescrow_user.save()
-
-                        # update the transaction if its between two vendescrow users
-                        Transaction.objects.create(
-                            sender=request.user.username,
-                            receiver=is_vendescrow_user.user,
-                            amount=amount,
-                            transaction_hash='timestamp',
-                            asset_type=asset
-                        )
-
-                        try:
-                            this_trx = Transaction.objects.get(receiver=vendescrow_default_address, asset_type=asset)
-                            this_trx.amount = str(float(vend_fee) + float(this_trx.amount))
-                            this_trx.save()
-                        except Transaction.DoesNotExist:
-                            Transaction.objects.create(
-                                receiver=vendescrow_default_address,
-                                amount=vend_fee,
-                                asset_type=asset
-                            )
-                        return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
-                    else:
-                        raise ValueError('Cannot make transaction, insufficient balance')
-                except Klass.DoesNotExist:
-                    print('not vendescrow user')
-                    # send crypto outside
-                    trx_data = transfer_crypto_with_sender_address(
-                        amount=amount,
-                        receiver_address=receiver_address,
-                        crypto_network_api=network,
-                    )
-                    trx_hash = str(trx_data['data'].get('txid'))
-                    response = {
-                        'message': 'Transaction successful',
-                        'trx': trx_hash
-                    }
-                    return Response(response, status=status.HTTP_200_OK)
-        else:
+        if not instance:
             return Response({'message': 'The listed asset is not supported on our platform'},
                             status=status.HTTP_400_BAD_REQUEST)
+        print(instance)
+        Klass = instance.__class__
+        sender = Klass.objects.get(user=self.request.user)
+        receiver_address = self.request.data.get('receiverAddress')
+        amount = self.request.data.get('amount')
+
+        if str(asset) == 'BTC':
+            network = bitcoin_testnet
+            vendescrow_default_address = '2N8jbkx2gfMU9vNrgHPzn9vnns3TxiEdghC'
+            vend_fee = '0.00016'
+            min_fee = '0.00002'
+
+            try:
+                is_vendescrow_user = Klass.objects.get(address=receiver_address)
+                # send crypto
+
+                # confirm if user have that same amount
+                if float(sender.amount) < float(min_fee) + float(amount):
+                    raise ValueError('Cannot make transaction, insufficient balance')
+                sender.amount = str(round(float(sender.amount) - float(amount), 8))
+                is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
+                print(sender.amount, is_vendescrow_user.amount)
+
+                sender.save()
+                is_vendescrow_user.save()
+
+                # update the transaction if its between two vendescrow users
+                Transaction.objects.create(
+                    sender=request.user.username,
+                    receiver=is_vendescrow_user.user,
+                    amount=amount,
+                    transaction_hash='timestamp',
+                    asset_type=asset
+                )
+
+                try:
+                    this_trx = Transaction.objects.get(receiver=vendescrow_default_address, asset_type=asset)
+                    this_trx.amount = str(float(vend_fee) + float(this_trx.amount))
+                    this_trx.save()
+                except Transaction.DoesNotExist:
+                    Transaction.objects.create(
+                        receiver=vendescrow_default_address,
+                        amount=vend_fee,
+                        asset_type=asset
+                    )
+                return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
+            except Klass.DoesNotExist:
+                print('not vendescrow user')
+                # send crypto outside
+                trx_data = transfer_crypto_with_sender_address(
+                    amount=amount,
+                    receiver_address=receiver_address,
+                    crypto_network_api=network,
+                )
+                trx_hash = str(trx_data['data'].get('txid'))
+                response = {
+                    'message': 'Transaction successful',
+                    'trx': trx_hash
+                }
+                return Response(response, status=status.HTTP_200_OK)
+
+        elif asset is 'LTC':
+            network = litecoin_testnet
+            vendescrow_default_address = 'QTeNZa6VNAEie6J5dsyhAq2Mr3TyBXEgWk'
+            vend_fee = '0.0175'
+            min_fee = '0.0002'
+
+            try:
+                is_vendescrow_user = Klass.objects.get(address=receiver_address)
+                # send crypto
+
+                # confirm if user have that same amount
+                if float(sender.amount) < float(min_fee) + float(amount):
+                    raise ValueError('Cannot make transaction, insufficient balance')
+                sender.amount = str(round(float(sender.amount) - float(amount), 8))
+                is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
+                print(sender.amount, is_vendescrow_user.amount)
+
+                sender.save()
+                is_vendescrow_user.save()
+
+                # update the transaction if its between two vendescrow users
+                Transaction.objects.create(
+                    sender=request.user.username,
+                    receiver=is_vendescrow_user.user,
+                    amount=amount,
+                    transaction_hash='timestamp',
+                    asset_type=asset
+                )
+
+                try:
+                    this_trx = Transaction.objects.get(receiver=vendescrow_default_address, asset_type=asset)
+                    this_trx.amount = str(float(vend_fee) + float(this_trx.amount))
+                    this_trx.save()
+                except Transaction.DoesNotExist:
+                    Transaction.objects.create(
+                        receiver=vendescrow_default_address,
+                        amount=vend_fee,
+                        asset_type=asset
+                    )
+                return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
+            except Klass.DoesNotExist:
+                print('not vendescrow user')
+                # send crypto outside
+                trx_data = transfer_crypto_with_sender_address(
+                    amount=amount,
+                    receiver_address=receiver_address,
+                    crypto_network_api=network,
+                )
+                trx_hash = str(trx_data['data'].get('txid'))
+                response = {
+                    'message': 'Transaction successful',
+                    'trx': trx_hash
+                }
+                return Response(response, status=status.HTTP_200_OK)
+
+        elif asset is 'DOGE':
+            network = dogecoin_testnet
+            vendescrow_default_address = '2MuRdVRRgrt6Sm2oMc4hg4Z8g1VYYpNTfcP'
+            vend_fee = '9.21'
+            min_fee = '2'
+
+            try:
+                is_vendescrow_user = Klass.objects.get(address=receiver_address)
+                # send crypto
+
+                # confirm if user have that same amount
+                if float(sender.amount) < float(min_fee) + float(amount):
+                    raise ValueError('Cannot make transaction, insufficient balance')
+                sender.amount = str(round(float(sender.amount) - float(amount), 8))
+                is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
+                print(sender.amount, is_vendescrow_user.amount)
+
+                sender.save()
+                is_vendescrow_user.save()
+
+                # update the transaction if its between two vendescrow users
+                Transaction.objects.create(
+                    sender=request.user.username,
+                    receiver=is_vendescrow_user.user,
+                    amount=amount,
+                    transaction_hash='timestamp',
+                    asset_type=asset
+                )
+
+                try:
+                    this_trx = Transaction.objects.get(receiver=vendescrow_default_address, asset_type=asset)
+                    this_trx.amount = str(float(vend_fee) + float(this_trx.amount))
+                    this_trx.save()
+                except Transaction.DoesNotExist:
+                    Transaction.objects.create(
+                        receiver=vendescrow_default_address,
+                        amount=vend_fee,
+                        asset_type=asset
+                    )
+                return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
+            except Klass.DoesNotExist:
+                print('not vendescrow user')
+                # send crypto outside
+                trx_data = transfer_crypto_with_sender_address(
+                    amount=amount,
+                    receiver_address=receiver_address,
+                    crypto_network_api=network,
+                )
+                trx_hash = str(trx_data['data'].get('txid'))
+                response = {
+                    'message': 'Transaction successful',
+                    'trx': trx_hash
+                }
+                return Response(response, status=status.HTTP_200_OK)
