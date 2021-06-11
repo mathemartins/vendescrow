@@ -94,7 +94,7 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, receiver_addres
 
     trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=json.dumps(data), proxies=proxies)
     print(trx_hash.text, trx_hash)
-    return trx_hash
+    return trx_hash.json()
 
 
 # Transfer Crypto Asset
