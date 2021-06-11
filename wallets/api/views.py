@@ -582,7 +582,11 @@ class TransferOtherAsset(APIView):
                         crypto_network_api=network,
                     )
                     trx_hash = str(trx_data['data'].get('txid'))
-                    return Response({'message': 'Transaction successful', 'trx': trx_hash}, status=status.HTTP_200_OK)
+                    response = {
+                        'message': 'Transaction successful',
+                        'trx': trx_hash
+                    }
+                    return Response(response, status=status.HTTP_200_OK)
 
             elif asset is 'LTC':
                 network = litecoin_testnet
