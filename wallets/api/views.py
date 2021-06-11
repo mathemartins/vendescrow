@@ -576,12 +576,13 @@ class TransferOtherAsset(APIView):
                 except Klass.DoesNotExist:
                     print('not vendescrow user')
                     # send crypto outside
-                    transfer_crypto_with_sender_address(
+                    trx_data = transfer_crypto_with_sender_address(
                         sender_address=sender.address,
                         amount=amount,
                         receiver_address=receiver_address,
                         crypto_network_api=network,
                     )
+                    return Response({'message': 'Transaction successful', 'trx': trx_data['data'].get('txid')}, status=status.HTTP_200_OK)
 
             elif asset is 'LTC':
                 network = litecoin_testnet

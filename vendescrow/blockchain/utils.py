@@ -70,12 +70,11 @@ def get_network_fee(crypto_network_api: str, receiver_address: str, amount: str)
         return network_fee_data['data'].get('estimated_network_fee')
 
 
-def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address: str, receiver_address: str,
-                                        amount: str):
+def transfer_crypto_with_sender_address(crypto_network_api: str, receiver_address: str, amount: str):
+    print(crypto_network_api)
     import requests
-    url = "https://block.io/api/v2/prepare_transaction/?api_key={apiKey}&from_addresses={sender_address}&to_addresses={receiver_address}&amounts={amount}".format(
+    url = "https://block.io/api/v2/prepare_transaction/?api_key={apiKey}&to_addresses={receiver_address}&amounts={amount}".format(
         apiKey=crypto_network_api,
-        sender_address=sender_address,
         receiver_address=receiver_address,
         amount=amount,
     )
@@ -90,7 +89,7 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
     print(thisCheck, type(thisCheck))
 
     headers = {'Content-Type': 'application/json'}
-    params = (('api_key', bitcoin_testnet),)
+    params = (('api_key', crypto_network_api),)
     data = {'transaction_data': thisCheck}
 
     trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=json.dumps(data), proxies=proxies)
