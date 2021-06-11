@@ -32,31 +32,6 @@ def create_address(username: str, crypto_network_api: str) -> str:
     return json.loads(res.content.decode('utf-8'))
 
 
-"""
-2 DOGE, 0.00002 BTC, 0.0002LTC
-"""
-
-
-# Transfer Crypto Asset For Vendescrow
-def transfer_crypto_for_vend(amount: str, sender_address: str, receiver_address: str, crypto_network_api: str,
-                             priority: str):
-    if 'litecoin' in crypto_network_api and float(amount) <= 0.0002:
-        return json.dumps(
-            {'status': 'error', 'data': {'message': 'Cannot transfer {value} or less'.format(value=float(amount))}})
-    if 'bitcoin' in crypto_network_api and float(amount) <= 0.00002:
-        return json.dumps(
-            {'status': 'error', 'data': {'message': 'Cannot transfer {value} or less'.format(value=float(amount))}})
-    if 'dogecoin' in crypto_network_api and float(amount) <= 2:
-        return json.dumps(
-            {'status': 'error', 'data': {'message': 'Cannot transfer {value} or less'.format(value=float(amount))}})
-    block_io = BlockIo(crypto_network_api, pin, version)
-    prepare_trx = block_io.prepare_transaction(amounts=amount, from_addresses=sender_address,
-                                               to_addresses=receiver_address, priority=priority)
-    block_io.summarize_prepared_transaction(prepare_trx)
-    create_and_sign_trx = block_io.create_and_sign_transaction(prepare_trx)
-    return block_io.submit_transaction(transaction_data=create_and_sign_trx)
-
-
 def get_network_fee(crypto_network_api: str, receiver_address: str, amount: str):
         import requests
 
@@ -95,24 +70,6 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, receiver_addres
     trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=json.dumps(data), proxies=proxies)
     print(trx_hash.text, trx_hash)
     return trx_hash.json()
-
-
-# Transfer Crypto Asset
-def transfer_crypto(amount: str, receiver_address: str, crypto_network_api: str, priority: str):
-    if 'litecoin' in crypto_network_api and float(amount) <= 0.0002:
-        return json.dumps(
-            {'status': 'error', 'data': {'message': 'Cannot transfer {value} or less'.format(value=float(amount))}})
-    if 'bitcoin' in crypto_network_api and float(amount) <= 0.00002:
-        return json.dumps(
-            {'status': 'error', 'data': {'message': 'Cannot transfer {value} or less'.format(value=float(amount))}})
-    if 'dogecoin' in crypto_network_api and float(amount) <= 2:
-        return json.dumps(
-            {'status': 'error', 'data': {'message': 'Cannot transfer {value} or less'.format(value=float(amount))}})
-    block_io = BlockIo(crypto_network_api, pin, version)
-    prepare_trx = block_io.prepare_transaction(amounts=amount, to_addresses=receiver_address, priority=priority)
-    block_io.summarize_prepared_transaction(prepare_trx)
-    create_and_sign_trx = block_io.create_and_sign_transaction(prepare_trx)
-    return block_io.submit_transaction(transaction_data=create_and_sign_trx)
 
 
 # Vendescrow get Crypto Asset

@@ -12,8 +12,7 @@ from web3 import Web3
 
 from transactions.models import Transaction
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL, GINACHE_URL
-from vendescrow.blockchain.utils import transfer_crypto, transfer_crypto_for_vend, create_address, \
-    transfer_crypto_with_sender_address
+from vendescrow.blockchain.utils import create_address, transfer_crypto_with_sender_address
 from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, DogecoinWallet, LitecoinWallet, DashWallet
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
@@ -249,8 +248,8 @@ class DogecoinAddressDetailView(RetrieveAPIView):
                 }]
             }
         except DogecoinWallet.DoesNotExist:
-            doge_account = get_address(crypto_network_api=dogecoin_testnet, username=request.user.username)
-            doge_icon_url = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'
+            doge_account = create_address(crypto_network_api=dogecoin_testnet, username=request.user.username)
+            doge_icon_url = 'https://www.seekpng.com/png/detail/308-3087811_dogecoin-logo-png-transparent-dogecoin.png'
 
             new_doge_wallet = DogecoinWallet.objects.create(
                 user=request.user,
@@ -594,14 +593,15 @@ class TransferOtherAsset(APIView):
                 vend_fee = '0.0175'
                 min_fee = '0.0002'
 
-                is_vendescrow_user = Klass.objects.get(address=receiver_address)
-                if is_vendescrow_user:
+                try:
+                    is_vendescrow_user = Klass.objects.get(address=receiver_address)
                     # send crypto
 
                     # confirm if user have that same amount
                     if float(sender.amount) >= (float(min_fee) + float(amount)):
-                        sender.amount -= amount
-                        is_vendescrow_user.amount += amount
+                        sender.amount = str(round(float(sender.amount) - float(amount), 8))
+                        is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
+                        print(sender.amount, is_vendescrow_user.amount)
 
                         sender.save()
                         is_vendescrow_user.save()
@@ -625,16 +625,23 @@ class TransferOtherAsset(APIView):
                                 amount=vend_fee,
                                 asset_type=asset
                             )
+                        return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
                     else:
                         raise ValueError('Cannot make transaction, insufficient balance')
-                else:
+                except Klass.DoesNotExist:
+                    print('not vendescrow user')
                     # send crypto outside
-                    transfer_crypto(
+                    trx_data = transfer_crypto_with_sender_address(
                         amount=amount,
                         receiver_address=receiver_address,
                         crypto_network_api=network,
-                        priority='high'
                     )
+                    trx_hash = str(trx_data['data'].get('txid'))
+                    response = {
+                        'message': 'Transaction successful',
+                        'trx': trx_hash
+                    }
+                    return Response(response, status=status.HTTP_200_OK)
 
             elif asset is 'DOGE':
                 network = dogecoin_testnet
@@ -642,14 +649,15 @@ class TransferOtherAsset(APIView):
                 vend_fee = '9.21'
                 min_fee = '2'
 
-                is_vendescrow_user = Klass.objects.get(address=receiver_address)
-                if is_vendescrow_user:
+                try:
+                    is_vendescrow_user = Klass.objects.get(address=receiver_address)
                     # send crypto
 
                     # confirm if user have that same amount
                     if float(sender.amount) >= (float(min_fee) + float(amount)):
-                        sender.amount -= amount
-                        is_vendescrow_user.amount += amount
+                        sender.amount = str(round(float(sender.amount) - float(amount), 8))
+                        is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
+                        print(sender.amount, is_vendescrow_user.amount)
 
                         sender.save()
                         is_vendescrow_user.save()
@@ -673,16 +681,23 @@ class TransferOtherAsset(APIView):
                                 amount=vend_fee,
                                 asset_type=asset
                             )
+                        return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
                     else:
                         raise ValueError('Cannot make transaction, insufficient balance')
-                else:
+                except Klass.DoesNotExist:
+                    print('not vendescrow user')
                     # send crypto outside
-                    transfer_crypto(
+                    trx_data = transfer_crypto_with_sender_address(
                         amount=amount,
                         receiver_address=receiver_address,
                         crypto_network_api=network,
-                        priority='high'
                     )
+                    trx_hash = str(trx_data['data'].get('txid'))
+                    response = {
+                        'message': 'Transaction successful',
+                        'trx': trx_hash
+                    }
+                    return Response(response, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'The listed asset is not supported on our platform'},
                             status=status.HTTP_400_BAD_REQUEST)
