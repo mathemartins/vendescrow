@@ -89,11 +89,11 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
 
     print(thisCheck, type(thisCheck))
 
-    headers = {'Content-Type': 'application/json',}
-    params = (('api_key', crypto_network_api),)
+    headers = {'Content-Type': 'application/json'}
+    params = (('api_key', bitcoin_testnet),)
     data = {'transaction_data': thisCheck}
 
-    trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=data)
+    trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=json.dumps(data))
     print(trx_hash.text, trx_hash)
     return trx_hash
 
