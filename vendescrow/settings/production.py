@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-import requests
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -174,11 +173,3 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = False
 
 from vendescrow.ssl_config import *
-
-proxies = {
-    "http": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
-    "https": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
-}
-
-response = requests.get('http://ip.quotaguard.com/', proxies=proxies)
-print(response.text)

@@ -17,6 +17,9 @@ class BitcoinWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -42,6 +45,9 @@ class DogecoinWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -67,6 +73,9 @@ class LitecoinWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -92,6 +101,9 @@ class DashWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -115,6 +127,9 @@ class EthereumWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -138,6 +153,9 @@ class TetherUSDWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -161,6 +179,9 @@ class VendTokenWallet(models.Model):
     available = models.CharField(max_length=18, default=0, blank=True, null=True)
     frozen = models.BooleanField(default=False)
     amount = models.CharField(max_length=18, default=0, blank=True, null=True)
+    short_nameBTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameLTC = models.CharField(max_length=12, blank=True, null=True)
+    short_nameDOGE = models.CharField(max_length=12, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

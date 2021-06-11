@@ -46,6 +46,9 @@ class BitcoinWalletCallView(RetrieveAPIView):
                 'address': str(user_bitcoin_wallet.address),
                 'frozen': user_bitcoin_wallet.frozen,
                 'amount': user_bitcoin_wallet.amount,
+                'short_name_btc': user_bitcoin_wallet.short_nameBTC,
+                'short_name_ltc': user_bitcoin_wallet.short_nameLTC,
+                'short_name_doge': user_bitcoin_wallet.short_nameDOGE,
             }]
         }
         return Response(response, status=status.HTTP_200_OK)
@@ -74,6 +77,9 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                     'address': str(user_bitcoin_wallet.address),
                     'frozen': user_bitcoin_wallet.frozen,
                     'amount': user_bitcoin_wallet.amount,
+                    'short_name_btc': user_bitcoin_wallet.short_nameBTC,
+                    'short_name_ltc': user_bitcoin_wallet.short_nameLTC,
+                    'short_name_doge': user_bitcoin_wallet.short_nameDOGE,
                 }]
             }
         except BitcoinWallet.DoesNotExist:
@@ -89,6 +95,7 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                 public_key=btc_account.get('managed'),
                 address=btc_account['data'].get('address'),
                 wif=btc_account.get('managed'),
+                short_nameBTC='BTC',
             )
 
             response = {
@@ -106,6 +113,9 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                     'address': str(new_btc_wallet.address),
                     'frozen': new_btc_wallet.frozen,
                     'amount': new_btc_wallet.amount,
+                    'short_name_btc': new_btc_wallet.short_nameBTC,
+                    'short_name_ltc': new_btc_wallet.short_nameLTC,
+                    'short_name_doge': new_btc_wallet.short_nameDOGE,
                 }]
             }
         return Response(response, status=status.HTTP_200_OK)
@@ -132,6 +142,9 @@ class LitecoinWalletCallView(RetrieveAPIView):
                 'address': str(user_litecoin_wallet.address),
                 'frozen': user_litecoin_wallet.frozen,
                 'amount': user_litecoin_wallet.amount,
+                'short_name_btc': user_litecoin_wallet.short_nameBTC,
+                'short_name_ltc': user_litecoin_wallet.short_nameLTC,
+                'short_name_doge': user_litecoin_wallet.short_nameDOGE,
             }]
         }
         return Response(response, status=status.HTTP_200_OK)
@@ -159,6 +172,9 @@ class LitecoinAddressDetailView(RetrieveAPIView):
                     'address': str(user_litecoin_wallet.address),
                     'frozen': user_litecoin_wallet.frozen,
                     'amount': user_litecoin_wallet.amount,
+                    'short_name_btc': user_litecoin_wallet.short_nameBTC,
+                    'short_name_ltc': user_litecoin_wallet.short_nameLTC,
+                    'short_name_doge': user_litecoin_wallet.short_nameDOGE,
                 }]
             }
         except LitecoinWallet.DoesNotExist:
@@ -174,6 +190,7 @@ class LitecoinAddressDetailView(RetrieveAPIView):
                 public_key=ltc_account.get('managed'),
                 address=ltc_account['data'].get('address'),
                 wif=ltc_account.get('managed'),
+                short_nameLTC='LTC'
             )
 
             response = {
@@ -191,6 +208,9 @@ class LitecoinAddressDetailView(RetrieveAPIView):
                     'address': str(new_ltc_wallet.address),
                     'frozen': new_ltc_wallet.frozen,
                     'amount': new_ltc_wallet.amount,
+                    'short_name_btc': new_ltc_wallet.short_nameBTC,
+                    'short_name_ltc': new_ltc_wallet.short_nameLTC,
+                    'short_name_doge': new_ltc_wallet.short_nameDOGE,
                 }]
             }
         return Response(response, status=status.HTTP_200_OK)
@@ -217,6 +237,9 @@ class DogecoinWalletCallView(RetrieveAPIView):
                 'address': str(user_dogecoin_wallet.address),
                 'frozen': user_dogecoin_wallet.frozen,
                 'amount': user_dogecoin_wallet.amount,
+                'short_name_btc': user_dogecoin_wallet.short_nameBTC,
+                'short_name_ltc': user_dogecoin_wallet.short_nameLTC,
+                'short_name_doge': user_dogecoin_wallet.short_nameDOGE,
             }]
         }
         return Response(response, status=status.HTTP_200_OK)
@@ -245,6 +268,9 @@ class DogecoinAddressDetailView(RetrieveAPIView):
                     'address': str(user_dogecoin_wallet.address),
                     'frozen': user_dogecoin_wallet.frozen,
                     'amount': user_dogecoin_wallet.amount,
+                    'short_name_btc': user_dogecoin_wallet.short_nameBTC,
+                    'short_name_ltc': user_dogecoin_wallet.short_nameLTC,
+                    'short_name_doge': user_dogecoin_wallet.short_nameDOGE,
                 }]
             }
         except DogecoinWallet.DoesNotExist:
@@ -260,6 +286,7 @@ class DogecoinAddressDetailView(RetrieveAPIView):
                 public_key=doge_account.get('managed'),
                 address=doge_account['data'].get('address'),
                 wif=doge_account.get('managed'),
+                short_nameDOGE='DOGE'
             )
 
             response = {
@@ -277,6 +304,9 @@ class DogecoinAddressDetailView(RetrieveAPIView):
                     'address': str(new_doge_wallet.address),
                     'frozen': new_doge_wallet.frozen,
                     'amount': new_doge_wallet.amount,
+                    'short_name_btc': new_doge_wallet.short_nameBTC,
+                    'short_name_ltc': new_doge_wallet.short_nameLTC,
+                    'short_name_doge': new_doge_wallet.short_nameDOGE,
                 }]
             }
         return Response(response, status=status.HTTP_200_OK)
