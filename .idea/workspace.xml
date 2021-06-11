@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vendescrow/blockchain/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/blockchain/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/api/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/blockchain/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="96" column="19" lean-forward="true" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+            <state relative-caret-position="336">
+              <caret line="92" column="42" lean-forward="true" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
               <folding>
                 <element signature="e#31#42#0" expanded="true" />
               </folding>
@@ -76,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wallets/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="578" column="36" lean-forward="true" selection-start-line="578" selection-start-column="36" selection-end-line="578" selection-end-column="36" />
+            <state relative-caret-position="259">
+              <caret line="578" column="67" selection-start-line="578" selection-start-column="67" selection-end-line="578" selection-end-column="67" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#36300#38089#0" />
@@ -165,8 +162,8 @@
         <option value="$PROJECT_DIR$/transactions/admin.py" />
         <option value="$PROJECT_DIR$/transactions/models.py" />
         <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
-        <option value="$PROJECT_DIR$/wallets/api/views.py" />
         <option value="$PROJECT_DIR$/vendescrow/blockchain/utils.py" />
+        <option value="$PROJECT_DIR$/wallets/api/views.py" />
       </list>
     </option>
   </component>
@@ -257,24 +254,6 @@
             <path>
               <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (vendescrow) &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (vendescrow) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (vendescrow) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="block_io" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -369,12 +348,12 @@
       <workItem from="1622275852954" duration="23459000" />
       <workItem from="1622387263396" duration="128424000" />
       <workItem from="1623227207392" duration="82782000" />
-      <workItem from="1623398018014" duration="7021000" />
+      <workItem from="1623398018014" duration="7799000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="460919000" />
+    <option name="totallyTimeSpent" value="461697000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -395,7 +374,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Pylint" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.25204584" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.25204584" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Sourcery" order="14" />
       <window_info anchor="bottom" id="Python Console" order="15" />
@@ -844,23 +823,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wallets/api/views.py">
+    <entry file="file://$PROJECT_DIR$/vendescrow/blockchain/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="578" column="36" lean-forward="true" selection-start-line="578" selection-start-column="36" selection-end-line="578" selection-end-column="36" />
+        <state relative-caret-position="336">
+          <caret line="92" column="42" lean-forward="true" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#36300#38089#0" />
+            <element signature="e#31#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/blockchain/utils.py">
+    <entry file="file://$PROJECT_DIR$/wallets/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="96" column="19" lean-forward="true" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+        <state relative-caret-position="259">
+          <caret line="578" column="67" selection-start-line="578" selection-start-column="67" selection-end-line="578" selection-end-column="67" />
           <folding>
-            <element signature="e#31#42#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#36300#38089#0" />
           </folding>
         </state>
       </provider>

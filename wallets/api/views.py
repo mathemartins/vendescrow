@@ -577,7 +577,6 @@ class TransferOtherAsset(APIView):
                     print('not vendescrow user')
                     # send crypto outside
                     trx_data = transfer_crypto_with_sender_address(
-                        sender_address=sender.address,
                         amount=amount,
                         receiver_address=receiver_address,
                         crypto_network_api=network,
