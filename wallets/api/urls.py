@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import EthereumAddressDetailView, BitcoinAddressDetailView, TransferEthereum, LitecoinAddressDetailView, \
     DogecoinAddressDetailView, TransferOtherAsset, BitcoinWalletCallView, LitecoinWalletCallView, \
-    DogecoinWalletCallView, EthereumWalletCallView
+    DogecoinWalletCallView, EthereumWalletCallView, BTCLTCDOGENetworkFeeView
 
 urlpatterns = [
     path('eth/', EthereumAddressDetailView.as_view(), name='eth-wallet'),
@@ -19,4 +19,7 @@ urlpatterns = [
 
     path('ethereum/transfer/', TransferEthereum.as_view(), name='user-transfer-wallet'),
     path('transfer/<slug:slug>/', TransferOtherAsset.as_view(), name='user-transfer-asset'),
+
+    path('gas-fee/', BTCLTCDOGENetworkFeeView.as_view(), name='other-asset-gas'),
+
 ]
