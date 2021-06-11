@@ -86,6 +86,8 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
     block_io.summarize_prepared_transaction(prepare_trx)
     thisCheck = block_io.create_and_sign_transaction(prepare_data=prepare_trx)
 
+    print(thisCheck, type(thisCheck))
+
     headers = {'Content-Type': 'application/json',}
     params = (('api_key', crypto_network_api),)
     data = {'transaction_data': thisCheck}
