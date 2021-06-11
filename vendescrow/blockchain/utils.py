@@ -83,7 +83,7 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
     data = {'transaction_data': thisCheck}
 
     trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=data)
-    print(trx_hash.text)
+    print(trx_hash.text, trx_hash)
     return trx_hash
 
 
