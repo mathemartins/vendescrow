@@ -81,6 +81,7 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
     )
     res = requests.get(url=url, proxies=proxies)
     prepare_trx: dict = json.loads(res.content.decode('utf-8'))
+    print(prepare_trx)
 
     block_io = BlockIo(crypto_network_api, pin, version)
     block_io.summarize_prepared_transaction(prepare_trx)
