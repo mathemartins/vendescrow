@@ -60,7 +60,7 @@ def transfer_crypto_for_vend(amount: str, sender_address: str, receiver_address:
 def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address: str, receiver_address: str,
                                         amount: str):
     import requests
-    url = "https://block.io/api/v2/prepare_transaction/?api_key={apiKey}&from_addresses={sender_address}&to_addresses={receiver_address}&amounts={amount}".format(
+    url = "https://block.io/api/v2/prepare_transaction/?api_key={apiKey}&from_addresses={sender_address}&to_addresses={receiver_address}&amounts={amount}&priority=high".format(
         apiKey=crypto_network_api,
         sender_address=sender_address,
         receiver_address=receiver_address,
@@ -77,11 +77,12 @@ def transfer_crypto_with_sender_address(crypto_network_api: str, sender_address:
     block_io = BlockIo(crypto_network_api, pin, version)
     block_io.summarize_prepared_transaction(prepare_trx)
     thisCheck = block_io.create_and_sign_transaction(prepare_data=prepare_trx)
-    print(thisCheck, type(thisCheck))
-    submit_url = "https://block.io/api/v2/submit_transaction/?api_key={apiKey}".format(apiKey=crypto_network_api)
-    payload = thisCheck
-    headers = {"Content-Type": "application/json"}
-    trx_hash = requests.request("POST", submit_url, json=payload, headers=headers, proxies=proxies)
+
+    headers = {'Content-Type': 'application/json',}
+    params = (('api_key', crypto_network_api),)
+    data = {'transaction_data': thisCheck}
+
+    trx_hash = requests.post('https://block.io/api/v2/submit_transaction/', headers=headers, params=params, data=data)
     print(trx_hash.text)
     return trx_hash
 
