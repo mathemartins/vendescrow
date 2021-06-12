@@ -116,26 +116,22 @@ class AccountLinkageView(APIView):
         balance_in_kobo = response_user_data['account'].get('balance')
 
         # create borrower for the company
-        try:
-            thisUser = AccountLinkage.objects.get(user=self.request.user, bvn=str(bvn[0]))
-        except AccountLinkage.DoesNotExist:
-            thisUser = AccountLinkage.objects.create(
-                user=self.request.user,
-                mono_code=mono_code,
-                exchange_token=transaction_key,
-                fullName=str(response_user_data['account'].get('name')),
-                email=email,
-                gender=gender,
-                phone=user_phone_number,
-                bvn=bvn[0],
-                marital_status=marital_status,
-                home_address=address_line1,
-                office_address=address_line2,
-                bank=bank,
-                account_number=account_number,
-                account_type=account_type,
-                currency=currency,
-            )
+        thisUser = AccountLinkage.objects.get(user=self.request.user)
+        thisUser.mono_code = mono_code,
+        thisUser.exchange_token = transaction_key,
+        thisUser.fullName = str(response_user_data['account'].get('name')),
+        thisUser.email = email,
+        thisUser.gender = gender,
+        thisUser.phone = user_phone_number,
+        thisUser.bvn = bvn[0],
+        thisUser.marital_status = marital_status,
+        thisUser.home_address = address_line1,
+        thisUser.office_address = address_line2,
+        thisUser.bank = bank,
+        thisUser.account_number = account_number,
+        thisUser.account_type = account_type,
+        thisUser.currency = currency,
+        thisUser.save()
         return Response({'message': 'User Account Linked Successful!', 'exchangeToken': thisUser.exchange_token}, status=201)
 
 
