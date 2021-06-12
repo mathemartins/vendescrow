@@ -66,6 +66,7 @@ class UserLockView(APIView):
 
         except UserLock.DoesNotExist:
             UserLock.objects.create(user=self.request.user)
+            status_code = status.HTTP_200_OK
             response = {
                 'success': True,
                 'status code': status.HTTP_200_OK,
