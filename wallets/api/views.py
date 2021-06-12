@@ -38,13 +38,13 @@ class BTCLTCDOGENetworkFeeView(RetrieveAPIView):
 
             response = {
                 'success': True,
-                'statusCode': status.HTTP_200_OK,
+                'statusCode': status.HTTP_201_CREATED,
                 'message': 'Current Network Retrieved',
                 'data': [{
                     'estimated_gas': gas_fee,
                 }]
             }
-            return Response(response, status=status.HTTP_200_OK)
+            return Response(response, status=status.HTTP_201_CREATED)
         elif str(self.request.data.get('asset')) == 'ltc':
             network_api = litecoin_testnet
             receiver_address = self.request.data.get('receiverAddress')
@@ -54,13 +54,13 @@ class BTCLTCDOGENetworkFeeView(RetrieveAPIView):
 
             response = {
                 'success': True,
-                'statusCode': status.HTTP_200_OK,
+                'statusCode': status.HTTP_201_CREATED,
                 'message': 'Current Network Retrieved',
                 'data': [{
                     'estimated_gas': gas_fee,
                 }]
             }
-            return Response(response, status=status.HTTP_200_OK)
+            return Response(response, status=status.HTTP_201_CREATED)
         elif str(self.request.data.get('asset')) == 'doge':
             network_api = bitcoin_testnet
             receiver_address = self.request.data.get('receiverAddress')
@@ -70,13 +70,13 @@ class BTCLTCDOGENetworkFeeView(RetrieveAPIView):
 
             response = {
                 'success': True,
-                'statusCode': status.HTTP_200_OK,
+                'statusCode': status.HTTP_201_CREATED,
                 'message': 'Current Network Retrieved',
                 'data': [{
                     'estimated_gas': gas_fee,
                 }]
             }
-            return Response(response, status=status.HTTP_200_OK)
+            return Response(response, status=status.HTTP_201_CREATED)
 
 
 class BitcoinWalletCallView(RetrieveAPIView):
