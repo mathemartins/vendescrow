@@ -628,11 +628,11 @@ class TransferOtherAsset(APIView):
                 # send crypto
 
                 # confirm if user have that same amount
-                if float(sender.amount) < float(min_fee) + float(amount):
+                if float(sender.available) < float(min_fee) + float(amount):
                     raise ValueError('Cannot make transaction, insufficient balance')
-                sender.amount = str(round(float(sender.amount) - float(amount), 8))
-                is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
-                print(sender.amount, is_vendescrow_user.amount)
+                sender.available = str(round(float(sender.available) - float(amount), 8))
+                is_vendescrow_user.available = str(round(float(is_vendescrow_user.available) + float(amount), 8))
+                print(sender.available, is_vendescrow_user.amount)
 
                 sender.save()
                 is_vendescrow_user.save()
@@ -683,11 +683,11 @@ class TransferOtherAsset(APIView):
                 # send crypto
 
                 # confirm if user have that same amount
-                if float(sender.amount) < float(min_fee) + float(amount):
+                if float(sender.available) < float(min_fee) + float(amount):
                     raise ValueError('Cannot make transaction, insufficient balance')
-                sender.amount = str(round(float(sender.amount) - float(amount), 8))
-                is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
-                print(sender.amount, is_vendescrow_user.amount)
+                sender.available = str(round(float(sender.available) - float(amount), 8))
+                is_vendescrow_user.available = str(round(float(is_vendescrow_user.available) + float(amount), 8))
+                print(sender.available, is_vendescrow_user.available)
 
                 sender.save()
                 is_vendescrow_user.save()
@@ -738,11 +738,11 @@ class TransferOtherAsset(APIView):
                 # send crypto
 
                 # confirm if user have that same amount
-                if float(sender.amount) < float(min_fee) + float(amount):
+                if float(sender.available) < float(min_fee) + float(amount):
                     raise ValueError('Cannot make transaction, insufficient balance')
-                sender.amount = str(round(float(sender.amount) - float(amount), 8))
-                is_vendescrow_user.amount = str(round(float(is_vendescrow_user.amount) + float(amount), 8))
-                print(sender.amount, is_vendescrow_user.amount)
+                sender.available = str(round(float(sender.available) - float(amount), 8))
+                is_vendescrow_user.available = str(round(float(is_vendescrow_user.available) + float(amount), 8))
+                print(sender.available, is_vendescrow_user.available)
 
                 sender.save()
                 is_vendescrow_user.save()
