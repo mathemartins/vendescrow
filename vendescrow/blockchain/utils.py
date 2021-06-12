@@ -19,8 +19,8 @@ dogecoin_testnet: str = '2ff6-9bd9-ed93-a1b0'
 version: int = 2
 
 proxies = {
-    "http": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
-    "https": 'http://lq0qv9rvlok3pn:l8scv7gafgaiy0j3wxydmq0od1nuq@us-east-static-06.quotaguard.com:9293',
+    "http": 'http://boyadxvkfgh1vg:8vp5w497ozwe7a81ocjb9koklxqmk2@us-east-static-06.quotaguard.com:9293',
+    "https": 'http://boyadxvkfgh1vg:8vp5w497ozwe7a81ocjb9koklxqmk2@us-east-static-06.quotaguard.com:9293',
 }
 
 
