@@ -658,20 +658,33 @@ class TransferOtherAsset(APIView):
                     )
                 return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
             except Klass.DoesNotExist:
-                print('not vendescrow user')
-                print(receiver_address, type(receiver_address))
                 # send crypto outside
+                if float(sender.available) < float(min_fee) + float(amount):
+                    res = {
+                        'message': 'Cannot make transaction, insufficient balance',
+                        'trx': 'Does not exists'
+                    }
+                    return Response(res, status=status.HTTP_400_BAD_REQUEST)
+
                 trx_data = transfer_crypto_with_sender_address(
                     amount=amount,
                     receiver_address=str(receiver_address),
                     crypto_network_api=network,
                 )
                 trx_hash = str(trx_data['data'].get('txid'))
-                response = {
-                    'message': 'Transaction successful',
-                    'trx': trx_hash
+                if str(trx_data.get('status')) == 'success':
+                    sender.available = str(round(float(sender.available) - float(amount), 8))
+                    sender.save()
+                    response = {
+                        'message': 'Transaction successful',
+                        'trx': trx_hash
+                    }
+                    return Response(response, status=status.HTTP_200_OK)
+                failed_response = {
+                    'message': 'Unknown error, transaction cannot be made at this time',
+                    'trx': 'Transaction id does not exists due to failed transact'
                 }
-                return Response(response, status=status.HTTP_200_OK)
+                return Response(failed_response, status=status.HTTP_400_BAD_REQUEST)
 
         elif asset is 'LTC':
             network = litecoin_testnet
@@ -688,7 +701,7 @@ class TransferOtherAsset(APIView):
                     raise ValueError('Cannot make transaction, insufficient balance')
                 sender.available = str(round(float(sender.available) - float(amount), 8))
                 is_vendescrow_user.available = str(round(float(is_vendescrow_user.available) + float(amount), 8))
-                print(sender.available, is_vendescrow_user.available)
+                print(sender.available, is_vendescrow_user.amount)
 
                 sender.save()
                 is_vendescrow_user.save()
@@ -714,19 +727,33 @@ class TransferOtherAsset(APIView):
                     )
                 return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
             except Klass.DoesNotExist:
-                print('not vendescrow user')
                 # send crypto outside
+                if float(sender.available) < float(min_fee) + float(amount):
+                    res = {
+                        'message': 'Cannot make transaction, insufficient balance',
+                        'trx': 'Does not exists'
+                    }
+                    return Response(res, status=status.HTTP_400_BAD_REQUEST)
+
                 trx_data = transfer_crypto_with_sender_address(
                     amount=amount,
-                    receiver_address=receiver_address,
+                    receiver_address=str(receiver_address),
                     crypto_network_api=network,
                 )
                 trx_hash = str(trx_data['data'].get('txid'))
-                response = {
-                    'message': 'Transaction successful',
-                    'trx': trx_hash
+                if str(trx_data.get('status')) == 'success':
+                    sender.available = str(round(float(sender.available) - float(amount), 8))
+                    sender.save()
+                    response = {
+                        'message': 'Transaction successful',
+                        'trx': trx_hash
+                    }
+                    return Response(response, status=status.HTTP_200_OK)
+                failed_response = {
+                    'message': 'Unknown error, transaction cannot be made at this time',
+                    'trx': 'Transaction id does not exists due to failed transact'
                 }
-                return Response(response, status=status.HTTP_200_OK)
+                return Response(failed_response, status=status.HTTP_400_BAD_REQUEST)
 
         elif asset is 'DOGE':
             network = dogecoin_testnet
@@ -743,7 +770,7 @@ class TransferOtherAsset(APIView):
                     raise ValueError('Cannot make transaction, insufficient balance')
                 sender.available = str(round(float(sender.available) - float(amount), 8))
                 is_vendescrow_user.available = str(round(float(is_vendescrow_user.available) + float(amount), 8))
-                print(sender.available, is_vendescrow_user.available)
+                print(sender.available, is_vendescrow_user.amount)
 
                 sender.save()
                 is_vendescrow_user.save()
@@ -769,16 +796,30 @@ class TransferOtherAsset(APIView):
                     )
                 return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
             except Klass.DoesNotExist:
-                print('not vendescrow user')
                 # send crypto outside
+                if float(sender.available) < float(min_fee) + float(amount):
+                    res = {
+                        'message': 'Cannot make transaction, insufficient balance',
+                        'trx': 'Does not exists'
+                    }
+                    return Response(res, status=status.HTTP_400_BAD_REQUEST)
+
                 trx_data = transfer_crypto_with_sender_address(
                     amount=amount,
-                    receiver_address=receiver_address,
+                    receiver_address=str(receiver_address),
                     crypto_network_api=network,
                 )
                 trx_hash = str(trx_data['data'].get('txid'))
-                response = {
-                    'message': 'Transaction successful',
-                    'trx': trx_hash
+                if str(trx_data.get('status')) == 'success':
+                    sender.available = str(round(float(sender.available) - float(amount), 8))
+                    sender.save()
+                    response = {
+                        'message': 'Transaction successful',
+                        'trx': trx_hash
+                    }
+                    return Response(response, status=status.HTTP_200_OK)
+                failed_response = {
+                    'message': 'Unknown error, transaction cannot be made at this time',
+                    'trx': 'Transaction id does not exists due to failed transact'
                 }
-                return Response(response, status=status.HTTP_200_OK)
+                return Response(failed_response, status=status.HTTP_400_BAD_REQUEST)
