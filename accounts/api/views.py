@@ -64,13 +64,20 @@ class UserLockView(APIView):
                 }]
             }
 
-        except Exception as e:
-            status_code = status.HTTP_400_BAD_REQUEST
+        except UserLock.DoesNotExist:
+            UserLock.objects.create(user=self.request.user)
             response = {
-                'success': 'false',
-                'status code': status.HTTP_400_BAD_REQUEST,
-                'message': 'User Lock not exists',
-                'error': str(e)
+                'success': True,
+                'status code': status.HTTP_200_OK,
+                'message': 'User Lock created, please complete lock setup',
+                'data': [{
+                    'username': request.user.username,
+                    'firstName': request.user.first_name,
+                    'lastName': request.user.last_name,
+                    'email': request.user.email,
+                    'active': request.user.is_active,
+                    'pin': '',
+                }]
             }
         return Response(response, status=status_code)
 
