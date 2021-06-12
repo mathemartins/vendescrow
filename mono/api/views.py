@@ -39,13 +39,28 @@ class AccountLinkageView(APIView):
                 }]
             }
 
-        except Exception as e:
-            status_code = status.HTTP_400_BAD_REQUEST
+        except AccountLinkage.DoesNotExist:
+            status_code = status.HTTP_200_OK
+            user_account_linkage = AccountLinkage.objects.create(user=self.request.user)
             response = {
-                'success': 'false',
-                'status code': status.HTTP_400_BAD_REQUEST,
-                'message': 'Account Not Linked',
-                'error': str(e)
+                'success': True,
+                'status code': status_code,
+                'message': 'linkage check successful',
+                'data': [{
+                    'username': request.user.username,
+                    'firstName': request.user.first_name,
+                    'lastName': request.user.last_name,
+                    'email': request.user.email,
+                    'active': request.user.is_active,
+                    'monoCode': user_account_linkage.mono_code,
+                    'exchangeToken': user_account_linkage.exchange_token,
+                    'fullName': user_account_linkage.fullName,
+                    'bank': user_account_linkage.bank,
+                    'accountNumber': user_account_linkage.account_number,
+                    'accountType': user_account_linkage.account_type,
+                    'currency': user_account_linkage.currency,
+                    'bvn': user_account_linkage.bvn
+                }]
             }
         return Response(response, status=status_code)
 

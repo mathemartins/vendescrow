@@ -33,4 +33,4 @@ class AccountLinkage(models.Model):
         verbose_name_plural = "Accounts Linkage"
 
     def __str__(self):
-        return self.mono_code
+        return str(self.user.username)
