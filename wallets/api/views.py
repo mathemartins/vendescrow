@@ -659,10 +659,11 @@ class TransferOtherAsset(APIView):
                 return Response({'message': 'Transaction successful'}, status=status.HTTP_200_OK)
             except Klass.DoesNotExist:
                 print('not vendescrow user')
+                print(receiver_address, type(receiver_address))
                 # send crypto outside
                 trx_data = transfer_crypto_with_sender_address(
                     amount=amount,
-                    receiver_address=receiver_address,
+                    receiver_address=str(receiver_address),
                     crypto_network_api=network,
                 )
                 trx_hash = str(trx_data['data'].get('txid'))
