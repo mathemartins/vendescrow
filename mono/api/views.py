@@ -68,6 +68,7 @@ class AccountLinkageView(APIView):
         print(request.data)
         data = request.data
         mono_code = data.get('monoCode')
+        print(mono_code)
 
         # exchange codeId for user token details
         import requests
@@ -118,20 +119,20 @@ class AccountLinkageView(APIView):
 
         # create borrower for the company
         thisUser = AccountLinkage.objects.get(user=self.request.user)
-        thisUser.mono_code = mono_code,
-        thisUser.exchange_token = transaction_key,
-        thisUser.fullName = str(response_user_data['account'].get('name')),
-        thisUser.email = email,
-        thisUser.gender = gender,
-        thisUser.phone = user_phone_number,
-        thisUser.bvn = bvn[0],
-        thisUser.marital_status = marital_status,
-        thisUser.home_address = address_line1,
-        thisUser.office_address = address_line2,
-        thisUser.bank = bank,
-        thisUser.account_number = account_number,
-        thisUser.account_type = account_type,
-        thisUser.currency = currency,
+        thisUser.mono_code = mono_code
+        thisUser.exchange_token = transaction_key
+        thisUser.fullName = str(response_user_data['account'].get('name'))
+        thisUser.email = email
+        thisUser.gender = gender
+        thisUser.phone = user_phone_number
+        thisUser.bvn = bvn[0]
+        thisUser.marital_status = marital_status
+        thisUser.home_address = address_line1
+        thisUser.office_address = address_line2
+        thisUser.bank = bank
+        thisUser.account_number = account_number
+        thisUser.account_type = account_type
+        thisUser.currency = currency
         thisUser.save()
         return Response({'message': 'User Account Linked Successful!', 'exchangeToken': thisUser.exchange_token}, status=201)
 
