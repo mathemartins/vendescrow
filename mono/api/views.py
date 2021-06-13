@@ -75,22 +75,23 @@ class AccountLinkageView(APIView):
         payload = {"code": "{mono_connect_code}".format(mono_connect_code=mono_code)}
         headers = {"mono-sec-key": "live_sk_F4iAi3DbcMkPX5kYvRHa", "Content-Type": "application/json"}
         response = requests.request("POST", url, json=payload, headers=headers)
-        response_data: dict = json.loads(response.content.decode('utf-8'))
+        response_data = json.loads(response.content.decode('utf-8'))
         print(response_data)
         transaction_key = response_data.get('id')
+        print(transaction_key, type(transaction_key))
 
         # fetch user information from
         url = "https://api.withmono.com/accounts/{id}".format(id=response_data.get('id'))
         headers = {"mono-sec-key": "live_sk_F4iAi3DbcMkPX5kYvRHa"}
         response = requests.request("GET", url, headers=headers)
-        response_user_data: dict = json.loads(response.content.decode('utf-8'))
+        response_user_data = json.loads(response.content.decode('utf-8'))
         print(response_user_data)
 
         # detailed user information
         url = "https://api.withmono.com/accounts/{id}/identity".format(id=response_data.get('id'))
         headers = {"mono-sec-key": "live_sk_F4iAi3DbcMkPX5kYvRHa"}
         response = requests.request("GET", url, headers=headers)
-        response_user_detailed_data: dict = json.loads(response.content.decode('utf-8'))
+        response_user_detailed_data = json.loads(response.content.decode('utf-8'))
         print(response_user_detailed_data)
 
         try:
