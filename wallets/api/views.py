@@ -84,28 +84,51 @@ class BitcoinWalletCallView(RetrieveAPIView):
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
 
     def get(self, request, **kwargs):
-        user_bitcoin_wallet = BitcoinWallet.objects.get(user=request.user)
-        response = {
-            'success': True,
-            'statusCode': status.HTTP_200_OK,
-            'message': 'Bitcoin Address Retrieved',
-            'data': [{
-                'username': request.user.username,
-                'name': user_bitcoin_wallet.name,
-                'balance': user_bitcoin_wallet.available,
-                'short_name': user_bitcoin_wallet.short_name,
-                'icon': user_bitcoin_wallet.icon,
-                'private': user_bitcoin_wallet.private_key,
-                'public': user_bitcoin_wallet.public_key,
-                'address': str(user_bitcoin_wallet.address),
-                'frozen': user_bitcoin_wallet.frozen,
-                'amount': user_bitcoin_wallet.amount,
-                'short_name_btc': user_bitcoin_wallet.short_nameBTC,
-                'short_name_ltc': user_bitcoin_wallet.short_nameLTC,
-                'short_name_doge': user_bitcoin_wallet.short_nameDOGE,
-            }]
-        }
-        return Response(response, status=status.HTTP_200_OK)
+        try:
+            user_bitcoin_wallet = BitcoinWallet.objects.get(user=request.user)
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Bitcoin Address Retrieved',
+                'data': [{
+                    'username': request.user.username,
+                    'name': user_bitcoin_wallet.name,
+                    'balance': user_bitcoin_wallet.available,
+                    'short_name': user_bitcoin_wallet.short_name,
+                    'icon': user_bitcoin_wallet.icon,
+                    'private': user_bitcoin_wallet.private_key,
+                    'public': user_bitcoin_wallet.public_key,
+                    'address': str(user_bitcoin_wallet.address),
+                    'frozen': user_bitcoin_wallet.frozen,
+                    'amount': user_bitcoin_wallet.amount,
+                    'short_name_btc': user_bitcoin_wallet.short_nameBTC,
+                    'short_name_ltc': user_bitcoin_wallet.short_nameLTC,
+                    'short_name_doge': user_bitcoin_wallet.short_nameDOGE,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        except BitcoinWallet.DoesNotExist:
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Bitcoin Address Retrieved',
+                'data': [{
+                    'username': request.user.username,
+                    'name': 'Bitcoin',
+                    'balance': '0',
+                    'short_name': 'BTC',
+                    'icon': 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
+                    'private': None,
+                    'public': None,
+                    'address': None,
+                    'frozen': False,
+                    'amount': '0',
+                    'short_name_btc': None,
+                    'short_name_ltc': None,
+                    'short_name_doge': None,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
 
 
 class BitcoinAddressDetailView(RetrieveAPIView):
@@ -180,28 +203,51 @@ class LitecoinWalletCallView(RetrieveAPIView):
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
 
     def get(self, request, **kwargs):
-        user_litecoin_wallet = LitecoinWallet.objects.get(user=request.user)
-        response = {
-            'success': True,
-            'statusCode': status.HTTP_200_OK,
-            'message': 'Litecoin Address Retrieved',
-            'data': [{
-                'username': request.user.username,
-                'name': user_litecoin_wallet.name,
-                'balance': user_litecoin_wallet.available,
-                'short_name': user_litecoin_wallet.short_name,
-                'icon': user_litecoin_wallet.icon,
-                'private': user_litecoin_wallet.private_key,
-                'public': user_litecoin_wallet.public_key,
-                'address': str(user_litecoin_wallet.address),
-                'frozen': user_litecoin_wallet.frozen,
-                'amount': user_litecoin_wallet.amount,
-                'short_name_btc': user_litecoin_wallet.short_nameBTC,
-                'short_name_ltc': user_litecoin_wallet.short_nameLTC,
-                'short_name_doge': user_litecoin_wallet.short_nameDOGE,
-            }]
-        }
-        return Response(response, status=status.HTTP_200_OK)
+        try:
+            user_litecoin_wallet = LitecoinWallet.objects.get(user=request.user)
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Litecoin Address Retrieved',
+                'data': [{
+                    'username': request.user.username,
+                    'name': user_litecoin_wallet.name,
+                    'balance': user_litecoin_wallet.available,
+                    'short_name': user_litecoin_wallet.short_name,
+                    'icon': user_litecoin_wallet.icon,
+                    'private': user_litecoin_wallet.private_key,
+                    'public': user_litecoin_wallet.public_key,
+                    'address': str(user_litecoin_wallet.address),
+                    'frozen': user_litecoin_wallet.frozen,
+                    'amount': user_litecoin_wallet.amount,
+                    'short_name_btc': user_litecoin_wallet.short_nameBTC,
+                    'short_name_ltc': user_litecoin_wallet.short_nameLTC,
+                    'short_name_doge': user_litecoin_wallet.short_nameDOGE,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        except LitecoinWallet.DoesNotExist:
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Litecoin Address Retrieved',
+                'data': [{
+                    'username': request.user.username,
+                    'name': 'Litecoin',
+                    'balance': '0',
+                    'short_name': 'LTC',
+                    'icon': 'https://cryptologos.cc/logos/litecoin-ltc-logo.png',
+                    'private': None,
+                    'public': None,
+                    'address': None,
+                    'frozen': False,
+                    'amount': '0',
+                    'short_name_btc': None,
+                    'short_name_ltc': None,
+                    'short_name_doge': None,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
 
 
 class LitecoinAddressDetailView(RetrieveAPIView):
@@ -275,28 +321,51 @@ class DogecoinWalletCallView(RetrieveAPIView):
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
 
     def get(self, request, **kwargs):
-        user_dogecoin_wallet = DogecoinWallet.objects.get(user=request.user)
-        response = {
-            'success': True,
-            'statusCode': status.HTTP_200_OK,
-            'message': 'Dogecoin Address Retrieved',
-            'data': [{
-                'username': request.user.username,
-                'name': user_dogecoin_wallet.name,
-                'balance': user_dogecoin_wallet.available,
-                'short_name': user_dogecoin_wallet.short_name,
-                'icon': user_dogecoin_wallet.icon,
-                'private': user_dogecoin_wallet.private_key,
-                'public': user_dogecoin_wallet.public_key,
-                'address': str(user_dogecoin_wallet.address),
-                'frozen': user_dogecoin_wallet.frozen,
-                'amount': user_dogecoin_wallet.amount,
-                'short_name_btc': user_dogecoin_wallet.short_nameBTC,
-                'short_name_ltc': user_dogecoin_wallet.short_nameLTC,
-                'short_name_doge': user_dogecoin_wallet.short_nameDOGE,
-            }]
-        }
-        return Response(response, status=status.HTTP_200_OK)
+        try:
+            user_dogecoin_wallet = DogecoinWallet.objects.get(user=request.user)
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Dogecoin Address Retrieved',
+                'data': [{
+                    'username': request.user.username,
+                    'name': user_dogecoin_wallet.name,
+                    'balance': user_dogecoin_wallet.available,
+                    'short_name': user_dogecoin_wallet.short_name,
+                    'icon': user_dogecoin_wallet.icon,
+                    'private': user_dogecoin_wallet.private_key,
+                    'public': user_dogecoin_wallet.public_key,
+                    'address': str(user_dogecoin_wallet.address),
+                    'frozen': user_dogecoin_wallet.frozen,
+                    'amount': user_dogecoin_wallet.amount,
+                    'short_name_btc': user_dogecoin_wallet.short_nameBTC,
+                    'short_name_ltc': user_dogecoin_wallet.short_nameLTC,
+                    'short_name_doge': user_dogecoin_wallet.short_nameDOGE,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        except DogecoinWallet.DoesNotExist:
+            response = {
+                'success': True,
+                'statusCode': status.HTTP_200_OK,
+                'message': 'Dogecoin Address Retrieved',
+                'data': [{
+                    'username': request.user.username,
+                    'name': 'Dogecoin',
+                    'balance': '0',
+                    'short_name': 'LTC',
+                    'icon': 'https://i.imgflip.com/4w3qc7.png',
+                    'private': None,
+                    'public': None,
+                    'address': None,
+                    'frozen': False,
+                    'amount': '0',
+                    'short_name_btc': None,
+                    'short_name_ltc': None,
+                    'short_name_doge': None,
+                }]
+            }
+            return Response(response, status=status.HTTP_200_OK)
 
 
 class DogecoinAddressDetailView(RetrieveAPIView):
@@ -329,7 +398,7 @@ class DogecoinAddressDetailView(RetrieveAPIView):
             }
         except DogecoinWallet.DoesNotExist:
             doge_account = create_address(crypto_network_api=dogecoin_testnet, username=request.user.username)
-            doge_icon_url = 'https://e7.pngegg.com/pngimages/707/440/png-clipart-dogecoin-cryptocurrency-scalable-graphics-dogecoin-text-trademark-thumbnail.png'
+            doge_icon_url = 'https://i.imgflip.com/4w3qc7.png'
 
             new_doge_wallet = DogecoinWallet.objects.create(
                 user=request.user,
