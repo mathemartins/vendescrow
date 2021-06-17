@@ -3,6 +3,9 @@ from django.db import models
 
 
 # Create your models here.
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 
 class BitcoinWallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

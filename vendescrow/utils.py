@@ -135,7 +135,7 @@ def unique_slug_generator(instance, new_slug=None):
         try:
             slug = slugify(instance.user)
         except Exception as e:
-            slug = slugify(instance.name)
+            slug = slugify(instance.trade_creator.username)
 
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=slug).exists()

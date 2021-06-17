@@ -6,10 +6,8 @@ from django.db import models
 
 class FiatWallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    account_number = models.CharField(max_length=11, blank=True, null=True)
-    account_name = models.CharField(max_length=256, blank=True, null=True)
-    bank = models.CharField(max_length=256, blank=True, null=True)
     balance = models.CharField(max_length=18, default=0, blank=True, null=True)
+    active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -19,4 +17,4 @@ class FiatWallet(models.Model):
         verbose_name_plural = "Fiat Wallets"
 
     def __str__(self):
-        return self.account_name
+        return self.balance
