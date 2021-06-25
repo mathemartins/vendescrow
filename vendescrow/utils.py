@@ -243,3 +243,18 @@ def get_read_time(html_string):
     # read_time = str(datetime.timedelta(seconds=read_time_sec))
     # read_time = str(datetime.timedelta(minutes=read_time_min))
     return int(read_time_min)
+
+
+def round_decimals_down(number: float, decimals: int = 3):
+    """
+    Returns a value rounded down to a specific number of decimal places.
+    """
+    if not isinstance(decimals, int):
+        raise TypeError("decimal places must be an integer")
+    elif decimals < 0:
+        raise ValueError("decimal places has to be 0 or more")
+    elif decimals == 0:
+        return math.floor(number)
+
+    factor = 10 ** decimals
+    return math.floor(number * factor) / factor

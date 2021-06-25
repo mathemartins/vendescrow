@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 
 from rates.models import FiatRate
-from vendescrow.utils import unique_slug_generator
+from vendescrow.utils import unique_slug_generator, round_decimals_down
 from wallets.models import BitcoinWallet, LitecoinWallet, DogecoinWallet, EthereumWallet, TetherUSDWallet
 
 
@@ -25,7 +25,7 @@ class P2PTrade(models.Model):
         ('LTC', 'LTC'),
     )
 
-    trade_creator = models.OneToOneField(User, on_delete=models.CASCADE, related_name='trade_author')
+    trade_creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trade_author')
     transactions = models.PositiveIntegerField(default=0)
     trade_listed_as = models.CharField(choices=TRADE_TYPE, max_length=20, default='I WANT TO SELL')
     creator_rate_in_dollar = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -65,41 +65,41 @@ def my_callback(sender, instance, *args, **kwargs):
     black_market_rate = FiatRate.objects.get(country=instance.trade_creator.profile.country).dollar_rate
 
     if instance.creator_rate_in_dollar is None:
-        instance.creator_rate_in_dollar = float(instance.price_slippage) * float(black_market_rate)
+        instance.creator_rate_in_dollar = round_decimals_down((float(instance.price_slippage) * float(black_market_rate)))
 
     asset = str(instance.asset_to_trade)
     if asset == 'BTC' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         btc_instance = BitcoinWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(btc_instance.available) > float(instance.crypto_trading_amount):
-            btc_instance.available = float(btc_instance.available) - float(instance.crypto_trading_amount)
+            btc_instance.available = round_decimals_down((float(btc_instance.available) - float(instance.crypto_trading_amount)))
             btc_instance.frozen = True
             btc_instance.amount = instance.crypto_trading_amount
             btc_instance.save()
     elif asset == 'LTC' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         ltc_instance = LitecoinWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(ltc_instance.available) > float(instance.crypto_trading_amount):
-            ltc_instance.available = float(ltc_instance.available) - float(instance.crypto_trading_amount)
+            ltc_instance.available = round_decimals_down((float(ltc_instance.available) - float(instance.crypto_trading_amount)))
             ltc_instance.frozen = True
             ltc_instance.amount = instance.crypto_trading_amount
             ltc_instance.save()
     elif asset == 'DOGE' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         doge_instance = DogecoinWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(doge_instance.available) > float(instance.crypto_trading_amount):
-            doge_instance.available = float(doge_instance.available) - float(instance.crypto_trading_amount)
+            doge_instance.available = round_decimals_down((float(doge_instance.available) - float(instance.crypto_trading_amount)))
             doge_instance.frozen = True
             doge_instance.amount = instance.crypto_trading_amount
             doge_instance.save()
     elif asset == 'ETH' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         eth_instance = EthereumWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(eth_instance.available) > float(instance.crypto_trading_amount):
-            eth_instance.available = float(eth_instance.available) - float(instance.crypto_trading_amount)
+            eth_instance.available = round_decimals_down((float(eth_instance.available) - float(instance.crypto_trading_amount)))
             eth_instance.frozen = True
             eth_instance.amount = instance.crypto_trading_amount
             eth_instance.save()
     elif asset == 'USDT' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         usdt_instance = TetherUSDWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(usdt_instance.available) > float(instance.crypto_trading_amount):
-            usdt_instance.available = float(usdt_instance.available) - float(instance.crypto_trading_amount)
+            usdt_instance.available = round_decimals_down((float(usdt_instance.available) - float(instance.crypto_trading_amount)))
             usdt_instance.frozen = True
             usdt_instance.amount = instance.crypto_trading_amount
             usdt_instance.save()

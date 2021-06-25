@@ -52,6 +52,11 @@ urlpatterns += [
     url(r'^api/connect-mono/', include(("mono.api.urls", 'mono_connect-api'), namespace='mono_connect-api')),
 ]
 
+# api p2p urls
+urlpatterns += [
+    path('api/p2p/', include(('p2p.api.urls', 'api-p2p'), namespace='api-p2p')),
+]
+
 # authentication urls
 urlpatterns += [
     path('accounts/', RedirectView.as_view(url='/account')),
