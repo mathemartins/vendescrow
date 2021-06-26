@@ -117,8 +117,12 @@ CELERY_BROKER_URL = 'redis://:p12286adb76f779078f6150f39f80ebf968e3aaf9ce86e9ed5
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd752pnbc65ahih',
+        'USER': 'wknwnqpwqahqgm',
+        'PASSWORD': 'd7792ba7ee53d797f5ccbecc662c2c5bc850c14a442912ded023f1f127fe6ca2',
+        'HOST': 'ec2-54-235-108-217.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
