@@ -33,18 +33,6 @@ ADMINS = MANAGERS
 
 
 # Application Defaults
-INSTALLED_APPS = [
-    'admin_interface',
-    'colorfield',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'django_jenkins',
-]
 
 # Third-party
 INSTALLED_APPS += [
@@ -56,6 +44,7 @@ INSTALLED_APPS += [
     'widget_tweaks',
     'markdown_deux',
     'pagedown',
+    'channels',
 ]
 
 # User created
@@ -68,6 +57,7 @@ INSTALLED_APPS += [
     'fiatwallet',
     'mono',
     'transactions',
+    'coins',
 ]
 
 
@@ -106,19 +96,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'vendescrow.wsgi.application'
+# WSGI_APPLICATION = 'vendescrow.wsgi.application'
+ASGI_APPLICATION = 'vendescrow.asgi.application'
+CELERY_BROKER_URL = 'redis://:p12286adb76f779078f6150f39f80ebf968e3aaf9ce86e9ed5567dcaf05f1f0bb@ec2-35-171-39-153.compute-1.amazonaws.com:23310'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd752pnbc65ahih',
-        'USER': 'wknwnqpwqahqgm',
-        'PASSWORD': 'd7792ba7ee53d797f5ccbecc662c2c5bc850c14a442912ded023f1f127fe6ca2',
-        'HOST': 'ec2-54-235-108-217.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
