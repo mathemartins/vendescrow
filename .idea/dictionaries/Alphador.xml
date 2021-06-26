@@ -1,22 +1,27 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Alphador">
     <words>
+      <w>asgi</w>
       <w>befb</w>
       <w>bitcoin</w>
       <w>blockcypher</w>
       <w>cloudinary</w>
+      <w>corsheaders</w>
       <w>cryto</w>
       <w>dogecoin</w>
+      <w>endsession</w>
       <w>ethereum</w>
       <w>fiatwallet</w>
       <w>koinus</w>
       <w>litecoin</w>
       <w>privkey</w>
+      <w>sameorigin</w>
       <w>satoshi</w>
       <w>testnet</w>
       <w>tosign</w>
       <w>txhash</w>
       <w>vendescrow</w>
+      <w>whitenoise</w>
     </words>
   </dictionary>
 </component>
