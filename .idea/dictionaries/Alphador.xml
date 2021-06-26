@@ -12,6 +12,7 @@
       <w>endsession</w>
       <w>ethereum</w>
       <w>fiatwallet</w>
+      <w>gunicorn</w>
       <w>koinus</w>
       <w>litecoin</w>
       <w>privkey</w>
