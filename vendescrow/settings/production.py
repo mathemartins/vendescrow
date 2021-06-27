@@ -44,11 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django_jenkins',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 # Third-party
 INSTALLED_APPS += [
-    'django_celery_beat',
     'phonenumber_field',
     'crispy_forms',
     'rest_framework',
@@ -110,7 +111,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vendescrow.wsgi.application'
 # ASGI_APPLICATION = 'vendescrow.asgi.application'
-from ..celery.config import *
+from vendescrow.celery.config import *
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
