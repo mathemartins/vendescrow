@@ -1,3 +1,2 @@
 web: gunicorn vendescrow.wsgi --log-file -
-celery: celery worker -A vendescrow -l INFO
-celery: celery beat -A vendescrow -l INFO
+worker: celery -A vendescrow worker --beat -S django -l info
