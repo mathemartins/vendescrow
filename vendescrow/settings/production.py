@@ -28,7 +28,7 @@ SECRET_KEY = '*w5khesoy7s+mx&6=@m$q*s(n$^86gvfyacktfn+=n30tqj2!-'
 DEBUG = False
 BASE_URL = 'https://vendescrow.herokuapp.com'
 ALLOWED_HOSTS = ['*']
-MANAGERS = ('Vend Escrow', "vendescrow@gmail.com")
+MANAGERS = ('Vendescrow', "vendescrow@gmail.com")
 ADMINS = MANAGERS
 
 
@@ -56,7 +56,7 @@ INSTALLED_APPS += [
     'widget_tweaks',
     'markdown_deux',
     'pagedown',
-    'channels',
+    # 'channels',
 ]
 
 # User created
@@ -108,9 +108,9 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'vendescrow.wsgi.application'
-ASGI_APPLICATION = 'vendescrow.asgi.application'
-CELERY_BROKER_URL = 'redis://:p12286adb76f779078f6150f39f80ebf968e3aaf9ce86e9ed5567dcaf05f1f0bb@ec2-35-171-39-153.compute-1.amazonaws.com:23310'
+WSGI_APPLICATION = 'vendescrow.wsgi.application'
+# ASGI_APPLICATION = 'vendescrow.asgi.application'
+from ..celery.config import *
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

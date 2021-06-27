@@ -15,3 +15,7 @@ app.conf.beat_schedule = {
 }
 
 app.autodiscover_tasks()
+
+
+# web: daphne vendescrow.asgi:application --port $PORT --bind 0.0.0.0 -v2
+# worker: python manage.py runworker --settings=vendescrow.settings -v2
