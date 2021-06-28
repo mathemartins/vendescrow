@@ -26,9 +26,6 @@ app.conf.beat_schedule = {
 
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 app.conf.CELERY_TIMEZONE = 'UTC'
-app.conf.update(
-    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
-)
 app.autodiscover_tasks()
 
 # web: daphne vendescrow.asgi:application --port $PORT --bind 0.0.0.0 -v2
