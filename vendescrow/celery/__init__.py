@@ -18,7 +18,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
     'get_coins_data_from_coingecko_30s': {
         'task': 'coins.tasks.get_coins_data_from_coingecko',
-        'schedule': 10.0
+        'schedule': 30.0
     }
 }
 
