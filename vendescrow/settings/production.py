@@ -122,9 +122,9 @@ CELERY_RESULT_PASSWORD = "p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d4
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd752pnbc65ahih',
-        'USER': 'wknwnqpwqahqgm',
-        'PASSWORD': 'd7792ba7ee53d797f5ccbecc662c2c5bc850c14a442912ded023f1f127fe6ca2',
+        'NAME': 'ddnoo6ngtlfdjh',
+        'USER': 'hlhopjqfqylfho',
+        'PASSWORD': '667740ba95a4a31a508725df2f39e7f18a21f0af2a0a4c8c7acdb25678e58ac6',
         'HOST': 'ec2-54-235-108-217.compute-1.amazonaws.com',
         'PORT': '5432'
     }
