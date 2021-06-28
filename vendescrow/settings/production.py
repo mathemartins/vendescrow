@@ -16,7 +16,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -30,7 +29,6 @@ BASE_URL = 'https://vendescrow.herokuapp.com'
 ALLOWED_HOSTS = ['*']
 MANAGERS = ('Vendescrow', "vendescrow@gmail.com")
 ADMINS = MANAGERS
-
 
 # Application Defaults
 INSTALLED_APPS = [
@@ -73,7 +71,6 @@ INSTALLED_APPS += [
     'coins',
 ]
 
-
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION = False
@@ -111,7 +108,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vendescrow.wsgi.application'
 # ASGI_APPLICATION = 'vendescrow.asgi.application'
-from vendescrow.celery.config import *
+
+CELERY_BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23860'
+BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23860'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_PASSWORD = "p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

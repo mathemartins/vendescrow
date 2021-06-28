@@ -17,7 +17,7 @@ class CoinCMC(models.Model):
     quote = models.OneToOneField(to='coins.Quote', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.symbol
 
 
 class Quote(models.Model):
@@ -46,9 +46,9 @@ class USD(models.Model):
 class CoinGecko(models.Model):
     name = models.CharField(max_length=50)
     symbol = models.CharField(max_length=50)
-    price = models.CharField(max_length=50)
-    rank = models.IntegerField(default=0)
-    image = models.CharField(max_length=300)
+    price = models.FloatField(default=0, blank=True, null=True)
+    rank = models.IntegerField(default=0, blank=True, null=True)
+    image = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)

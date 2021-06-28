@@ -7,9 +7,9 @@ from coins.models import CoinGecko, CoinCMC
 
 @shared_task
 def get_coins_data_from_coingecko():
-    global state
     url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     data = requests.get(url=url).json()
+    print(data)
 
     coins = []
 
