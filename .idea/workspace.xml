@@ -24,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
+            <state relative-caret-position="191">
+              <caret line="143" column="9" lean-forward="true" selection-start-line="143" selection-start-column="9" selection-end-line="143" selection-end-column="9" />
               <folding>
                 <element signature="e#310#319#0" expanded="true" />
               </folding>
@@ -40,16 +40,16 @@
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="80">
-              <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+              <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="22" selection-start-line="22" selection-end-line="61" selection-end-column="1" />
+            <state relative-caret-position="112">
+              <caret line="114" column="51" lean-forward="true" selection-start-line="114" selection-start-column="51" selection-end-line="114" selection-end-column="51" />
               <folding>
                 <element signature="e#110#119#0" expanded="true" />
               </folding>
@@ -178,7 +178,6 @@
         <option value="$PROJECT_DIR$/vendescrow/asgi.py" />
         <option value="$PROJECT_DIR$/vendescrow/celery/celery.py" />
         <option value="$PROJECT_DIR$/vendescrow/__init__.py" />
-        <option value="$PROJECT_DIR$/vendescrow/settings/local.py" />
         <option value="$PROJECT_DIR$/vendescrow/celery.py" />
         <option value="$PROJECT_DIR$/coins/tasks.py" />
         <option value="$PROJECT_DIR$/coins/models.py" />
@@ -187,6 +186,7 @@
         <option value="$PROJECT_DIR$/vendescrow/celery/__init__.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
+        <option value="$PROJECT_DIR$/vendescrow/settings/local.py" />
       </list>
     </option>
   </component>
@@ -208,6 +208,17 @@
             <path>
               <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
               <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+              <item name="settings" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
@@ -318,18 +329,18 @@
       <workItem from="1624696878619" duration="42000" />
       <workItem from="1624701534303" duration="35820000" />
       <workItem from="1624804234309" duration="10543000" />
-      <workItem from="1624832431967" duration="16779000" />
+      <workItem from="1624832431967" duration="17564000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="680270000" />
+    <option name="totallyTimeSpent" value="681055000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19894099" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19894099" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -344,7 +355,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Pylint" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.45335516" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.45335516" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Sourcery" order="14" />
       <window_info anchor="bottom" id="Python Console" order="15" />
@@ -717,16 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="22" selection-start-line="22" selection-end-line="61" selection-end-column="1" />
-          <folding>
-            <element signature="e#110#119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/coins/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-466">
@@ -781,16 +782,26 @@
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
-          <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
+        <state relative-caret-position="191">
+          <caret line="143" column="9" lean-forward="true" selection-start-line="143" selection-start-column="9" selection-end-line="143" selection-end-column="9" />
           <folding>
             <element signature="e#310#319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="114" column="51" lean-forward="true" selection-start-line="114" selection-start-column="51" selection-end-line="114" selection-end-column="51" />
+          <folding>
+            <element signature="e#110#119#0" expanded="true" />
           </folding>
         </state>
       </provider>
