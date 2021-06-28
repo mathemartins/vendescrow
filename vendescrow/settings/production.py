@@ -109,12 +109,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'vendescrow.wsgi.application'
 # ASGI_APPLICATION = 'vendescrow.asgi.application'
 
-CELERY_BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23860'
-BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23860'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_RESULT_PASSWORD = "p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a"
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.environ.get('REDIS_URL'),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {
+                "ssl_cert_reqs": None
+            },
+        }
+    }
+}
+
+# CELERY_BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23860'
+# BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23860'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_RESULT_PASSWORD = "p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
