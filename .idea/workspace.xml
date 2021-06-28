@@ -24,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="111" column="142" lean-forward="true" selection-start-line="111" selection-start-column="21" selection-end-line="111" selection-end-column="142" />
+            <state relative-caret-position="515">
+              <caret line="182" column="22" lean-forward="true" selection-start-line="182" selection-start-column="22" selection-end-line="182" selection-end-column="22" />
               <folding>
                 <element signature="e#310#319#0" expanded="true" />
               </folding>
@@ -39,8 +39,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="102" selection-start-line="102" selection-end-line="106" selection-end-column="33" />
+            <state relative-caret-position="160">
+              <caret line="22" selection-start-line="22" selection-end-line="61" selection-end-column="1" />
               <folding>
                 <element signature="e#110#119#0" expanded="true" />
               </folding>
@@ -85,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/vendescrow/celery/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="339">
-              <caret line="29" column="60" lean-forward="true" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+              <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -97,16 +97,16 @@
         <entry file="file://$PROJECT_DIR$/coins/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="115">
-              <caret line="32" column="54" lean-forward="true" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+              <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/celery/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+            <state relative-caret-position="48">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -175,9 +175,9 @@
         <option value="$PROJECT_DIR$/coins/tasks.py" />
         <option value="$PROJECT_DIR$/coins/models.py" />
         <option value="$PROJECT_DIR$/vendescrow/celery/__init__.py" />
-        <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/vendescrow/celery/config.py" />
+        <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
       </list>
     </option>
   </component>
@@ -402,12 +402,12 @@
       <workItem from="1624696878619" duration="42000" />
       <workItem from="1624701534303" duration="35820000" />
       <workItem from="1624804234309" duration="10543000" />
-      <workItem from="1624832431967" duration="6739000" />
+      <workItem from="1624832431967" duration="7569000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="670230000" />
+    <option name="totallyTimeSpent" value="671060000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -818,16 +818,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="102" selection-start-line="102" selection-end-line="106" selection-end-column="33" />
-          <folding>
-            <element signature="e#110#119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/coins/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
@@ -848,7 +838,7 @@
     <entry file="file://$PROJECT_DIR$/vendescrow/celery/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
-          <caret line="29" column="60" lean-forward="true" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+          <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
           </folding>
@@ -858,24 +848,34 @@
     <entry file="file://$PROJECT_DIR$/coins/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
-          <caret line="32" column="54" lean-forward="true" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="111" column="142" lean-forward="true" selection-start-line="111" selection-start-column="21" selection-end-line="111" selection-end-column="142" />
-          <folding>
-            <element signature="e#310#319#0" expanded="true" />
-          </folding>
+          <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendescrow/celery/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+        <state relative-caret-position="48">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="22" selection-start-line="22" selection-end-line="61" selection-end-column="1" />
+          <folding>
+            <element signature="e#110#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="182" column="22" lean-forward="true" selection-start-line="182" selection-start-column="22" selection-end-line="182" selection-end-column="22" />
+          <folding>
+            <element signature="e#310#319#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
