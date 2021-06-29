@@ -181,14 +181,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media_root")
 PROTECTED_ROOT = os.path.join(BASE_DIR, "static", "protected_media")
 
-CORS_ORIGIN_ALLOW_ALL = True
-HOST_SCHEME = "http://"
-SECURE_PROXY_SSL_HEADER = None
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_HSTS_SECONDS = None
-SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-SECURE_FRAME_DENY = False
-
-from vendescrow.ssl_config import *
+# CORS_ORIGIN_ALLOW_ALL = True
+# HOST_SCHEME = "http://"
+# SECURE_PROXY_SSL_HEADER = None
+# SECURE_SSL_REDIRECT = False
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# SECURE_HSTS_SECONDS = None
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SECURE_FRAME_DENY = False
+#
+# from vendescrow.ssl_config import *
