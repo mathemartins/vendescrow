@@ -55,7 +55,7 @@ INSTALLED_APPS += [
     'widget_tweaks',
     'markdown_deux',
     'pagedown',
-    # 'channels',
+    'channels',
 ]
 
 # User created
@@ -127,6 +127,16 @@ DATABASES = {
         'PASSWORD': '667740ba95a4a31a508725df2f39e7f18a21f0af2a0a4c8c7acdb25678e58ac6',
         'HOST': 'ec2-54-235-108-217.compute-1.amazonaws.com',
         'PORT': '5432'
+    }
+}
+
+CHANNEL_LAYERS = {
+    # queue of messages
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [(':p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com', 23859)]
+        }
     }
 }
 
