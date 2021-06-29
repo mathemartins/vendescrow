@@ -135,9 +135,10 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [(':p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com', 23859)]
-        }
-    }
+            'hosts': ["redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-54-209-47-44.compute-1.amazonaws.com:23859"],
+            'symmetric_encryption_keys': [SECRET_KEY],
+        },
+    },
 }
 
 # Password validation
