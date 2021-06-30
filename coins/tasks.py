@@ -11,7 +11,7 @@ channel_layer = get_channel_layer()
 
 @shared_task
 def get_coins_data_from_coingecko():
-    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C%2024h%2C%207d%2C%2014d%2C%2030d%2C%20200d%2C%201y'
     data = requests.get(url=url).json()
     print(data)
 
@@ -52,6 +52,7 @@ def get_coins_data_from_coingecko():
         obj.all_time_low_change_percentage = coin['atl_change_percentage']
         obj.all_time_low_date = coin['atl_date']
         obj.last_updated = coin['last_updated']
+        obj.price_change_percentage_in_the_last_24h = coin['price_change_percentage_1h_in_currency']
         obj.save()
         new_data = model_to_dict(obj)
         new_data.update({'state': state})
