@@ -52,7 +52,6 @@ def get_coins_data_from_coingecko():
         obj.all_time_low_change_percentage = coin['atl_change_percentage']
         obj.all_time_low_date = coin['atl_date']
         obj.last_updated = coin['last_updated']
-        obj.price_change_percentage_1h_in_usd = coin['price_change_percentage_1h_in_currency']
         obj.save()
         new_data = model_to_dict(obj)
         new_data.update({'state': state})

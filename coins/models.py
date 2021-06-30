@@ -30,7 +30,6 @@ class Coin(models.Model):
     all_time_low_change_percentage = models.FloatField(default=0, blank=True, null=True)
     all_time_low_date = models.DateField(blank=True, null=True)
     last_updated = models.DateField(blank=True, null=True)
-    price_change_percentage_1h_in_usd = models.FloatField(default=0, blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
