@@ -42,6 +42,7 @@ def get_coins_data_from_coingecko():
     async_to_sync(channel_layer.group_send)('coins', {'type': 'send_new_data', 'text': coins})
 
 
+@shared_task
 def get_coins_data_from_coinmarket_cap():
     url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
     headers = {"X-CMC_PRO_API_KEY": "b9bce1cc-01ad-44d0-bc4e-e1421245ec0f", "Content-Type": "application/json"}
