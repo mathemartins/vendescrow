@@ -25,11 +25,11 @@ class Coin(models.Model):
     max_supply = models.FloatField(default=0, blank=True, null=True)
     all_time_high = models.FloatField(default=0, blank=True, null=True)
     all_time_high_change_percentage = models.FloatField(default=0, blank=True, null=True)
-    all_time_high_date = models.DateField(blank=True, null=True)
+    all_time_high_date = models.DateTimeField(blank=True, null=True)
     all_time_low = models.FloatField(default=0, blank=True, null=True)
     all_time_low_change_percentage = models.FloatField(default=0, blank=True, null=True)
-    all_time_low_date = models.DateField(blank=True, null=True)
-    last_updated = models.DateField(blank=True, null=True)
+    all_time_low_date = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
