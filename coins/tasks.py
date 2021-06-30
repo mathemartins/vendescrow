@@ -4,7 +4,7 @@ from celery import shared_task
 from channels.layers import get_channel_layer
 from django.forms import model_to_dict
 
-from coins.models import CoinGecko, CoinCMC
+from coins.models import Coin
 
 channel_layer = get_channel_layer()
 
@@ -18,7 +18,7 @@ def get_coins_data_from_coingecko():
     coins = []
 
     for coin in data:
-        obj, created = CoinGecko.objects.get_or_create(symbol=coin['symbol'])
+        obj, created = Coin.objects.get_or_create(symbol=coin['symbol'])
         obj.name = coin['name']
         obj.symbol = coin['symbol']
 
@@ -32,7 +32,27 @@ def get_coins_data_from_coingecko():
         obj.price = coin['current_price']
         obj.rank = coin['market_cap_rank']
         obj.image = coin['image']
-
+        obj.coin_id = coin['id']
+        obj.market_cap = coin['market_cap']
+        obj.fully_diluted_valuation = coin['fully_diluted_valuation']
+        obj.total_volume = coin['total_volume']
+        obj.highest_in_the_last_24h = coin['high_24h']
+        obj.lowest_in_the_last_24h = coin['low_24h']
+        obj.price_change_in_the_last_24h = coin['price_change_24h']
+        obj.price_change_percentage_in_the_last_24h = coin['price_change_percentage_24h']
+        obj.market_cap_change_in_the_last_24h = coin['market_cap_change_24h']
+        obj.market_cap_change_percentage_in_the_last_24h = coin['market_cap_change_percentage_24h']
+        obj.circulating_supply = coin['circulating_supply']
+        obj.total_supply = coin['total_supply']
+        obj.max_supply = coin['max_supply']
+        obj.all_time_high = coin['ath']
+        obj.all_time_high_change_percentage = coin['ath_change_percentage']
+        obj.all_time_high_date = coin['ath_date']
+        obj.all_time_low = coin['atl']
+        obj.all_time_low_change_percentage = coin['atl_change_percentage']
+        obj.all_time_low_date = coin['atl_date']
+        obj.last_updated = coin['last_updated']
+        obj.price_change_percentage_1h_in_usd = coin['price_change_percentage_1h_in_currency']
         obj.save()
         new_data = model_to_dict(obj)
         new_data.update({'state': state})
@@ -40,35 +60,3 @@ def get_coins_data_from_coingecko():
         coins.append(new_data)
 
     async_to_sync(channel_layer.group_send)('coins', {'type': 'send_new_data', 'text': coins})
-
-
-@shared_task
-def get_coins_data_from_coinmarket_cap():
-    url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-    headers = {"X-CMC_PRO_API_KEY": "b9bce1cc-01ad-44d0-bc4e-e1421245ec0f", "Content-Type": "application/json"}
-    data = requests.request("GET", url, headers=headers).json()
-
-    for coin in data:
-        obj, created = CoinCMC.objects.get_or_create(symbol=coin['symbol'])
-        obj.name = coin['name']
-        obj.symbol = coin['symbol']
-        obj.quote.usd.price = coin['quote']['USD']['price']
-        obj.quote.usd.volume_24h = coin['quote']['USD']['volume_24h']
-        obj.quote.usd.percent_change1h = coin['quote']['USD']['percent_change_1h']
-        obj.quote.usd.percent_change24h = coin['quote']['USD']['percent_change_24h']
-        obj.quote.usd.percent_change7d = coin['quote']['USD']['percent_change_7d']
-        obj.quote.usd.percent_change30d = coin['quote']['USD']['percent_change30d']
-        obj.quote.usd.percent_change60d = coin['quote']['USD']['percent_change60d']
-        obj.quote.usd.percent_change90d = coin['quote']['USD']['percent_change90d']
-        obj.quote.usd.market_cap = coin['quote']['usd']['market_cap']
-        obj.quote.usd.last_updated = coin['quote']['usd']['last_updated']
-        obj.number_of_market_pairs = coin['num_market_pairs']
-        obj.date_added = coin['date_added']
-        obj.max_supply = coin['max_supply']
-        obj.circulating_supply = coin['circulating_supply']
-        obj.total_supply = coin['total_supply']
-        obj.platform = coin['platform']
-        obj.cmc_rank = coin['cmc_rank']
-        obj.last_updated = coin['last_updated']
-
-        obj.save()

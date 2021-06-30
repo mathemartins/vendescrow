@@ -3,52 +3,34 @@ from django.db import models
 
 # Create your models here.
 
-class CoinCMC(models.Model):
-    name = models.CharField(max_length=50)
-    symbol = models.CharField(max_length=50)
-    number_of_market_pairs = models.FloatField(max_length=50)
-    date_added = models.DateField(max_length=50)
-    max_supply = models.CharField(max_length=50, blank=True, null=True)
-    circulating_supply = models.CharField(max_length=50, blank=True, null=True)
-    total_supply = models.CharField(max_length=50, blank=True, null=True)
-    platform = models.CharField(max_length=50, blank=True, null=True)
-    cmc_rank = models.IntegerField(default=0)
-    last_updated = models.DateField(max_length=50, blank=True, null=True)
-    quote = models.OneToOneField(to='coins.Quote', on_delete=models.CASCADE, blank=True, null=True)
 
-    def __str__(self):
-        return self.symbol
-
-
-class Quote(models.Model):
-    usd = models.OneToOneField(to='coins.USD', on_delete=models.CASCADE, blank=True, null=True)
-
-    def __str__(self):
-        return str(self.usd.price)
-
-
-class USD(models.Model):
-    price = models.FloatField(max_length=50)
-    volume_24h = models.FloatField(max_length=50, blank=True, null=True)
-    percent_change1h = models.FloatField(max_length=50, blank=True, null=True)
-    percent_change24h = models.FloatField(max_length=50, blank=True, null=True)
-    percent_change7d = models.FloatField(max_length=50, blank=True, null=True)
-    percent_change30d = models.FloatField(max_length=50, blank=True, null=True)
-    percent_change60d = models.FloatField(max_length=50, blank=True, null=True)
-    percent_change90d = models.FloatField(max_length=50, blank=True, null=True)
-    market_cap = models.CharField(max_length=50, blank=True, null=True)
-    last_updated = models.DateField(max_length=50, blank=True, null=True)
-
-    def __str__(self):
-        return self.price
-
-
-class CoinGecko(models.Model):
-    name = models.CharField(max_length=50)
-    symbol = models.CharField(max_length=50)
+class Coin(models.Model):
+    name = models.CharField(max_length=200)
+    coin_id = models.IntegerField(default=0, blank=True, null=True)
+    symbol = models.CharField(max_length=200)
     price = models.FloatField(default=0, blank=True, null=True)
     rank = models.IntegerField(default=0, blank=True, null=True)
     image = models.URLField(blank=True, null=True)
+    market_cap = models.IntegerField(default=0, blank=True, null=True)
+    fully_diluted_valuation = models.CharField(max_length=200, blank=True, null=True)
+    total_volume = models.IntegerField(default=0, blank=True, null=True)
+    highest_in_the_last_24h = models.FloatField(default=0, blank=True, null=True)
+    lowest_in_the_last_24h = models.FloatField(default=0, blank=True, null=True)
+    price_change_in_the_last_24h = models.FloatField(default=0, blank=True, null=True)
+    price_change_percentage_in_the_last_24h = models.FloatField(default=0, blank=True, null=True)
+    market_cap_change_in_the_last_24h = models.FloatField(default=0, blank=True, null=True)
+    market_cap_change_percentage_in_the_last_24h = models.FloatField(default=0, blank=True, null=True)
+    circulating_supply = models.FloatField(default=0, blank=True, null=True)
+    total_supply = models.FloatField(default=0, blank=True, null=True)
+    max_supply = models.FloatField(default=0, blank=True, null=True)
+    all_time_high = models.FloatField(default=0, blank=True, null=True)
+    all_time_high_change_percentage = models.FloatField(default=0, blank=True, null=True)
+    all_time_high_date = models.DateField(blank=True, null=True)
+    all_time_low = models.FloatField(default=0, blank=True, null=True)
+    all_time_low_change_percentage = models.FloatField(default=0, blank=True, null=True)
+    all_time_low_date = models.DateField(blank=True, null=True)
+    last_updated = models.DateField(blank=True, null=True)
+    price_change_percentage_1h_in_usd = models.FloatField(default=0, blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
