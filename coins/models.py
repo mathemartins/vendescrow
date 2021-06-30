@@ -6,7 +6,7 @@ from django.db import models
 
 class Coin(models.Model):
     name = models.CharField(max_length=200)
-    coin_id = models.IntegerField(default=0, blank=True, null=True)
+    coin_id = models.CharField(max_length=200, blank=True, null=True)
     symbol = models.CharField(max_length=200)
     price = models.FloatField(default=0, blank=True, null=True)
     rank = models.IntegerField(default=0, blank=True, null=True)
