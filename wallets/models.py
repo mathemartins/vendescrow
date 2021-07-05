@@ -32,7 +32,7 @@ class BitcoinWallet(models.Model):
         verbose_name_plural = "Bitcoin Wallets"
 
     def __str__(self):
-        return self.short_name
+        return self.address
 
 
 class DogecoinWallet(models.Model):

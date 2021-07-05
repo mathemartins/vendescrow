@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/p2p/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendescrow/routing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.bak" beforeDir="false" afterPath="$PROJECT_DIR$/celerybeat-schedule.bak" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/celerybeat-schedule.dat" beforeDir="false" afterPath="$PROJECT_DIR$/celerybeat-schedule.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.dir" beforeDir="false" afterPath="$PROJECT_DIR$/celerybeat-schedule.dir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coins/websocket/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/coins/websocket/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coins/websocket/routing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/websocket/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/websocket/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/websocket/routing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/celery/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/celery/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/settings/production.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/settings/production.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow_db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow_db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallets/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -132,8 +115,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wallets/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+            <state relative-caret-position="158">
+              <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -384,12 +367,12 @@
       <workItem from="1624701534303" duration="35820000" />
       <workItem from="1624804234309" duration="10543000" />
       <workItem from="1624832431967" duration="18503000" />
-      <workItem from="1624964835284" duration="39885000" />
+      <workItem from="1624964835284" duration="40416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="721879000" />
+    <option name="totallyTimeSpent" value="722410000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -830,8 +813,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wallets/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+        <state relative-caret-position="158">
+          <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
