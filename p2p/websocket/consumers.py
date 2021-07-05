@@ -1,8 +1,17 @@
-from channels.consumer import AsyncConsumer
+import json
+
+from channels.generic.websocket import AsyncWebsocketConsumer
 
 
-class P2PTradeConsumer(AsyncConsumer):
-    async def websocket_connect(self, event):
-        print("connected", event)
-        await self.send({'type': 'websocket.accept'})
-        await self.send({'type': 'websocket.send', 'text': 'Hello World'})
+class P2PTradeConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.channel_layer.group_add('p2p', self.channel_name)
+        await self.accept()
+
+    async def disconnect(self, code):
+        await self.channel_layer.group_discard('p2p', self.channel_name)
+
+    async def send_new_data(self, event):
+        print(event)
+        new_data = event['text']
+        await self.send(json.dumps(new_data))

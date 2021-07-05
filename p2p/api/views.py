@@ -60,17 +60,28 @@ class CreateP2PAPIView(APIView):
         return Response({'message': 'Trade Created Successfully'}, status=201)
 
 
-class ListP2PAPIView(ListAPIView):
+class ListSellP2PAPIView(ListAPIView):
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
     serializer_class = P2PTradeSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    paginate_by = 100
+    paginate_by = 500
 
     def get_queryset(self):
         viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
         print(viewer_username)
-        return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(
-            active=True).exclude(trade_creator__username=viewer_username)
+        return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(active=True).filter(trade_listed_as="I WANT TO SELL").exclude(trade_creator__username=viewer_username)
+
+
+class ListBuyP2PAPIView(ListAPIView):
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+    serializer_class = P2PTradeSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    paginate_by = 500
+
+    def get_queryset(self):
+        viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
+        print(viewer_username)
+        return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(active=True).filter(trade_listed_as="I WANT TO BUY").exclude(trade_creator__username=viewer_username)
 
 
 class DetailP2PAPIView(RetrieveAPIView):

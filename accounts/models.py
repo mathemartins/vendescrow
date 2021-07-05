@@ -15,6 +15,7 @@ from django.utils import timezone
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from fiatwallet.models import FiatWallet
 from vendescrow import email_settings
 from vendescrow.utils import unique_key_generator, unique_slug_generator_by_email, random_string_generator
 
@@ -160,6 +161,7 @@ def post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
         obj = EmailActivation.objects.create(user=instance, email=instance.email)
         obj.send_activation()
         Profile.objects.create(user=instance, slug=unique_slug_generator_by_email(instance), keycode=random_string_generator(4))
+        FiatWallet.objects.create(user=instance)
 
 
 post_save.connect(post_save_user_create_reciever, sender=User)

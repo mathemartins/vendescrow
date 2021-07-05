@@ -20,5 +20,11 @@ class P2PTradeSerializer(serializers.ModelSerializer):
             'max_trading_amount_in_fiat',
             'asset_to_trade',
             'price_slippage',
+            'min_slippage',
+            'max_slippage',
+            'active',
+            'slug',
+            'timestamp',
+            'updated',
         ]
 
