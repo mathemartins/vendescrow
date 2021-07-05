@@ -175,3 +175,18 @@ class UserLock(models.Model):
         return str(self.user.email)
 
 
+class FavouriteAssets(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favourite_coins = models.ManyToManyField(to='coins.Coin')
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "favourite_assets"
+        verbose_name = "Favourite Asset"
+        verbose_name_plural = "Favourite Assets"
+        unique_together = ('user', 'slug',)
+
+    def __str__(self):
+        return str(self.user.username)

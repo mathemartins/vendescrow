@@ -67,9 +67,13 @@ class ListSellP2PAPIView(ListAPIView):
     paginate_by = 500
 
     def get_queryset(self):
-        viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
-        print(viewer_username)
-        return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(active=True).filter(trade_listed_as="I WANT TO SELL").exclude(trade_creator__username=viewer_username)
+        try:
+            viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
+            return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(
+                active=True).filter(trade_listed_as="I WANT TO SELL").exclude(trade_creator__username=viewer_username)
+        except P2PTrade.DoesNotExist:
+            return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(
+                active=True).filter(trade_listed_as="I WANT TO SELL")
 
 
 class ListBuyP2PAPIView(ListAPIView):
@@ -79,9 +83,13 @@ class ListBuyP2PAPIView(ListAPIView):
     paginate_by = 500
 
     def get_queryset(self):
-        viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
-        print(viewer_username)
-        return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(active=True).filter(trade_listed_as="I WANT TO BUY").exclude(trade_creator__username=viewer_username)
+        try:
+            viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
+            return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(
+                active=True).filter(trade_listed_as="I WANT TO BUY").exclude(trade_creator__username=viewer_username)
+        except P2PTrade.DoesNotExist:
+            return P2PTrade.objects.filter(trade_creator__profile__country=self.request.user.profile.country).filter(
+                active=True).filter(trade_listed_as="I WANT TO BUY")
 
 
 class DetailP2PAPIView(RetrieveAPIView):

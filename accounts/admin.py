@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from accounts.models import EmailActivation, Profile, UserLock
+from accounts.models import EmailActivation, Profile, UserLock, FavouriteAssets
 
 
 class EmailActivationAdmin(admin.ModelAdmin):
@@ -38,4 +38,12 @@ class UserLockModelAdmin(admin.ModelAdmin):
     search_fields = ('user',)
 
 
-admin.site.site_header = 'Vend Escrow'
+@admin.register(FavouriteAssets)
+class FavouriteAssetsModelAdmin(admin.ModelAdmin):
+    list_display = ('user', 'slug', 'timestamp', 'updated')
+    list_filter = ('slug', 'timestamp', 'updated')
+    prepopulated_fields = {'slug': ('user',)}
+    search_fields = ("user",)
+
+
+admin.site.site_header = 'VendEscrow'
