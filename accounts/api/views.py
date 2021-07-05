@@ -1,4 +1,8 @@
+import json
+
 from django.contrib.auth import get_user_model
+from django.core import serializers
+from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.generics import CreateAPIView
@@ -9,7 +13,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from accounts.api.permissions import AnonPermissionOnly
 from accounts.api.serializers import UserLoginSerializer, UserRegisterSerializer
-from accounts.models import UserLock
+from accounts.models import UserLock, FavouriteAssets
 
 User = get_user_model()
 
@@ -95,3 +99,17 @@ class UserLockView(APIView):
         except UserLock.DoesNotExist:
             UserLock.objects.create(user=self.request.user, lock_key=int(pin))
             return Response({'message': 'Data Received Successfully', 'user': str(self.request.user)}, status=201)
+
+
+class FavouriteAssetAPIView(APIView):
+    authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get(self, request, *args, **kwargs):
+        user_fav_assets_obj, created = FavouriteAssets.objects.get_or_create(user=self.request.user)
+        fav_asset_list = user_fav_assets_obj.favourite_coins.all()
+        response = serializers.serialize('json', fav_asset_list)
+        return HttpResponse(response, content_type='application/json')
+
+    def post(self, request, *args, **kwargs):
+        pass
