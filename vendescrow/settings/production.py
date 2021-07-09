@@ -69,6 +69,7 @@ INSTALLED_APPS += [
     'mono',
     'transactions',
     'coins',
+    'referrals',
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'

@@ -57,6 +57,16 @@ urlpatterns += [
     path('api/p2p/', include(('p2p.api.urls', 'api-p2p'), namespace='api-p2p')),
 ]
 
+# api p2p urls
+urlpatterns += [
+    path('api/fiat-wallet/', include(('fiatwallet.api.urls', 'api-fiatwallet'), namespace='api-fiatwallet')),
+]
+
+# api referrals
+urlpatterns += [
+    path('api/referrals/', include(('referrals.api.urls', 'api-referrals'), namespace='api-referrals')),
+]
+
 # authentication urls
 urlpatterns += [
     path('accounts/', RedirectView.as_view(url='/account')),

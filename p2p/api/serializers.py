@@ -5,6 +5,7 @@ from p2p.models import P2PTrade
 
 class P2PTradeSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField('api-p2p:detail', lookup_field='slug')
+    trade_creator_username = serializers.SerializerMethodField('get_trade_creator')
 
     class Meta:
         model = P2PTrade
@@ -12,6 +13,7 @@ class P2PTradeSerializer(serializers.ModelSerializer):
             'url',
             'id',
             'trade_creator',
+            'trade_creator_username',
             'transactions',
             'trade_listed_as',
             'creator_rate_in_dollar',
@@ -27,4 +29,7 @@ class P2PTradeSerializer(serializers.ModelSerializer):
             'timestamp',
             'updated',
         ]
+
+    def get_trade_creator(self, obj): # where obj is instance of the model class
+        return obj.trade_creator.username
 
