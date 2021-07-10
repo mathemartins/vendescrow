@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -9,6 +10,9 @@ from vendescrow.utils import random_string_generator
 
 class EarlyBirdAccessAPIView(APIView):
     permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect("https://www.vendescrow.com/")
 
     def post(self, request, *args, **kwargs):
         referral_code = request.query_params.get('ref_id')
