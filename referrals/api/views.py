@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -12,7 +13,10 @@ class EarlyBirdAccessAPIView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseRedirect("https://www.vendescrow.com/")
+        base_url = getattr(settings, 'BASE_URL', 'https://www.vendescrow.com')
+        url = base_url + request.path + 'ref_id=' + request.query_params.get('ref_id')
+        print(request.query_params.get('ref_id'), url)
+        return HttpResponseRedirect("https://www.vendescrow.com/?ref_id={referral_code}".format(referral_code=request.query_params.get('ref_id')))
 
     def post(self, request, *args, **kwargs):
         referral_code = request.query_params.get('ref_id')
