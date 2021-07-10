@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vendescrow/settings/production.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/settings/production.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendescrow/celery/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/celery/__init__.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,22 +16,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/api/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1168">
-              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="207">
-              <caret line="107" column="66" lean-forward="true" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="66" />
+              <caret line="107" column="66" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="66" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -43,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/referrals/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="112">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -55,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/referrals/admin.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="80">
-              <caret line="5" column="36" lean-forward="true" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+              <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -67,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/referrals/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="78">
-              <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+              <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -76,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/referrals/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="39" column="66" lean-forward="true" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
+              <caret line="39" column="66" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -87,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="185" column="29" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
+            <state relative-caret-position="64">
+              <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
               <folding>
                 <element signature="e#310#319#0" expanded="true" />
               </folding>
@@ -96,11 +84,38 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/coins/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="38" column="20" lean-forward="true" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+            <state relative-caret-position="144">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/coins/websocket/consumers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vendescrow/celery/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#56#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,21 +124,9 @@
         <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1138">
-              <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+              <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
               <folding>
                 <element signature="e#110#119#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/api/user/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-450">
-              <caret line="19" column="24" lean-forward="true" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -167,7 +170,6 @@
         <option value="$PROJECT_DIR$/coins/models.py" />
         <option value="$PROJECT_DIR$/coins/tasks.py" />
         <option value="$PROJECT_DIR$/coins/websocket/consumers.py" />
-        <option value="$PROJECT_DIR$/vendescrow/celery/__init__.py" />
         <option value="$PROJECT_DIR$/p2p/websocket/routing.py" />
         <option value="$PROJECT_DIR$/p2p/websocket/consumers.py" />
         <option value="$PROJECT_DIR$/p2p/tasks.py" />
@@ -196,6 +198,7 @@
         <option value="$PROJECT_DIR$/referrals/api/views.py" />
         <option value="$PROJECT_DIR$/vendescrow/settings/local.py" />
         <option value="$PROJECT_DIR$/vendescrow/settings/production.py" />
+        <option value="$PROJECT_DIR$/vendescrow/celery/__init__.py" />
       </list>
     </option>
   </component>
@@ -244,6 +247,12 @@
             <path>
               <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
               <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+              <item name="coins" type="462c0819:PsiDirectoryNode" />
+              <item name="websocket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
               <item name="fiatwallet" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -300,6 +309,12 @@
               <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
               <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
               <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+              <item name="vendescrow" type="462c0819:PsiDirectoryNode" />
+              <item name="celery" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vendescrow" type="b2602c69:ProjectViewProjectNode" />
@@ -430,12 +445,12 @@
       <workItem from="1624832431967" duration="18503000" />
       <workItem from="1624964835284" duration="46819000" />
       <workItem from="1625768057562" duration="9331000" />
-      <workItem from="1625827435469" duration="21334000" />
+      <workItem from="1625827435469" duration="23475000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="759478000" />
+    <option name="totallyTimeSpent" value="761619000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -533,26 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/celery/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="24" column="32" lean-forward="true" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/coins/websocket/consumers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/p2p/websocket/consumers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -591,16 +586,6 @@
           <caret line="7" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/coins/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -768,7 +753,7 @@
     <entry file="file://$PROJECT_DIR$/accounts/api/user/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-450">
-          <caret line="19" column="24" lean-forward="true" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
@@ -788,7 +773,7 @@
     <entry file="file://$PROJECT_DIR$/accounts/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1168">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -798,7 +783,7 @@
     <entry file="file://$PROJECT_DIR$/vendescrow/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="107" column="66" lean-forward="true" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="66" />
+          <caret line="107" column="66" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="66" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -808,7 +793,7 @@
     <entry file="file://$PROJECT_DIR$/referrals/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -818,14 +803,14 @@
     <entry file="file://$PROJECT_DIR$/referrals/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
-          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/referrals/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
-          <caret line="5" column="36" lean-forward="true" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
@@ -835,7 +820,7 @@
     <entry file="file://$PROJECT_DIR$/referrals/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="39" column="66" lean-forward="true" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
+          <caret line="39" column="66" selection-start-line="39" selection-start-column="66" selection-end-line="39" selection-end-column="66" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
@@ -850,7 +835,7 @@
     <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1138">
-          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
           <folding>
             <element signature="e#110#119#0" expanded="true" />
           </folding>
@@ -864,20 +849,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="38" column="20" lean-forward="true" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vendescrow/settings/production.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="185" column="29" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
+        <state relative-caret-position="64">
+          <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
           <folding>
             <element signature="e#310#319#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
+    <entry file="file://$PROJECT_DIR$/coins/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="38" column="20" lean-forward="true" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+        <state relative-caret-position="144">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coins/websocket/consumers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendescrow/celery/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

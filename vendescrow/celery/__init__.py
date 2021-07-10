@@ -16,7 +16,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 
 app.conf.beat_schedule = {
-    'get_coins_data_from_coingecko_30s': {'task': 'coins.tasks.get_coins_data_from_coingecko','schedule': 30.0},
+    'get_coins_data_from_coingecko_30s': {'task': 'coins.tasks.get_coins_data_from_coingecko','schedule': 60.0},
 }
 
 # Load task modules from all registered Django app configs.
