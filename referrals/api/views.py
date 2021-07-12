@@ -25,7 +25,21 @@ class EarlyBirdAccessAPIView(APIView):
         email_exists = EarlyBirdAccess.objects.filter(email=email).exists()
         referral_code_exists = EarlyBirdAccess.objects.filter(referral_code=referral_code).exists()
         if email_exists:
-            return Response({'message': 'Email is already a vendecan'}, status=status.HTTP_302_FOUND)
+            # get the credentials associated to that email and return
+            instance = EarlyBirdAccess.objects.get(email=email)
+            response = {
+                'success': True,
+                'message': 'Account Retrieved!, You are already a vendecan',
+                'data': {
+                    'email': instance.email,
+                    'referral_code': instance.referral_code,
+                    'number_of_referrals': instance.number_of_referrals,
+                    'referral_link': instance.base_url,
+                    'timestamp': instance.timestamp,
+                    'guests_above': EarlyBirdAccess.objects.filter(number_of_referrals__gte=instance.number_of_referrals).count()
+                }
+            }
+            return Response(response, status=status.HTTP_200_OK)
 
         if referral_code_exists:
             referral_code_owner = EarlyBirdAccess.objects.get(referral_code=referral_code)
