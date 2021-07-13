@@ -30,6 +30,5 @@ class P2PTradeSerializer(serializers.ModelSerializer):
             'updated',
         ]
 
-    def get_trade_creator(self, obj): # where obj is instance of the model class
+    def get_trade_creator(self, obj):  # where obj is instance of the model class
         return obj.trade_creator.username
-

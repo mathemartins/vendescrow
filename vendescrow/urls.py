@@ -62,6 +62,11 @@ urlpatterns += [
     path('api/fiat-wallet/', include(('fiatwallet.api.urls', 'api-fiatwallet'), namespace='api-fiatwallet')),
 ]
 
+# api p2p urls
+urlpatterns += [
+    path('api/coins/', include(('coins.api.urls', 'api-coins'), namespace='api-coins')),
+]
+
 # api referrals
 urlpatterns += [
     path('api/referrals/', include(('referrals.api.urls', 'api-referrals'), namespace='api-referrals')),
