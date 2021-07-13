@@ -29,7 +29,7 @@ class EarlyBirdAccessAPIView(APIView):
             instance = EarlyBirdAccess.objects.get(email=email)
             response = {
                 'success': True,
-                'message': 'Account Retrieved!, You are already a vendecan',
+                'message': 'Account Retrieved! You are already a vendecan',
                 'data': {
                     'email': instance.email,
                     'referral_code': instance.referral_code,
