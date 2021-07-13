@@ -14,7 +14,7 @@ class EarlyBirdAccess(models.Model):
         return self.email
 
     class Meta:
-        ordering = ('number_of_referrals',)
+        ordering = ('-number_of_referrals',)
         db_table = 'early_access'
         verbose_name = 'Early Access'
         verbose_name_plural = 'Early Access'
