@@ -11,5 +11,5 @@ class CoinListAPIView(ListAPIView):
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
     serializer_class = CoinSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Coin.objects.all()
+    queryset = Coin.objects.all().order_by('pk')
     paginate_by = 500
