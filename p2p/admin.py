@@ -25,4 +25,5 @@ class P2PTransactionRegistration(admin.ModelAdmin):
 @admin.register(P2PTradeCoreSettings)
 class P2PCoreSettings(admin.ModelAdmin):
     list_display = ('escrow_fee', 'timestamp', 'updated')
+    list_display_links = ('timestamp',)
     list_editable = ('escrow_fee',)

@@ -1,16 +1,16 @@
 import json
 
 from django.db.models import Q
-from rest_framework import mixins
+from rest_framework import mixins, status
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from p2p.api.serializers import P2PTradeSerializer
-from p2p.models import P2PTrade
+from p2p.models import P2PTrade, P2PTradeCoreSettings
 from vendescrow.utils import round_decimals_down
 
 
@@ -105,3 +105,22 @@ class DetailP2PAPIView(RetrieveAPIView):
     def get_object(self):
         slug = self.kwargs["slug"]
         return get_object_or_404(P2PTrade, slug=slug)
+
+
+class P2PTradeSettingsAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        user_escrow_fee_obj = P2PTradeCoreSettings.objects.all().first()
+        status_code = status.HTTP_200_OK
+        response = {
+            'success': True,
+            'statusCode': status_code,
+            'message': 'Vendescrow settings retrieved successfully',
+            'data': [{
+                'escrow_fee': user_escrow_fee_obj.escrow_fee,
+            }]
+        }
+        return Response(response, status=status_code)
+
+
