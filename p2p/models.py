@@ -147,4 +147,4 @@ class P2PTradeCoreSettings(models.Model):
         verbose_name_plural = "P2P Trade Settings"
 
     def __str__(self):
-        return self.escrow_fee
+        return str(self.escrow_fee)

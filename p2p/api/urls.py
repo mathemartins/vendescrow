@@ -8,5 +8,4 @@ urlpatterns = [
     path('create/', CreateP2PAPIView.as_view(), name='create'),
     path('<slug:slug>/details/', DetailP2PAPIView.as_view(), name='detail'),
     path('trade-settings/', P2PTradeSettingsAPIView.as_view(), name='p2p-trade-settings'),
-
 ]
