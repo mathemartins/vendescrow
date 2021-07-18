@@ -29,14 +29,14 @@ class EscrowWalletAPIView(APIView):
         status_code = status.HTTP_200_OK
         response = {
             'success': True,
-            'status code': status_code,
+            'statusCode': status_code,
             'message': 'Escrow wallet retrieved successfully',
             'data': [{
                 'username': request.user.username,
                 'firstName': request.user.first_name,
                 'lastName': request.user.last_name,
                 'balance': user_escrow_wallet_obj.balance,
-                'account_status': user_escrow_wallet_obj.active,
+                'active': user_escrow_wallet_obj.active,
                 'slug': user_escrow_wallet_obj.slug
             }]
         }

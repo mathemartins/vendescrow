@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from p2p.models import P2PTrade, P2PTransaction
+from p2p.models import P2PTrade, P2PTransaction, P2PTradeCoreSettings
 
 
 @admin.register(P2PTrade)
@@ -20,3 +20,9 @@ class P2PTransactionRegistration(admin.ModelAdmin):
     list_display_links = ('trade', 'transaction_key')
     list_filter = ('transaction_key', 'status')
     search_fields = ('transaction_key', 'trade_visitor', 'fiat_paid')
+
+
+@admin.register(P2PTradeCoreSettings)
+class P2PCoreSettings(admin.ModelAdmin):
+    list_display = ('escrow_fee', 'timestamp', 'updated')
+    list_editable = ('escrow_fee',)

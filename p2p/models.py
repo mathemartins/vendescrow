@@ -107,7 +107,7 @@ def my_callback(sender, instance, *args, **kwargs):
 
 class P2PTransaction(models.Model):
     TRANSACTION_STATUS = (
-        ('RUNNING', 'RUNNING'),
+        ('CREATED AND RUNNING', 'CREATED AND RUNNING'),
         ('COMPLETED', 'COMPLETED'),
         ('CANCELLED', 'CANCELLED'),
         ('ON_APPEAL', 'ON_APPEAL'),
@@ -134,3 +134,17 @@ class P2PTransaction(models.Model):
     def get_absolute_url(self):
         if self.active:
             return reverse("p2p:trades", kwargs={"slug": self.slug})
+
+
+class P2PTradeCoreSettings(models.Model):
+    escrow_fee = models.FloatField(default=0.8)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "p2p_settings"
+        verbose_name = "P2P Trade Settings"
+        verbose_name_plural = "P2P Trade Settings"
+
+    def __str__(self):
+        return self.escrow_fee

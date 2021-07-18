@@ -237,7 +237,7 @@ def get_read_time(html_string):
     return int(read_time_min)
 
 
-def round_decimals_down(number: float, decimals: int = 3):
+def round_decimals_down(number: float, decimals: int = 5):
     """
     Returns a value rounded down to a specific number of decimal places.
     """

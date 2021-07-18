@@ -107,6 +107,9 @@ TEMPLATES = [
     },
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
 # WSGI_APPLICATION = 'vendescrow.wsgi.application'
 ASGI_APPLICATION = 'vendescrow.asgi.application'
 
@@ -181,6 +184,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media_root")
 PROTECTED_ROOT = os.path.join(BASE_DIR, "static", "protected_media")
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
