@@ -29,9 +29,9 @@ class P2PTrade(models.Model):
     transactions = models.PositiveIntegerField(default=0)
     trade_listed_as = models.CharField(choices=TRADE_TYPE, max_length=20, default='I WANT TO SELL')
     creator_rate_in_dollar = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    crypto_trading_amount = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
-    min_trading_amount_in_fiat = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
-    max_trading_amount_in_fiat = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
+    crypto_trading_amount = models.DecimalField(max_digits=20, decimal_places=5, blank=True, null=True)
+    min_trading_amount_in_fiat = models.DecimalField(max_digits=20, decimal_places=5, blank=True, null=True)
+    max_trading_amount_in_fiat = models.DecimalField(max_digits=20, decimal_places=5, blank=True, null=True)
     asset_to_trade = models.CharField(choices=ASSET, max_length=20, default='BTC')
     price_slippage = models.DecimalField(max_digits=4, decimal_places=3, default=1.000,
                                          help_text="standard 1 dollar rate")
@@ -116,9 +116,9 @@ class P2PTransaction(models.Model):
     trade = models.ForeignKey(P2PTrade, on_delete=models.CASCADE)
     transaction_key = models.CharField(max_length=300, blank=True, null=True)
     trade_visitor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trade_viewer')
-    crypto_unit_transacted = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
+    crypto_unit_transacted = models.DecimalField(max_digits=20, decimal_places=5, blank=True, null=True)
     fiat_paid = models.CharField(max_length=300, blank=True, null=True)
-    status = models.CharField(choices=TRANSACTION_STATUS, max_length=20, default='RUNNING')
+    status = models.CharField(choices=TRANSACTION_STATUS, max_length=20, default='CREATED AND RUNNING')
     slug = models.SlugField(max_length=300, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -129,7 +129,7 @@ class P2PTransaction(models.Model):
         verbose_name_plural = "P2P Trade Transactions"
 
     def __str__(self):
-        return str(self.trade_creator)
+        return str(self.trade.trade_creator)
 
     def get_absolute_url(self):
         if self.active:

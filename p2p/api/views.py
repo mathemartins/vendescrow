@@ -10,8 +10,8 @@ from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from p2p.api.serializers import P2PTradeSerializer
-from p2p.models import P2PTrade, P2PTradeCoreSettings
-from vendescrow.utils import round_decimals_down
+from p2p.models import P2PTrade, P2PTradeCoreSettings, P2PTransaction
+from vendescrow.utils import round_decimals_down, unique_id_generator
 
 
 class ListCreateP2PAPIView(mixins.CreateModelMixin, ListAPIView):  # DetailView CreateView FormView
@@ -124,3 +124,22 @@ class P2PTradeSettingsAPIView(APIView):
         return Response(response, status=status_code)
 
 
+class P2PTradeTransactionAPIView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly,]
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        trade_instance = P2PTrade.objects.get(slug=data['trade'])
+        trade_customer = request.user
+        trade_identifier = unique_id_generator(trade_instance)
+        P2PTransaction.objects.create(
+            trade=trade_instance,
+            transaction_key=trade_identifier,
+            trade_visitor=trade_customer,
+            crypto_unit_transacted=data['unitsOfAsset'],
+            fiat_paid=data['fiatToBePaid'],
+            status=data['status'],
+            slug=trade_identifier,
+        )
+        return Response({'message': 'Trade Transaction Created Successfully', 'tradeNarration': '{narration}'.format(narration=trade_identifier)}, status=201)

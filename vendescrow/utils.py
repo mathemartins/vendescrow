@@ -91,7 +91,7 @@ def unique_id_generator(instance):
     key = random_string_generator(size=size)
 
     Klass = instance.__class__
-    qs_exists = Klass.objects.filter(id=key).exists()
+    qs_exists = Klass.objects.filter(slug=key).exists()
     if qs_exists:
         return unique_slug_generator(instance)
     return key
