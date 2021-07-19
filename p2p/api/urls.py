@@ -1,7 +1,7 @@
 from django.urls import path
 
 from p2p.api.views import CreateP2PAPIView, DetailP2PAPIView, ListSellP2PAPIView, ListBuyP2PAPIView, \
-    P2PTradeSettingsAPIView, P2PTradeTransactionAPIView
+    P2PTradeSettingsAPIView, P2PTradeTransactionAPIView, P2PTradeTransactionRetrieveAPIView
 
 urlpatterns = [
     path('sell/', ListSellP2PAPIView.as_view(), name='list-sell'),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('trade-settings/', P2PTradeSettingsAPIView.as_view(), name='p2p-trade-settings'),
 
     path('create/transaction/', P2PTradeTransactionAPIView.as_view(), name='p2p-trade-create'),
+    path('<slug:slug>/<slug:transaction_key>/transaction/', P2PTradeTransactionRetrieveAPIView.as_view(), name='p2p-trade-view'),
 ]

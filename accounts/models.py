@@ -99,7 +99,7 @@ class EmailActivation(models.Model):
             }
             txt_ = get_template("registration/emails/verify.txt").render(context)
             html_ = get_template("registration/emails/verify.html").render(context)
-            subject = 'Vend Escrow Email Account Confirmation'
+            subject = 'Vendescrow Email Account Confirmation'
             from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [self.email]
 
