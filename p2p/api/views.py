@@ -303,6 +303,8 @@ class P2PTradeTransactionAPIView(APIView):
                 'buyer': "{first_name} {last_name}".format(first_name=request.user.first_name,
                                                            last_name=request.user.last_name),
                 'tradeType': "SELL {asset}".format(asset=trade_instance.asset_to_trade),
+                'currency': data['currency'],
+                'amount': transaction_instance.fiat_paid,
                 'narration': transaction_instance.transaction_key,
                 'phone': request.user.profile.phone
             }
@@ -324,6 +326,8 @@ class P2PTradeTransactionAPIView(APIView):
                 'buyer': request.user.username,
                 'tradeType': "SELL {asset}".format(asset=trade_instance.asset_to_trade),
                 'narration': transaction_instance.transaction_key,
+                'currency': data['currency'],
+                'amount': transaction_instance.fiat_paid,
                 'phone': trade_instance.trade_creator.profile.phone
             }
             html_ = get_template("p2p/emails/p2pTradeOnAppealBuyer.html").render(context)
@@ -338,4 +342,4 @@ class P2PTradeTransactionAPIView(APIView):
             message.fail_silently = False
             message.send()
 
-            return Response({'message': 'Trade Transaction Cancelled Successfully'}, status=201)
+            return Response({'message': 'Trade Transaction Has Been Placed On Appeal Successfully'}, status=201)
