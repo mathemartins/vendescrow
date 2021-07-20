@@ -232,7 +232,7 @@ class P2PTradeTransactionAPIView(APIView):
             message.send()
 
             return Response({'message': 'Trade Transaction Created Successfully',
-                             'tradeNarration': '{narration}'.format(narration=trade_identifier)}, status=201)
+                             'tradeNarration': '{narration}'.format(narration=trade_identifier), 'statusCode': status.HTTP_201_CREATED}, status=201)
 
         elif data['actionType'] == ACTION_CANCELLED:
             trade_instance = P2PTrade.objects.get(slug=data['trade'])
@@ -284,7 +284,8 @@ class P2PTradeTransactionAPIView(APIView):
             message.fail_silently = False
             message.send()
 
-            return Response({'message': 'Trade Transaction Cancelled Successfully'}, status=201)
+            return Response({'message': 'Trade Transaction Cancelled Successfully', 'statusCode': status.HTTP_200_OK}, status=201)
+
         elif data['actionType'] == ACTION_APPEAL:
             trade_instance = P2PTrade.objects.get(slug=data['trade'])
             trade_customer = request.user
@@ -342,4 +343,4 @@ class P2PTradeTransactionAPIView(APIView):
             message.fail_silently = False
             message.send()
 
-            return Response({'message': 'Trade Transaction Has Been Placed On Appeal Successfully'}, status=201)
+            return Response({'message': 'Trade Transaction Has Been Placed On Appeal Successfully', 'statusCode': status.HTTP_200_OK}, status=201)
