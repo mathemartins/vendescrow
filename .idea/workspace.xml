@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/p2p/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/emails/verify.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/emails/verify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow_db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow_db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="151" column="66" lean-forward="true" selection-start-line="151" selection-start-column="66" selection-end-line="151" selection-end-column="66" />
+            <state relative-caret-position="531">
+              <caret line="341" lean-forward="true" selection-start-line="341" selection-end-line="341" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -46,24 +41,6 @@
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="13" column="56" lean-forward="true" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -162,14 +139,14 @@
         <option value="$PROJECT_DIR$/vendescrow/utils.py" />
         <option value="$PROJECT_DIR$/p2p/models.py" />
         <option value="$PROJECT_DIR$/accounts/models.py" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html" />
         <option value="$PROJECT_DIR$/templates/registration/emails/verify.html" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html" />
         <option value="$PROJECT_DIR$/p2p/api/urls.py" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" />
         <option value="$PROJECT_DIR$/p2p/api/views.py" />
       </list>
     </option>
@@ -441,12 +418,12 @@
       <workItem from="1626404500806" duration="1123000" />
       <workItem from="1626419743194" duration="10925000" />
       <workItem from="1626629112749" duration="4682000" />
-      <workItem from="1626683847725" duration="23571000" />
+      <workItem from="1626683847725" duration="27626000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="821354000" />
+    <option name="totallyTimeSpent" value="825409000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -457,7 +434,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.3747954" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.3747954" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -850,13 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="78" lean-forward="true" selection-start-line="5" selection-start-column="78" selection-end-line="5" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mono/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -867,38 +837,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="16" column="49" lean-forward="true" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="14" column="66" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="66" />
+        <state relative-caret-position="272">
+          <caret line="17" column="22" lean-forward="true" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+        <state relative-caret-position="288">
+          <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#p#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" column="56" lean-forward="true" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+        <state relative-caret-position="176">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+        <state relative-caret-position="288">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="n#style#0;n#p#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -914,8 +900,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="151" column="66" lean-forward="true" selection-start-line="151" selection-start-column="66" selection-end-line="151" selection-end-column="66" />
+        <state relative-caret-position="531">
+          <caret line="341" lean-forward="true" selection-start-line="341" selection-end-line="341" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

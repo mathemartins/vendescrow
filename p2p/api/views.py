@@ -188,6 +188,7 @@ class P2PTradeTransactionAPIView(APIView):
                 'buyer': "{first_name} {last_name}".format(first_name=request.user.first_name,
                                                            last_name=request.user.last_name),
                 'tradeType': "SELL {asset}".format(asset=trade_instance.asset_to_trade),
+                'currency': data['currency'],
                 'amount': transaction_obj.fiat_paid,
                 'narration': trade_identifier
             }
@@ -211,6 +212,7 @@ class P2PTradeTransactionAPIView(APIView):
                 'buyer': request.user,
                 'tradeType': "BUY {asset}".format(asset=trade_instance.asset_to_trade),
                 'amount': transaction_obj.fiat_paid,
+                'currency': data['currency'],
                 'narration': trade_identifier,
                 'seller_bank': trade_instance.trade_creator.accountlinkage.bank.capitalize(),
                 'seller_account_numer': trade_instance.trade_creator.accountlinkage.account_number,
@@ -220,7 +222,7 @@ class P2PTradeTransactionAPIView(APIView):
             html_ = get_template("p2p/emails/p2pTradeBuyerEmail.html").render(context)
             subject = 'Vendescrow P2P Trade'
             from_email = email_settings.EMAIL_HOST_USER
-            recipient_list = [trade_instance.trade_creator.email]
+            recipient_list = [request.user.email]
 
             from django.core.mail import EmailMessage
             message = EmailMessage(
@@ -273,7 +275,7 @@ class P2PTradeTransactionAPIView(APIView):
             html_ = get_template("p2p/emails/p2pTradeCancelledBuyer.html").render(context)
             subject = 'Vendescrow P2P Trade'
             from_email = email_settings.EMAIL_HOST_USER
-            recipient_list = [trade_instance.trade_creator.email]
+            recipient_list = [request.user.email]
 
             from django.core.mail import EmailMessage
             message = EmailMessage(
@@ -327,7 +329,7 @@ class P2PTradeTransactionAPIView(APIView):
             html_ = get_template("p2p/emails/p2pTradeOnAppealBuyer.html").render(context)
             subject = 'Vendescrow P2P Trade'
             from_email = email_settings.EMAIL_HOST_USER
-            recipient_list = [trade_instance.trade_creator.email]
+            recipient_list = [request.user.email]
 
             from django.core.mail import EmailMessage
             message = EmailMessage(
