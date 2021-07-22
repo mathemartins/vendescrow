@@ -148,6 +148,9 @@ class P2PTradeTransactionRetrieveAPIView(APIView):
                 'trade_visitor': user_transaction_instance.trade_visitor.username,
                 'units_of_asset': user_transaction_instance.crypto_unit_transacted,
                 'fiat_paid': user_transaction_instance.fiat_paid,
+                'bank': trade_instance.trade_creator.accountlinkage.bank.capitalize(),
+                'account_number': trade_instance.trade_creator.accountlinkage.account_number,
+                'account_name': trade_instance.trade_creator.accountlinkage.fullName,
                 'status': user_transaction_instance.status,
                 'slug': user_transaction_instance.transaction_key,
             }]
@@ -215,7 +218,7 @@ class P2PTradeTransactionAPIView(APIView):
                 'currency': data['currency'],
                 'narration': trade_identifier,
                 'seller_bank': trade_instance.trade_creator.accountlinkage.bank.capitalize(),
-                'seller_account_numer': trade_instance.trade_creator.accountlinkage.account_number,
+                'seller_account_number': trade_instance.trade_creator.accountlinkage.account_number,
                 'seller_name': trade_instance.trade_creator.accountlinkage.fullName
             }
 

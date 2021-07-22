@@ -4,6 +4,7 @@
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/p2p/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,12 +20,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
-              <caret line="345" column="146" lean-forward="true" selection-start-line="345" selection-start-column="146" selection-end-line="345" selection-end-column="146" />
+            <state relative-caret-position="347">
+              <caret line="153" column="59" lean-forward="true" selection-start-line="153" selection-start-column="59" selection-end-line="153" selection-end-column="59" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#6090#8986#0" />
                 <element signature="e#9295#11822#0" />
+                <element signature="e#11738#14104#0" />
               </folding>
             </state>
           </provider>
@@ -148,11 +149,11 @@
         <option value="$PROJECT_DIR$/templates/registration/emails/verify.html" />
         <option value="$PROJECT_DIR$/p2p/api/urls.py" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeSellerEmail.html" />
-        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledBuyer.html" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealSeller.html" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" />
+        <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" />
         <option value="$PROJECT_DIR$/p2p/api/views.py" />
       </list>
     </option>
@@ -424,12 +425,12 @@
       <workItem from="1626404500806" duration="1123000" />
       <workItem from="1626419743194" duration="10925000" />
       <workItem from="1626629112749" duration="4682000" />
-      <workItem from="1626683847725" duration="30520000" />
+      <workItem from="1626683847725" duration="31377000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="828303000" />
+    <option name="totallyTimeSpent" value="829160000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -853,13 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="17" column="22" lean-forward="true" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeCancelledSeller.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -904,14 +898,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="345" column="146" lean-forward="true" selection-start-line="345" selection-start-column="146" selection-end-line="345" selection-end-column="146" />
+        <state relative-caret-position="347">
+          <caret line="153" column="59" lean-forward="true" selection-start-line="153" selection-start-column="59" selection-end-line="153" selection-end-column="59" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#6090#8986#0" />
             <element signature="e#9295#11822#0" />
+            <element signature="e#11738#14104#0" />
           </folding>
         </state>
       </provider>
