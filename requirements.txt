@@ -86,6 +86,7 @@ Pillow==7.0.0
 pipenv==2018.11.26
 protobuf==3.15.6
 psycopg2==2.8.4
+Py-Mono==0.0.1
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20

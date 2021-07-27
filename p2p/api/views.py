@@ -167,6 +167,8 @@ class P2PTradeTransactionAPIView(APIView):
         ACTION_CANCELLED = 0
         ACTION_CREATE = 1
         ACTION_APPEAL = 2
+        ACTION_VERIFY_TRANSACTION = 3
+
         if data['actionType'] == ACTION_CREATE:
             trade_instance = P2PTrade.objects.get(slug=data['trade'])
             trade_customer = request.user
@@ -347,3 +349,6 @@ class P2PTradeTransactionAPIView(APIView):
             message.send()
 
             return Response({'message': 'Trade Transaction Has Been Placed On Appeal Successfully', 'statusCode': status.HTTP_200_OK}, status=201)
+
+        elif data['actionType'] == ACTION_VERIFY_TRANSACTION:
+            pass
