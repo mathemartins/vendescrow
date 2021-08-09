@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from p2p.models import P2PTrade
+from p2p.models import P2PTrade, P2PTransaction
 
 
 class P2PTradeSerializer(serializers.ModelSerializer):
@@ -32,3 +32,35 @@ class P2PTradeSerializer(serializers.ModelSerializer):
 
     def get_trade_creator(self, obj):  # where obj is instance of the model class
         return obj.trade_creator.username
+
+
+class P2PTransactionSerializer(serializers.ModelSerializer):
+    trade_slug = serializers.SerializerMethodField('get_trade_slug')
+    trade_creator_username = serializers.SerializerMethodField('get_trade_creator')
+    trade_visitor_username = serializers.SerializerMethodField('get_trade_visitor')
+
+    class Meta:
+        model = P2PTransaction
+        fields = [
+            'id',
+            'trade',
+            'trade_slug',
+            'transaction_key',
+            'trade_creator_username',
+            'trade_visitor_username',
+            'crypto_unit_transacted',
+            'fiat_paid',
+            'status',
+            'slug',
+            'timestamp',
+            'updated',
+        ]
+
+    def get_trade_slug(self, obj):  # where obj is instance of the model class
+        return obj.slug
+
+    def get_trade_creator(self, obj):  # where obj is instance of the model class
+        return obj.trade.trade_creator.username
+
+    def get_trade_visitor(self, obj):  # where obj is instance of the model class
+        return obj.trade_visitor

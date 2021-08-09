@@ -40,6 +40,7 @@ class P2PTrade(models.Model):
     max_slippage = models.DecimalField(max_digits=4, decimal_places=3, default=1.020,
                                        help_text="maximum above 1 dollar")
     active = models.BooleanField(default=True)
+    owner_cancel_trade = models.BooleanField(default=False)
     slug = models.SlugField(max_length=300, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
