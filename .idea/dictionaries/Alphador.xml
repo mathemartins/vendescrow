@@ -21,8 +21,10 @@
       <w>rabbitmq</w>
       <w>sameorigin</w>
       <w>satoshi</w>
+      <w>sendgrid</w>
       <w>testnet</w>
       <w>tosign</w>
+      <w>twilio</w>
       <w>txhash</w>
       <w>vendecan</w>
       <w>vendescrow</w>

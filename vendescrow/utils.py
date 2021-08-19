@@ -2,14 +2,16 @@ import datetime
 import os
 import random
 import string
-
-import math
-from django.utils import timezone
-from django.utils.text import slugify
-
 import re
 
+import math
+from django.core.mail import EmailMessage
+from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.html import strip_tags
+from twilio.rest import Client
+
+from vendescrow import email_settings
 
 
 def get_last_month_data(today):
@@ -250,3 +252,21 @@ def round_decimals_down(number: float, decimals: int = 5):
 
     factor = 10 ** decimals
     return math.floor(number * factor) / factor
+
+
+# Send SMS Using Twilio
+def send_sms(message_body: str, recipient_phone: str) -> str:
+    account_sid = "AC9b3f94478614261fe94d83274dff3969"
+    auth_token = "7ff3d4e8d5ba35196c9613cecbaf2336"
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(body=message_body,from_='+16099105791',to=recipient_phone)
+    return message.sid
+
+
+# Send Email Using Sendgrid
+def send_email(subject: str, html, recipient_list: list):
+    message = EmailMessage(
+        subject, html, email_settings.EMAIL_HOST_USER, recipient_list
+    )
+    message.fail_silently = False
+    message.send()

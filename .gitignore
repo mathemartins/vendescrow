@@ -138,3 +138,4 @@ reports
 # Created by .ignore support plugin (hsz.mobi)
 vendescrow/settings/local.py
 
+"sendgrid.env" 

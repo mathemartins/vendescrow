@@ -22,7 +22,7 @@ from mono.models import AccountLinkage
 from p2p.api.serializers import P2PTradeSerializer, P2PTransactionSerializer
 from p2p.models import P2PTrade, P2PTradeCoreSettings, P2PTransaction
 from vendescrow import email_settings
-from vendescrow.utils import round_decimals_down, unique_id_generator, random_string_generator
+from vendescrow.utils import round_decimals_down, unique_id_generator, random_string_generator, send_email, send_sms
 from wallets.api.views import web3
 from wallets.models import BitcoinWallet, LitecoinWallet, DogecoinWallet, EthereumWallet, TetherUSDWallet
 
@@ -465,8 +465,10 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         seller_wallet = BitcoinWallet.objects.get(user=seller)
 
                                         # send crypto to buyer and reduce frozen asset of seller
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-                                        buyer_wallet.available = str(round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        buyer_wallet.available = str(
+                                            round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
                                         seller_wallet.save()
                                         buyer_wallet.save()
 
@@ -895,8 +897,10 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         amount = data['cryptoUnits']
                                         gas_price = float(request.data.get('networkFee', )) / 10
 
-                                        tether_address = Web3.toChecksumAddress('0xdac17f958d2ee523a2206206994597c13d831ec7')
-                                        tether_abi = json.loads('[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]')
+                                        tether_address = Web3.toChecksumAddress(
+                                            '0xdac17f958d2ee523a2206206994597c13d831ec7')
+                                        tether_abi = json.loads(
+                                            '[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]')
                                         tether_contract = web3.eth.contract(address=tether_address, abi=tether_abi)
 
                                         user_usdt_wallet = TetherUSDWallet.objects.get(user=seller)
@@ -915,7 +919,8 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                                 '{blockchain_gasFee}'.format(blockchain_gasFee=gas_price), 'gwei'),
                                             'nonce': nonce
                                         })
-                                        signed_tx = web3.eth.account.signTransaction(tx,private_key=decrypted_private_key)
+                                        signed_tx = web3.eth.account.signTransaction(tx,
+                                                                                     private_key=decrypted_private_key)
                                         tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
                                         seller_wallet.amount = str(
@@ -1088,15 +1093,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeSellerEmail.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [trade_instance.trade_creator.email]
 
-            from django.core.mail import EmailMessage
-            message = EmailMessage(
-                subject, html_, from_email, recipient_list
-            )
-            message.fail_silently = False
-            message.send()
+            send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
             # send email to trade visitor notifying them about the trade
             context = {
@@ -1114,15 +1113,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
             html_ = get_template("p2p/emails/p2pTradeBuyerEmail.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [request.user.email]
 
-            from django.core.mail import EmailMessage
-            message = EmailMessage(
-                subject, html_, from_email, recipient_list
-            )
-            message.fail_silently = False
-            message.send()
+            send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
             return Response({'message': 'Trade Transaction Created Successfully',
                              'tradeNarration': '{narration}'.format(narration=trade_identifier),
@@ -1150,15 +1143,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeCancelledSeller.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [trade_instance.trade_creator.email]
 
-            from django.core.mail import EmailMessage
-            message = EmailMessage(
-                subject, html_, from_email, recipient_list
-            )
-            message.fail_silently = False
-            message.send()
+            send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
             # notify seller that they cancelled
             context = {
@@ -1168,15 +1155,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeCancelledBuyer.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [request.user.email]
 
-            from django.core.mail import EmailMessage
-            message = EmailMessage(
-                subject, html_, from_email, recipient_list
-            )
-            message.fail_silently = False
-            message.send()
+            send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
             return Response({'message': 'Trade Transaction Cancelled Successfully', 'statusCode': status.HTTP_200_OK},
                             status=201)
@@ -1206,15 +1187,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeOnAppealSeller.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [trade_instance.trade_creator.email]
 
-            from django.core.mail import EmailMessage
-            message = EmailMessage(
-                subject, html_, from_email, recipient_list
-            )
-            message.fail_silently = False
-            message.send()
+            send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
             # notify buyer that they cancelled
             context = {
@@ -1228,18 +1203,16 @@ class P2PTradeBUYTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeOnAppealBuyer.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
             recipient_list = [request.user.email]
 
-            from django.core.mail import EmailMessage
-            message = EmailMessage(
-                subject, html_, from_email, recipient_list
-            )
-            message.fail_silently = False
-            message.send()
+            send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
-            return Response({'message': 'Trade Transaction Has Been Placed On Appeal Successfully',
-                             'statusCode': status.HTTP_200_OK}, status=201)
+            return Response(
+                {
+                    'message': 'Trade Transaction Has Been Placed On Appeal Successfully',
+                    'statusCode': status.HTTP_200_OK
+                }, status=201
+            )
 
         elif data['actionType'] == ACTION_VERIFY_TRANSACTION:
             asset = data['asset']
@@ -1306,7 +1279,8 @@ class P2PTradeBUYTransactionAPIView(APIView):
                     date_list.append(today)
                     this_day = str(date_list[0])
                     print(this_day)
-                    if narration.find(AccountLinkage.objects.get(user=buyer).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
+                    if narration.find(AccountLinkage.objects.get(
+                            user=buyer).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
                         print("found!")
                         # check seller account immediately
                         # check credit transaction list for seller
@@ -1330,15 +1304,18 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                 amount: int = data_list[index]['amount'] / 100
                                 date: str = data_list[index]['date']
                                 print(date)
-                                if narration.find(AccountLinkage.objects.get(user=seller).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
+                                if narration.find(AccountLinkage.objects.get(
+                                        user=seller).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
                                     print("found!")
                                     if asset == 'BTC':
                                         buyer_wallet = BitcoinWallet.objects.get(user=buyer)
                                         seller_wallet = BitcoinWallet.objects.get(user=seller)
 
                                         # send crypto to buyer and reduce frozen asset of seller
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-                                        buyer_wallet.available = str(round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        buyer_wallet.available = str(
+                                            round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
                                         print(buyer_wallet.available)
                                         seller_wallet.save()
                                         buyer_wallet.save()
@@ -1346,8 +1323,10 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         # subtract money from both buyer and seller fiat wallet
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
-                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(escrow_instance.escrow_fee)
-                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(escrow_instance.escrow_fee)
+                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
+                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
 
@@ -1383,18 +1362,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [seller.email]
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # # notify buyer that the transaction was successful
                                         context = {
-                                            'seller': "{first_name} {last_name}".format(first_name=seller.first_name, last_name=seller.last_name),
+                                            'seller': "{first_name} {last_name}".format(first_name=seller.first_name,
+                                                                                        last_name=seller.last_name),
                                             'buyer': buyer.first_name,
                                             'tradeType': "SELL {asset}".format(asset=asset),
                                             'currency': data['currency'],
@@ -1405,16 +1380,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [buyer.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
@@ -1443,12 +1411,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             status=status.HTTP_201_CREATED
                                         )
                                     elif asset == 'LTC':
-                                        seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade.trade_creator
+                                        seller = P2PTransaction.objects.get(
+                                            transaction_key=data['transactionKey']).trade.trade_creator
                                         buyer_wallet = LitecoinWallet.objects.get(user=buyer)
                                         seller_wallet = LitecoinWallet.objects.get(user=seller)
 
                                         # send crypto to buyer and reduce frozen asset of seller
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
 
                                         buyer_wallet.available = str(
                                             round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
@@ -1460,8 +1430,10 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
 
-                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(escrow_instance.escrow_fee)
-                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(escrow_instance.escrow_fee)
+                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
+                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
 
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
@@ -1484,16 +1456,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [seller.email]
-                                        from django.core.mail import EmailMessage
 
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # notify buyer that the transaction was successful
                                         context = {
@@ -1509,15 +1474,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [buyer.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
@@ -1546,12 +1505,15 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         )
 
                                     elif asset == 'DOGE':
-                                        seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade.trade_creator
+                                        seller = P2PTransaction.objects.get(
+                                            transaction_key=data['transactionKey']).trade.trade_creator
                                         buyer_wallet = DogecoinWallet.objects.get(user=buyer)
                                         seller_wallet = DogecoinWallet.objects.get(user=seller)
 
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-                                        buyer_wallet.available = str(round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        buyer_wallet.available = str(
+                                            round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
                                         seller_wallet.save()
                                         buyer_wallet.save()
 
@@ -1559,8 +1521,10 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
 
-                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(escrow_instance.escrow_fee)
-                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(escrow_instance.escrow_fee)
+                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
+                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
 
@@ -1579,19 +1543,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [seller.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # notify buyer that the transaction was successful
                                         context = {
-                                            'seller': "{first_name} {last_name}".format(first_name=seller.first_name, last_name=seller.last_name),
+                                            'seller': "{first_name} {last_name}".format(first_name=seller.first_name,
+                                                                                        last_name=seller.last_name),
                                             'buyer': buyer.first_name,
                                             'tradeType': "SELL {asset}".format(asset=asset),
                                             'currency': data['currency'],
@@ -1602,16 +1561,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [buyer.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
@@ -1640,7 +1592,8 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         )
 
                                     elif asset == 'ETH':
-                                        seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade.trade_creator
+                                        seller = P2PTransaction.objects.get(
+                                            transaction_key=data['transactionKey']).trade.trade_creator
                                         buyer_wallet = EthereumWallet.objects.get(user=buyer)
                                         seller_wallet = EthereumWallet.objects.get(user=seller)
 
@@ -1658,26 +1611,34 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'to': receiver_address,
                                             'value': web3.toWei(amount, 'ether'),
                                             'gas': 21000,
-                                            'gasPrice': web3.toWei('{blockchain_gasFee}'.format(blockchain_gasFee=gas_price),'gwei')
+                                            'gasPrice': web3.toWei(
+                                                '{blockchain_gasFee}'.format(blockchain_gasFee=gas_price), 'gwei')
                                         }
 
-                                        signed_transaction = web3.eth.account.signTransaction(transaction_dict=tx, private_key=decrypted_private_key)
+                                        signed_transaction = web3.eth.account.signTransaction(transaction_dict=tx,
+                                                                                              private_key=decrypted_private_key)
                                         tx_hash = web3.eth.sendRawTransaction(signed_transaction.rawTransaction)
 
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-                                        seller_wallet.previous_bal = str(round(float(seller_wallet.previous_bal) - float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        seller_wallet.previous_bal = str(
+                                            round(float(seller_wallet.previous_bal) - float(data['cryptoUnits']), 8))
                                         seller_wallet.save()
 
-                                        buyer_wallet.available = str(round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
-                                        buyer_wallet.previous_bal = str(round(float(buyer_wallet.previous_bal) + float(data['cryptoUnits']), 8))
+                                        buyer_wallet.available = str(
+                                            round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+                                        buyer_wallet.previous_bal = str(
+                                            round(float(buyer_wallet.previous_bal) + float(data['cryptoUnits']), 8))
                                         buyer_wallet.save()
 
                                         # subtract money from both buyer and seller fiat wallet
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
 
-                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(escrow_instance.escrow_fee)
-                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(escrow_instance.escrow_fee)
+                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
+                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
 
@@ -1696,15 +1657,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [seller.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # notify buyer that the transaction was successful
                                         context = {
@@ -1722,15 +1677,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [buyer.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
@@ -1759,19 +1708,24 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         )
 
                                     elif asset == 'USDT':
-                                        seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade.trade_creator
+                                        seller = P2PTransaction.objects.get(
+                                            transaction_key=data['transactionKey']).trade.trade_creator
                                         buyer_wallet = EthereumWallet.objects.get(user=buyer)
                                         seller_wallet = EthereumWallet.objects.get(user=seller)
 
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-                                        buyer_wallet.available = str(round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        buyer_wallet.available = str(
+                                            round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
                                         receiver_address = buyer_wallet.public_key
 
                                         amount = data['cryptoUnits']
                                         gas_price = float(request.data.get('networkFee', )) / 10
 
-                                        tether_address = Web3.toChecksumAddress('0xdac17f958d2ee523a2206206994597c13d831ec7')
-                                        tether_abi = json.loads('[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]')
+                                        tether_address = Web3.toChecksumAddress(
+                                            '0xdac17f958d2ee523a2206206994597c13d831ec7')
+                                        tether_abi = json.loads(
+                                            '[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]')
 
                                         tether_contract = web3.eth.contract(address=tether_address, abi=tether_abi)
                                         user_usdt_wallet = TetherUSDWallet.objects.get(user=seller)
@@ -1791,15 +1745,20 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'nonce': nonce
                                         })
 
-                                        signed_tx = web3.eth.account.signTransaction(tx, private_key=decrypted_private_key)
+                                        signed_tx = web3.eth.account.signTransaction(tx,
+                                                                                     private_key=decrypted_private_key)
                                         tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
-                                        seller_wallet.amount = str(round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-                                        seller_wallet.previous_bal = str(round(float(seller_wallet.previous_bal) - float(data['cryptoUnits']), 8))
+                                        seller_wallet.amount = str(
+                                            round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
+                                        seller_wallet.previous_bal = str(
+                                            round(float(seller_wallet.previous_bal) - float(data['cryptoUnits']), 8))
                                         seller_wallet.save()
 
-                                        buyer_wallet.available = str(round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
-                                        buyer_wallet.previous_bal = str(round(float(buyer_wallet.previous_bal) + float(data['cryptoUnits']), 8))
+                                        buyer_wallet.available = str(
+                                            round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+                                        buyer_wallet.previous_bal = str(
+                                            round(float(buyer_wallet.previous_bal) + float(data['cryptoUnits']), 8))
                                         buyer_wallet.save()
 
                                         # subtract money from both buyer and seller fiat wallet
@@ -1807,8 +1766,10 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
 
-                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(escrow_instance.escrow_fee)
-                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(escrow_instance.escrow_fee)
+                                        buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
+                                        seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
+                                            escrow_instance.escrow_fee)
 
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
@@ -1829,15 +1790,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [seller.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # notify buyer that the transaction was successful
                                         context = {
@@ -1853,15 +1808,9 @@ class P2PTradeBUYTransactionAPIView(APIView):
 
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [buyer.email]
 
-                                        from django.core.mail import EmailMessage
-                                        message = EmailMessage(
-                                            subject, html_, from_email, recipient_list
-                                        )
-                                        message.fail_silently = False
-                                        message.send()
+                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
