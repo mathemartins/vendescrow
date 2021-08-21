@@ -1,5 +1,5 @@
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_USER = 'team@vendescrow.com'
 EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
