@@ -60,7 +60,7 @@ class DogecoinWallet(models.Model):
         verbose_name_plural = "Dogecoin Wallets"
 
     def __str__(self):
-        return self.address
+        return self.name
 
 
 class LitecoinWallet(models.Model):
@@ -88,7 +88,7 @@ class LitecoinWallet(models.Model):
         verbose_name_plural = "Litecoin Wallets"
 
     def __str__(self):
-        return self.address
+        return self.name
 
 
 class DashWallet(models.Model):
