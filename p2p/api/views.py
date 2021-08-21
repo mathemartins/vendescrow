@@ -1021,7 +1021,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         )
                                 return Response(response, status=status_code)
 
-                    return Response({"message": "Transaction not found"}, status=status_code)
+                return Response({"message": "Transaction not found"}, status=status_code)
 
 
 class P2PTradeBUYTransactionRetrieveAPIView(APIView):
