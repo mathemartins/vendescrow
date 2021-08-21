@@ -423,12 +423,15 @@ class P2PTradeSELLTransactionAPIView(APIView):
                     narration = data_list[index]['narration']
                     amount: int = data_list[index]['amount'] / 100
                     date: str = data_list[index]['date']
+                    print(amount)
                     print(date)
                     today = datetime.date.today()
                     date_list = list()
                     date_list.append(today)
                     this_day = str(date_list[0])
                     print(this_day)
+                    print(AccountLinkage.objects.get(user=buyer).fullName)
+                    print(transaction_instance.fiat_paid)
                     if narration.find(AccountLinkage.objects.get(
                             user=buyer).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
                         print("found!")

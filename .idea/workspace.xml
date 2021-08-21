@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/p2p/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/email_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/email_settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-498">
-              <caret line="985" column="86" selection-start-line="985" selection-start-column="86" selection-end-line="985" selection-end-column="86" />
+            <state relative-caret-position="317">
+              <caret line="431" column="35" lean-forward="true" selection-start-line="431" selection-start-column="35" selection-end-line="431" selection-end-column="35" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -490,12 +490,12 @@
       <workItem from="1628091401709" duration="44185000" />
       <workItem from="1628662215464" duration="470000" />
       <workItem from="1629375886843" duration="15541000" />
-      <workItem from="1629545360322" duration="4066000" />
+      <workItem from="1629545360322" duration="4577000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="938461000" />
+    <option name="totallyTimeSpent" value="938972000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -516,7 +516,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Pylint" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.45335516" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.45335516" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Sourcery" order="14" weight="0.3289689" />
       <window_info anchor="bottom" id="Python Console" order="15" />
@@ -954,8 +954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-498">
-          <caret line="985" column="86" selection-start-line="985" selection-start-column="86" selection-end-line="985" selection-end-column="86" />
+        <state relative-caret-position="317">
+          <caret line="431" column="35" lean-forward="true" selection-start-line="431" selection-start-column="35" selection-end-line="431" selection-end-column="35" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
