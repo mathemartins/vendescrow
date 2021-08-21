@@ -212,7 +212,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeSellerEmail.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [trade_instance.trade_creator.email]
 
             from django.core.mail import EmailMessage
@@ -239,7 +239,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
 
             html_ = get_template("p2p/emails/p2pTradeBuyerEmail.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [request.user.email]
 
             from django.core.mail import EmailMessage
@@ -275,7 +275,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeCancelledSeller.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [trade_instance.trade_creator.email]
 
             from django.core.mail import EmailMessage
@@ -293,7 +293,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeCancelledBuyer.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [request.user.email]
 
             from django.core.mail import EmailMessage
@@ -331,7 +331,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeOnAppealSeller.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [trade_instance.trade_creator.email]
 
             from django.core.mail import EmailMessage
@@ -353,7 +353,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeOnAppealBuyer.html").render(context)
             subject = 'Vendescrow P2P Trade'
-            from_email = email_settings.EMAIL_HOST_USER
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [request.user.email]
 
             from django.core.mail import EmailMessage
@@ -514,7 +514,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
                                         from django.core.mail import EmailMessage
@@ -537,7 +537,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
                                         from django.core.mail import EmailMessage
@@ -610,7 +610,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
                                         from django.core.mail import EmailMessage
@@ -633,7 +633,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
                                         from django.core.mail import EmailMessage
@@ -703,7 +703,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
                                         from django.core.mail import EmailMessage
@@ -726,7 +726,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
                                         from django.core.mail import EmailMessage
@@ -825,7 +825,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
                                         from django.core.mail import EmailMessage
@@ -848,7 +848,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
                                         from django.core.mail import EmailMessage
@@ -983,7 +983,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         }
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        from_email = email_settings.EMAIL_HOST_USER
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [request.user.email]
 
                                         from django.core.mail import EmailMessage
