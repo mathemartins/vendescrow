@@ -372,6 +372,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
             seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade.trade_creator
             buyer = request.user
             trade_instance = P2PTrade.objects.get(slug=data['trade'])
+            transaction_key = data['transactionKey']
             transaction_instance = P2PTransaction.objects.get(
                 transaction_key=data['transactionKey'],
                 trade_visitor=buyer,
@@ -405,7 +406,11 @@ class P2PTradeSELLTransactionAPIView(APIView):
             # check debit transaction list for buyer
             url = "https://api.withmono.com/accounts/{exchange_token}/transactions".format(
                 exchange_token=AccountLinkage.objects.get(user=buyer).exchange_token)
-            querystring = {"type": "debit"}
+            querystring = {
+                "narration": "{transaction_key}".format(transaction_key=transaction_key),
+                "type": "debit",
+                "paginate": "true"
+            }
             headers = {
                 "Accept": "application/json",
                 "mono-sec-key": "live_sk_8vrj5erb1rlMwvLzQgot"
@@ -440,7 +445,11 @@ class P2PTradeSELLTransactionAPIView(APIView):
                         # check credit transaction list for seller
                         url = "https://api.withmono.com/accounts/{exchange_token}/transactions".format(
                             exchange_token=AccountLinkage.objects.get(user=seller).exchange_token)
-                        querystring = {"type": "credit"}
+                        querystring = {
+                            "narration": "{transaction_key}".format(transaction_key=transaction_key),
+                            "type": "credit",
+                            "paginate": "true"
+                        }
                         headers = {
                             "Accept": "application/json",
                             "mono-sec-key": "live_sk_8vrj5erb1rlMwvLzQgot"
