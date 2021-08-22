@@ -437,12 +437,12 @@ class P2PTradeSELLTransactionAPIView(APIView):
                     print(this_day)
                     print(AccountLinkage.objects.get(user=buyer).fullName)
                     print(transaction_instance.fiat_paid)
-                    print(amount == transaction_instance.fiat_paid)
+                    print(amount == float(transaction_instance.fiat_paid))
                     print(narration.find(transaction_key))
                     print(narration)
                     print(transaction_key)
                     print(this_day in date)
-                    if narration.find(transaction_key) and amount == transaction_instance.fiat_paid and this_day in date:
+                    if amount == float(transaction_instance.fiat_paid) and this_day in date:
                         print("found!")
                         # check seller account immediately
 
@@ -471,7 +471,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                 amount: int = data_list[index]['amount'] / 100
                                 date: str = data_list[index]['date']
                                 print(date)
-                                if narration.find(transaction_key) and amount == transaction_instance.fiat_paid and this_day in date:
+                                if amount == float(transaction_instance.fiat_paid) and this_day in date:
                                     print("found again!")
                                     if asset == 'BTC':
                                         seller = P2PTransaction.objects.get(
