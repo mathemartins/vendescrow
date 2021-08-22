@@ -565,6 +565,8 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         message.fail_silently = False
                                         message.send()
 
+                                        print("i passed email sending")
+
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
                                         trade_customer = buyer
@@ -576,9 +578,13 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                         transaction_instance.status = "COMPLETED"
                                         transaction_instance.save()
 
+                                        print("i saved")
+
                                         # activate the trade again
                                         trade_instance.active = True
                                         trade_instance.save()
+
+                                        print("i saved again")
 
                                         return Response(
                                             {
