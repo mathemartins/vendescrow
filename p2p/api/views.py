@@ -1040,7 +1040,8 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                             },
                                             status=status.HTTP_201_CREATED
                                         )
-                                return Response(response, status=status_code)
+                                    break
+                        break
 
             return Response({"message": "Transaction not found"}, status=status_code)
 
