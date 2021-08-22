@@ -506,6 +506,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                             transaction_key=random_string_generator(15),
                                             slug=random_string_generator()
                                         )
+                                        print(buyer_wallet_trx)
 
                                         seller_wallet_trx = WalletTransactionsHistory.objects.create(
                                             wallet=seller_escrow_wallet,
@@ -514,6 +515,8 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                             transaction_key=random_string_generator(15),
                                             slug=random_string_generator()
                                         )
+
+                                        print(seller_wallet_trx)
 
                                         # send email to seller notifying them that their trade has been sold
                                         context = {
