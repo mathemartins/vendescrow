@@ -437,6 +437,11 @@ class P2PTradeSELLTransactionAPIView(APIView):
                     print(this_day)
                     print(AccountLinkage.objects.get(user=buyer).fullName)
                     print(transaction_instance.fiat_paid)
+                    print(amount == transaction_instance.fiat_paid)
+                    print(narration.find(transaction_key))
+                    print(narration)
+                    print(transaction_key)
+                    print(this_day in date)
                     if narration.find(transaction_key) and amount == transaction_instance.fiat_paid and this_day in date:
                         print("found!")
                         # check seller account immediately
