@@ -450,7 +450,6 @@ class P2PTradeSELLTransactionAPIView(APIView):
                         url = "https://api.withmono.com/accounts/{exchange_token}/transactions".format(
                             exchange_token=AccountLinkage.objects.get(user=seller).exchange_token)
                         querystring = {
-                            "narration": "{transaction_key}".format(transaction_key=transaction_key),
                             "type": "credit",
                             "paginate": "true"
                         }
@@ -474,6 +473,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                 if amount == float(transaction_instance.fiat_paid) and this_day in date:
                                     print("found again!")
                                     if asset == 'BTC':
+                                        print("i got to btc")
                                         seller = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey']).trade.trade_creator
                                         buyer_wallet = BitcoinWallet.objects.get(user=buyer)
