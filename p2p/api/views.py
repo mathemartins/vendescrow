@@ -424,24 +424,13 @@ class P2PTradeSELLTransactionAPIView(APIView):
 
             for index in range(len(data_list)):
                 for key in data_list[index]:
-                    print(data_list[index]['narration'])
                     narration = data_list[index]['narration']
                     amount: int = data_list[index]['amount'] / 100
                     date: str = data_list[index]['date']
-                    print(amount)
-                    print(date)
                     today = datetime.date.today()
                     date_list = list()
                     date_list.append(today)
                     this_day = str(date_list[0])
-                    print(this_day)
-                    print(AccountLinkage.objects.get(user=buyer).fullName)
-                    print(transaction_instance.fiat_paid)
-                    print(amount == float(transaction_instance.fiat_paid))
-                    print(narration.find(transaction_key))
-                    print(narration)
-                    print(transaction_key)
-                    print(this_day in date)
                     if amount == float(transaction_instance.fiat_paid) and this_day in date:
                         print("found!")
                         # check seller account immediately
@@ -1041,9 +1030,11 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                             status=status.HTTP_201_CREATED
                                         )
                                     break
+                                else:
+                                    return Response({"message": "Seller has not received transaction"}, status=status_code)
                         break
-
-            return Response({"message": "Transaction not found"}, status=status_code)
+                    else:
+                        return Response({"message": "Transaction not found"}, status=status_code)
 
 
 class P2PTradeBUYTransactionRetrieveAPIView(APIView):
