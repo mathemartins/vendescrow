@@ -56,11 +56,11 @@ class P2PTransactionSerializer(serializers.ModelSerializer):
             'updated',
         ]
 
-    def get_trade_slug(self, obj):  # where obj is instance of the model class
+    def get_trade_slug(self, obj: P2PTransaction):  # where obj is instance of the model class
         return obj.slug
 
-    def get_trade_creator(self, obj):  # where obj is instance of the model class
+    def get_trade_creator(self, obj: P2PTransaction):  # where obj is instance of the model class
         return obj.trade.trade_creator.username
 
-    def get_trade_visitor(self, obj):  # where obj is instance of the model class
-        return obj.trade_visitor
+    def get_trade_visitor(self, obj: P2PTransaction):  # where obj is instance of the model class
+        return obj.trade_visitor.username

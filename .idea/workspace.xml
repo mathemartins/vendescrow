@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2p/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/p2p/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="1051" column="28" lean-forward="true" selection-start-line="1051" selection-start-column="28" selection-end-line="1051" selection-end-column="28" />
+            <state relative-caret-position="315">
+              <caret line="1057" column="100" lean-forward="true" selection-start-line="1057" selection-start-column="100" selection-end-line="1057" selection-end-column="100" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#2196#3129#0" />
@@ -31,14 +32,6 @@
                 <element signature="e#11974#14443#0" />
                 <element signature="e#14507#17416#0" />
                 <element signature="e#20721#68509#0" />
-                <element signature="e#70715#73744#0" />
-                <element signature="e#73811#75894#0" />
-                <element signature="e#75958#78501#0" />
-                <element signature="e#84692#92671#0" />
-                <element signature="e#92769#99195#0" />
-                <element signature="e#99294#105633#0" />
-                <element signature="e#105731#114059#0" />
-                <element signature="e#114158#130460#0" />
               </folding>
             </state>
           </provider>
@@ -47,7 +40,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notifications/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
+            <state relative-caret-position="176">
               <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -59,7 +52,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/posts/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
+            <state relative-caret-position="192">
               <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="9" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -71,7 +64,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notifications/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
+            <state relative-caret-position="48">
               <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -83,7 +76,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendescrow/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
+            <state relative-caret-position="1152">
               <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
             </state>
           </provider>
@@ -92,7 +85,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/p2p/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1187">
+            <state relative-caret-position="2688">
               <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
@@ -116,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fiatwallet/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
+            <state relative-caret-position="848">
               <caret line="60" selection-start-line="60" selection-end-line="60" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
@@ -129,7 +122,7 @@
         <entry file="file://$PROJECT_DIR$/p2p/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="18" column="82" lean-forward="true" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+              <caret line="18" column="76" lean-forward="true" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -187,7 +180,6 @@
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeOnAppealBuyer.html" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeBuyerEmail.html" />
         <option value="$PROJECT_DIR$/mono/api/views.py" />
-        <option value="$PROJECT_DIR$/p2p/api/serializers.py" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCompleted.html" />
         <option value="$PROJECT_DIR$/templates/p2p/emails/p2pTradeCompletedBuyer.html" />
         <option value="$PROJECT_DIR$/fiatwallet/models.py" />
@@ -209,6 +201,7 @@
         <option value="$PROJECT_DIR$/notifications/api/views.py" />
         <option value="$PROJECT_DIR$/transactions/models.py" />
         <option value="$PROJECT_DIR$/p2p/models.py" />
+        <option value="$PROJECT_DIR$/p2p/api/serializers.py" />
         <option value="$PROJECT_DIR$/p2p/api/views.py" />
       </list>
     </option>
@@ -472,18 +465,19 @@
       <workItem from="1628091401709" duration="44185000" />
       <workItem from="1628662215464" duration="470000" />
       <workItem from="1629375886843" duration="15541000" />
-      <workItem from="1629545360322" duration="42046000" />
+      <workItem from="1629545360322" duration="43356000" />
+      <workItem from="1630711274048" duration="1021000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="976441000" />
+    <option name="totallyTimeSpent" value="978772000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24886535" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2526475" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -680,16 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p2p/api/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/vendescrow/Lib/site-packages/django/core/mail/message.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
@@ -848,13 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendescrow/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendescrow/restconf/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -865,12 +842,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notifications/api/urls.py">
+    <entry file="file://$PROJECT_DIR$/posts/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transactions/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
+          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notifications/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/posts/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notifications/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
           <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendescrow/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/p2p/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2688">
+          <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -887,7 +918,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fiatwallet/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
+        <state relative-caret-position="848">
           <caret line="60" selection-start-line="60" selection-end-line="60" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
@@ -895,49 +926,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p2p/models.py">
+    <entry file="file://$PROJECT_DIR$/p2p/api/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1187">
-          <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
+        <state relative-caret-position="403">
+          <caret line="50" column="37" lean-forward="true" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/posts/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/posts/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/transactions/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/notifications/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -945,7 +939,7 @@
     <entry file="file://$PROJECT_DIR$/p2p/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="18" column="82" lean-forward="true" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+          <caret line="18" column="76" lean-forward="true" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -954,8 +948,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="1051" column="28" lean-forward="true" selection-start-line="1051" selection-start-column="28" selection-end-line="1051" selection-end-column="28" />
+        <state relative-caret-position="315">
+          <caret line="1057" column="100" lean-forward="true" selection-start-line="1057" selection-start-column="100" selection-end-line="1057" selection-end-column="100" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#2196#3129#0" />
@@ -966,14 +960,6 @@
             <element signature="e#11974#14443#0" />
             <element signature="e#14507#17416#0" />
             <element signature="e#20721#68509#0" />
-            <element signature="e#70715#73744#0" />
-            <element signature="e#73811#75894#0" />
-            <element signature="e#75958#78501#0" />
-            <element signature="e#84692#92671#0" />
-            <element signature="e#92769#99195#0" />
-            <element signature="e#99294#105633#0" />
-            <element signature="e#105731#114059#0" />
-            <element signature="e#114158#130460#0" />
           </folding>
         </state>
       </provider>

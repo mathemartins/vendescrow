@@ -1055,7 +1055,7 @@ class P2PTradeBUYTransactionRetrieveAPIView(APIView):
             'data': [{
                 'transaction_key': user_transaction_instance.transaction_key,
                 'trade_creator': user_transaction_instance.trade.trade_creator.username,
-                'trade_creator_phone': user_transaction_instance.trade.trade_creator.profile.phone,
+                'trade_creator_phone': str(user_transaction_instance.trade.trade_creator.profile.phone),
                 'units_of_asset': user_transaction_instance.crypto_unit_transacted,
                 'fiat_paid': user_transaction_instance.fiat_paid,
                 'bank': trade_instance.trade_creator.accountlinkage.bank.capitalize(),
