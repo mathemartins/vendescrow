@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200501b4-4039-4472-950b-cca5179b9c09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/notifications/api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notifications/api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notifications/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Alphador.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Alphador.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/p2p/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p2p/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/referrals/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/referrals/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/referrals/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/referrals/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/transactions/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/settings/production.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/settings/production.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendescrow_db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/vendescrow_db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/api/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-96">
-              <caret line="1800" column="57" selection-start-line="1800" selection-start-column="57" selection-end-line="1800" selection-end-column="57" />
+            <state relative-caret-position="235">
+              <caret line="1051" column="28" lean-forward="true" selection-start-line="1051" selection-start-column="28" selection-end-line="1051" selection-end-column="28" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#2196#3129#0" />
@@ -45,7 +31,6 @@
                 <element signature="e#11974#14443#0" />
                 <element signature="e#14507#17416#0" />
                 <element signature="e#20721#68509#0" />
-                <element signature="e#68694#70254#0" />
                 <element signature="e#70715#73744#0" />
                 <element signature="e#73811#75894#0" />
                 <element signature="e#75958#78501#0" />
@@ -63,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/notifications/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+              <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -99,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/vendescrow/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
-              <caret line="76" column="10" lean-forward="true" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
+              <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -108,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/p2p/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1187">
-              <caret line="178" column="31" lean-forward="true" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
+              <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -120,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/wallets/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="128">
-              <caret line="14" column="57" lean-forward="true" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+              <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -132,9 +117,21 @@
         <entry file="file://$PROJECT_DIR$/fiatwallet/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="302">
-              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/p2p/api/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="18" column="82" lean-forward="true" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -475,18 +472,18 @@
       <workItem from="1628091401709" duration="44185000" />
       <workItem from="1628662215464" duration="470000" />
       <workItem from="1629375886843" duration="15541000" />
-      <workItem from="1629545360322" duration="39891000" />
+      <workItem from="1629545360322" duration="42046000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="974286000" />
+    <option name="totallyTimeSpent" value="976441000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24886535" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24886535" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -515,17 +512,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/p2p/api/views.py</url>
-          <line>433</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/accounts/admin.py">
@@ -736,16 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p2p/api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendescrow/settings/local.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -875,7 +851,7 @@
     <entry file="file://$PROJECT_DIR$/vendescrow/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="76" column="10" lean-forward="true" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
+          <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -902,7 +878,7 @@
     <entry file="file://$PROJECT_DIR$/wallets/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
-          <caret line="14" column="57" lean-forward="true" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
@@ -912,7 +888,7 @@
     <entry file="file://$PROJECT_DIR$/fiatwallet/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
-          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
@@ -922,7 +898,7 @@
     <entry file="file://$PROJECT_DIR$/p2p/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1187">
-          <caret line="178" column="31" lean-forward="true" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
+          <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
@@ -959,17 +935,27 @@
     <entry file="file://$PROJECT_DIR$/notifications/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/p2p/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="82" lean-forward="true" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/p2p/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-96">
-          <caret line="1800" column="57" selection-start-line="1800" selection-start-column="57" selection-end-line="1800" selection-end-column="57" />
+        <state relative-caret-position="235">
+          <caret line="1051" column="28" lean-forward="true" selection-start-line="1051" selection-start-column="28" selection-end-line="1051" selection-end-column="28" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#2196#3129#0" />
@@ -980,7 +966,6 @@
             <element signature="e#11974#14443#0" />
             <element signature="e#14507#17416#0" />
             <element signature="e#20721#68509#0" />
-            <element signature="e#68694#70254#0" />
             <element signature="e#70715#73744#0" />
             <element signature="e#73811#75894#0" />
             <element signature="e#75958#78501#0" />
