@@ -10,9 +10,11 @@ from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from web3 import Web3
 
+from notifications.models import NotificationURLS
 from transactions.models import Transaction
 from vendescrow.blockchain.ethereum_constants import MAINNET_URL, GINACHE_URL
 from vendescrow.blockchain.utils import create_address, transfer_crypto_with_sender_address, get_network_fee
+from vendescrow.utils import create_notification
 from wallets.models import EthereumWallet, TetherUSDWallet, BitcoinWallet, DogecoinWallet, LitecoinWallet, DashWallet
 
 web3 = Web3(Web3.HTTPProvider(MAINNET_URL))
@@ -196,6 +198,13 @@ class BitcoinAddressDetailView(RetrieveAPIView):
                     'short_name_doge': new_btc_wallet.short_nameDOGE,
                 }]
             }
+
+            # create notification on blockio to monitor this user's address
+            create_notification(
+                network_key=bitcoin_testnet,
+                user_endpoint=NotificationURLS.objects.get(user=request.user).url,
+                address=str(new_btc_wallet.address)
+            )
         return Response(response, status=status.HTTP_200_OK)
 
 
@@ -314,6 +323,13 @@ class LitecoinAddressDetailView(RetrieveAPIView):
                     'short_name_doge': new_ltc_wallet.short_nameDOGE,
                 }]
             }
+
+            create_notification(
+                network_key=litecoin_testnet,
+                user_endpoint=NotificationURLS.objects.get(user=request.user).url,
+                address=str(new_ltc_wallet.address)
+            )
+
         return Response(response, status=status.HTTP_200_OK)
 
 
@@ -433,6 +449,13 @@ class DogecoinAddressDetailView(RetrieveAPIView):
                     'short_name_doge': new_doge_wallet.short_nameDOGE,
                 }]
             }
+
+            create_notification(
+                network_key=dogecoin_testnet,
+                user_endpoint=NotificationURLS.objects.get(user=request.user).url,
+                address=str(new_doge_wallet.address)
+            )
+
         return Response(response, status=status.HTTP_200_OK)
 
 

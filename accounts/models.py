@@ -16,6 +16,7 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 from fiatwallet.models import FiatWallet
+from notifications.models import NotificationURLS
 from vendescrow import email_settings
 from vendescrow.utils import unique_key_generator, unique_slug_generator_by_email, random_string_generator
 
@@ -90,7 +91,7 @@ class EmailActivation(models.Model):
 
     def send_activation(self):
         if not self.activated and not self.forced_expired and self.key:
-            base_url = getattr(settings, 'BASE_URL', 'https://www.vendescrow.com')
+            base_url = getattr(settings, 'BASE_URL', 'https://api.vendescrow.com')
             key_path = reverse("account-url:email-activate", kwargs={'key': self.key})  # use reverse
             path = "{base}{path}".format(base=base_url, path=key_path)
             context = {
@@ -158,10 +159,12 @@ pre_save.connect(pre_save_email_activation, sender=EmailActivation)
 def post_save_user_create_reciever(sender, instance, created, *args, **kwargs):
     if created:
         print("email save triggered")
+        base_url = getattr(settings, 'BASE_URL', 'https://api.vendescrow.com')
         obj = EmailActivation.objects.create(user=instance, email=instance.email)
         obj.send_activation()
         Profile.objects.create(user=instance, slug=unique_slug_generator_by_email(instance), keycode=random_string_generator(4))
         FiatWallet.objects.create(user=instance)
+        NotificationURLS.objects.create(user=instance, url="{base_url}/notify/{username}".format(base_url=base_url, username=instance.username))
 
 
 post_save.connect(post_save_user_create_reciever, sender=User)

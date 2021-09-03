@@ -5,6 +5,7 @@ import string
 import re
 
 import math
+import requests
 from django.core.mail import EmailMessage
 from django.utils import timezone
 from django.utils.text import slugify
@@ -270,3 +271,15 @@ def send_email(subject: str, html, recipient_list: list):
     )
     message.fail_silently = False
     message.send()
+
+
+# Create Notification On Blockio
+def create_notification(network_key, user_endpoint, address):
+    url="https://block.io/api/v2/create_notification/?api_key={network_key}&url={user_endpoint}&type=address&address={address}".format(
+        network_key=network_key,
+        user_endpoint=user_endpoint,
+        address=address
+    )
+    payload = {}
+    headers = {}
+    return requests.request("GET", url=url, headers=headers, data=payload)

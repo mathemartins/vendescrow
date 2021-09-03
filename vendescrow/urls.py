@@ -72,6 +72,11 @@ urlpatterns += [
     path('api/referrals/', include(('referrals.api.urls', 'api-referrals'), namespace='api-referrals')),
 ]
 
+# api create wallet urls
+urlpatterns += [
+    path('api/notifications/', include(('notifications.api.urls', 'api-notifications'), namespace='api-notifications')),
+]
+
 # authentication urls
 urlpatterns += [
     path('accounts/', RedirectView.as_view(url='/account')),

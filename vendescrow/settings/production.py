@@ -70,6 +70,7 @@ INSTALLED_APPS += [
     'transactions',
     'coins',
     'referrals',
+    'notifications',
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'

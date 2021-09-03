@@ -66,41 +66,47 @@ def my_callback(sender, instance, *args, **kwargs):
     black_market_rate = FiatRate.objects.get(country=instance.trade_creator.profile.country).dollar_rate
 
     if instance.creator_rate_in_dollar is None:
-        instance.creator_rate_in_dollar = round_decimals_down((float(instance.price_slippage) * float(black_market_rate)))
+        instance.creator_rate_in_dollar = round_decimals_down(
+            (float(instance.price_slippage) * float(black_market_rate)))
 
     asset = str(instance.asset_to_trade)
     if asset == 'BTC' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         btc_instance = BitcoinWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(btc_instance.available) > float(instance.crypto_trading_amount):
-            btc_instance.available = round_decimals_down((float(btc_instance.available) - float(instance.crypto_trading_amount)))
+            btc_instance.available = round_decimals_down(
+                (float(btc_instance.available) - float(instance.crypto_trading_amount)))
             btc_instance.frozen = True
             btc_instance.amount = instance.crypto_trading_amount
             btc_instance.save()
     elif asset == 'LTC' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         ltc_instance = LitecoinWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(ltc_instance.available) > float(instance.crypto_trading_amount):
-            ltc_instance.available = round_decimals_down((float(ltc_instance.available) - float(instance.crypto_trading_amount)))
+            ltc_instance.available = round_decimals_down(
+                (float(ltc_instance.available) - float(instance.crypto_trading_amount)))
             ltc_instance.frozen = True
             ltc_instance.amount = instance.crypto_trading_amount
             ltc_instance.save()
     elif asset == 'DOGE' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         doge_instance = DogecoinWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(doge_instance.available) > float(instance.crypto_trading_amount):
-            doge_instance.available = round_decimals_down((float(doge_instance.available) - float(instance.crypto_trading_amount)))
+            doge_instance.available = round_decimals_down(
+                (float(doge_instance.available) - float(instance.crypto_trading_amount)))
             doge_instance.frozen = True
             doge_instance.amount = instance.crypto_trading_amount
             doge_instance.save()
     elif asset == 'ETH' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         eth_instance = EthereumWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(eth_instance.available) > float(instance.crypto_trading_amount):
-            eth_instance.available = round_decimals_down((float(eth_instance.available) - float(instance.crypto_trading_amount)))
+            eth_instance.available = round_decimals_down(
+                (float(eth_instance.available) - float(instance.crypto_trading_amount)))
             eth_instance.frozen = True
             eth_instance.amount = instance.crypto_trading_amount
             eth_instance.save()
     elif asset == 'USDT' and str(instance.trade_listed_as) == 'I WANT TO SELL':
         usdt_instance = TetherUSDWallet.objects.get(short_name=asset, user=instance.trade_creator)
         if float(usdt_instance.available) > float(instance.crypto_trading_amount):
-            usdt_instance.available = round_decimals_down((float(usdt_instance.available) - float(instance.crypto_trading_amount)))
+            usdt_instance.available = round_decimals_down(
+                (float(usdt_instance.available) - float(instance.crypto_trading_amount)))
             usdt_instance.frozen = True
             usdt_instance.amount = instance.crypto_trading_amount
             usdt_instance.save()
@@ -135,6 +141,49 @@ class P2PTransaction(models.Model):
     def get_absolute_url(self):
         if self.active:
             return reverse("p2p:trades", kwargs={"slug": self.slug})
+
+
+@receiver(pre_save, sender=P2PTransaction)
+def p2p_transaction_callback(sender, instance: P2PTransaction, *args, **kwargs):
+    if instance.slug is None:
+        instance.slug = unique_slug_generator(instance)
+
+    asset = str(instance.trade.asset_to_trade)
+    if asset == 'BTC' and str(instance.trade.trade_listed_as) == 'I WANT TO BUY':
+        btc_instance = BitcoinWallet.objects.get(short_name=asset, user=instance.trade_visitor)
+        if float(btc_instance.available) > float(instance.crypto_unit_transacted):
+            btc_instance.available = round_decimals_down((float(btc_instance.available) - float(instance.crypto_unit_transacted)))
+            btc_instance.frozen = True
+            btc_instance.amount = instance.crypto_unit_transacted
+            btc_instance.save()
+    elif asset == 'LTC' and str(instance.trade.trade_listed_as) == 'I WANT TO BUY':
+        ltc_instance = LitecoinWallet.objects.get(short_name=asset, user=instance.trade_visitor)
+        if float(ltc_instance.available) > float(instance.crypto_unit_transacted):
+            ltc_instance.available = round_decimals_down((float(ltc_instance.available) - float(instance.crypto_unit_transacted)))
+            ltc_instance.frozen = True
+            ltc_instance.amount = instance.crypto_unit_transacted
+            ltc_instance.save()
+    elif asset == 'DOGE' and str(instance.trade.trade_listed_as) == 'I WANT TO BUY':
+        doge_instance = DogecoinWallet.objects.get(short_name=asset, user=instance.trade_visitor)
+        if float(doge_instance.available) > float(instance.crypto_unit_transacted):
+            doge_instance.available = round_decimals_down((float(doge_instance.available) - float(instance.crypto_unit_transacted)))
+            doge_instance.frozen = True
+            doge_instance.amount = instance.crypto_unit_transacted
+            doge_instance.save()
+    elif asset == 'ETH' and str(instance.trade.trade_listed_as) == 'I WANT TO BUY':
+        eth_instance = EthereumWallet.objects.get(short_name=asset, user=instance.trade_visitor)
+        if float(eth_instance.available) > float(instance.crypto_unit_transacted):
+            eth_instance.available = round_decimals_down((float(eth_instance.available) - float(instance.crypto_unit_transacted)))
+            eth_instance.frozen = True
+            eth_instance.amount = instance.crypto_unit_transacted
+            eth_instance.save()
+    elif asset == 'USDT' and str(instance.trade.trade_listed_as) == 'I WANT TO BUY':
+        usdt_instance = TetherUSDWallet.objects.get(short_name=asset, user=instance.trade_visitor)
+        if float(usdt_instance.available) > float(instance.crypto_unit_transacted):
+            usdt_instance.available = round_decimals_down((float(usdt_instance.available) - float(instance.crypto_unit_transacted)))
+            usdt_instance.frozen = True
+            usdt_instance.amount = instance.crypto_unit_transacted
+            usdt_instance.save()
 
 
 class P2PTradeCoreSettings(models.Model):

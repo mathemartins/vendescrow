@@ -1109,9 +1109,16 @@ class P2PTradeBUYTransactionAPIView(APIView):
             }
             html_ = get_template("p2p/emails/p2pTradeSellerEmail.html").render(context)
             subject = 'Vendescrow P2P Trade'
+
+            from_email = email_settings.DEFAULT_FROM_EMAIL
             recipient_list = [trade_instance.trade_creator.email]
 
-            send_email(subject=subject, html=html_, recipient_list=recipient_list)
+            from django.core.mail import EmailMessage
+            message = EmailMessage(
+                subject, html_, from_email, recipient_list
+            )
+            message.fail_silently = False
+            message.send()
 
             # send email to trade visitor notifying them about the trade
             context = {
@@ -1131,7 +1138,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
             subject = 'Vendescrow P2P Trade'
             recipient_list = [request.user.email]
 
-            send_email(subject=subject, html=html_, recipient_list=recipient_list)
+            from_email = email_settings.DEFAULT_FROM_EMAIL
+
+            from django.core.mail import EmailMessage
+            message = EmailMessage(
+                subject, html_, from_email, recipient_list
+            )
+            message.fail_silently = False
+            message.send()
 
             return Response({'message': 'Trade Transaction Created Successfully',
                              'tradeNarration': '{narration}'.format(narration=trade_identifier),
@@ -1160,8 +1174,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
             html_ = get_template("p2p/emails/p2pTradeCancelledSeller.html").render(context)
             subject = 'Vendescrow P2P Trade'
             recipient_list = [trade_instance.trade_creator.email]
+            from_email = email_settings.DEFAULT_FROM_EMAIL
 
-            send_email(subject=subject, html=html_, recipient_list=recipient_list)
+            from django.core.mail import EmailMessage
+            message = EmailMessage(
+                subject, html_, from_email, recipient_list
+            )
+            message.fail_silently = False
+            message.send()
 
             # notify seller that they cancelled
             context = {
@@ -1173,7 +1193,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
             subject = 'Vendescrow P2P Trade'
             recipient_list = [request.user.email]
 
-            send_email(subject=subject, html=html_, recipient_list=recipient_list)
+            from_email = email_settings.DEFAULT_FROM_EMAIL
+
+            from django.core.mail import EmailMessage
+            message = EmailMessage(
+                subject, html_, from_email, recipient_list
+            )
+            message.fail_silently = False
+            message.send()
 
             return Response({'message': 'Trade Transaction Cancelled Successfully', 'statusCode': status.HTTP_200_OK},
                             status=201)
@@ -1205,7 +1232,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
             subject = 'Vendescrow P2P Trade'
             recipient_list = [trade_instance.trade_creator.email]
 
-            send_email(subject=subject, html=html_, recipient_list=recipient_list)
+            from_email = email_settings.DEFAULT_FROM_EMAIL
+
+            from django.core.mail import EmailMessage
+            message = EmailMessage(
+                subject, html_, from_email, recipient_list
+            )
+            message.fail_silently = False
+            message.send()
 
             # notify buyer that they cancelled
             context = {
@@ -1221,7 +1255,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
             subject = 'Vendescrow P2P Trade'
             recipient_list = [request.user.email]
 
-            send_email(subject=subject, html=html_, recipient_list=recipient_list)
+            from_email = email_settings.DEFAULT_FROM_EMAIL
+
+            from django.core.mail import EmailMessage
+            message = EmailMessage(
+                subject, html_, from_email, recipient_list
+            )
+            message.fail_silently = False
+            message.send()
 
             return Response(
                 {
@@ -1295,22 +1336,25 @@ class P2PTradeBUYTransactionAPIView(APIView):
                     date_list.append(today)
                     this_day = str(date_list[0])
                     print(this_day)
-                    if narration.find(AccountLinkage.objects.get(
-                            user=buyer).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
+                    if amount == float(transaction_instance.fiat_paid) and this_day in date:
                         print("found!")
                         # check seller account immediately
+
                         # check credit transaction list for seller
                         url = "https://api.withmono.com/accounts/{exchange_token}/transactions".format(
                             exchange_token=AccountLinkage.objects.get(user=seller).exchange_token)
-                        querystring = {"type": "credit"}
+                        querystring = {
+                            "type": "credit",
+                            "paginate": "true"
+                        }
                         headers = {
                             "Accept": "application/json",
                             "mono-sec-key": "live_sk_8vrj5erb1rlMwvLzQgot"
                         }
-
                         response = requests.request("GET", url, headers=headers, params=querystring)
                         response_data_seller = json.loads(response.content.decode('utf-8'))
                         print(response_data_seller['data'])
+
                         data_list = response_data_seller['data']
                         status_code = status.HTTP_200_OK
                         for index in range(len(data_list)):
@@ -1320,10 +1364,12 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                 amount: int = data_list[index]['amount'] / 100
                                 date: str = data_list[index]['date']
                                 print(date)
-                                if narration.find(AccountLinkage.objects.get(
-                                        user=seller).fullName) and amount == transaction_instance.fiat_paid and this_day in date:
-                                    print("found!")
+                                if amount == float(transaction_instance.fiat_paid) and this_day in date:
+                                    print("found again!")
                                     if asset == 'BTC':
+                                        print("i got to btc")
+                                        seller = P2PTransaction.objects.get(
+                                            transaction_key=data['transactionKey']).trade_visitor
                                         buyer_wallet = BitcoinWallet.objects.get(user=buyer)
                                         seller_wallet = BitcoinWallet.objects.get(user=seller)
 
@@ -1332,13 +1378,13 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
                                         buyer_wallet.available = str(
                                             round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
-                                        print(buyer_wallet.available)
                                         seller_wallet.save()
                                         buyer_wallet.save()
 
                                         # subtract money from both buyer and seller fiat wallet
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
+
                                         buyer_escrow_wallet.balance = buyer_escrow_wallet.balance - float(
                                             escrow_instance.escrow_fee)
                                         seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
@@ -1354,6 +1400,7 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             transaction_key=random_string_generator(15),
                                             slug=random_string_generator()
                                         )
+                                        print(buyer_wallet_trx)
 
                                         seller_wallet_trx = WalletTransactionsHistory.objects.create(
                                             wallet=seller_escrow_wallet,
@@ -1362,6 +1409,8 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             transaction_key=random_string_generator(15),
                                             slug=random_string_generator()
                                         )
+
+                                        print(seller_wallet_trx)
 
                                         # send email to seller notifying them that their trade has been sold
                                         context = {
@@ -1375,12 +1424,17 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # # notify buyer that the transaction was successful
                                         context = {
@@ -1391,31 +1445,40 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'currency': data['currency'],
                                             'amount': amount,
                                             'narration': narration,
-                                            'phone': request.user.profile.phone
+                                            'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
+
+                                        print("i passed email sending")
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
-                                        trade_customer = seller
-
+                                        trade_customer = buyer
                                         transaction_instance = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey'],
                                             trade_visitor=trade_customer,
                                             trade=trade_instance
                                         )
-
                                         transaction_instance.status = "COMPLETED"
                                         transaction_instance.save()
+
+                                        print("i saved")
 
                                         # activate the trade again
                                         trade_instance.active = True
                                         trade_instance.save()
+
+                                        print("i saved again")
 
                                         return Response(
                                             {
@@ -1423,19 +1486,16 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                                 "tx_": timezone.now(),
                                                 "success": bool(timezone.now())
                                             },
-
                                             status=status.HTTP_201_CREATED
                                         )
                                     elif asset == 'LTC':
-                                        seller = P2PTransaction.objects.get(
-                                            transaction_key=data['transactionKey']).trade.trade_creator
+                                        seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade_visitor
                                         buyer_wallet = LitecoinWallet.objects.get(user=buyer)
                                         seller_wallet = LitecoinWallet.objects.get(user=seller)
 
                                         # send crypto to buyer and reduce frozen asset of seller
                                         seller_wallet.amount = str(
                                             round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
-
                                         buyer_wallet.available = str(
                                             round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
 
@@ -1450,31 +1510,32 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             escrow_instance.escrow_fee)
                                         seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
                                             escrow_instance.escrow_fee)
-
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
 
                                         # send email to seller notifying them that their trade has been sold
                                         context = {
-
                                             'seller': seller.first_name,
                                             'buyer': "{first_name} {last_name}".format(
                                                 first_name=buyer.first_name,
-                                                last_name=request.user.last_name),
-
+                                                last_name=buyer.last_name),
                                             'tradeType': "SELL {asset}".format(asset=asset),
                                             'currency': data['currency'],
                                             'amount': amount,
                                             'narration': narration,
                                             'phone': buyer.profile.phone
-
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # notify buyer that the transaction was successful
                                         context = {
@@ -1487,23 +1548,26 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
-                                        trade_customer = seller
-
+                                        trade_customer = buyer
                                         transaction_instance = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey'],
                                             trade_visitor=trade_customer,
                                             trade=trade_instance
                                         )
-
                                         transaction_instance.status = "COMPLETED"
                                         transaction_instance.save()
 
@@ -1519,13 +1583,11 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             },
                                             status=status.HTTP_201_CREATED
                                         )
-
                                     elif asset == 'DOGE':
                                         seller = P2PTransaction.objects.get(
-                                            transaction_key=data['transactionKey']).trade.trade_creator
+                                            transaction_key=data['transactionKey']).trade_visitor
                                         buyer_wallet = DogecoinWallet.objects.get(user=buyer)
                                         seller_wallet = DogecoinWallet.objects.get(user=seller)
-
                                         seller_wallet.amount = str(
                                             round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
                                         buyer_wallet.available = str(
@@ -1556,12 +1618,17 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # notify buyer that the transaction was successful
                                         context = {
@@ -1574,23 +1641,26 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
-                                        trade_customer = seller
-
+                                        trade_customer = buyer
                                         transaction_instance = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey'],
                                             trade_visitor=trade_customer,
                                             trade=trade_instance
                                         )
-
                                         transaction_instance.status = "COMPLETED"
                                         transaction_instance.save()
 
@@ -1606,7 +1676,6 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             },
                                             status=status.HTTP_201_CREATED
                                         )
-
                                     elif asset == 'ETH':
                                         seller = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey']).trade.trade_creator
@@ -1621,6 +1690,7 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         decrypted_private_key = web3.eth.account.decrypt(
                                             keyfile_json=seller_wallet.encrypted_private_key,
                                             password=seller.username)
+
                                         nonce = web3.eth.getTransactionCount(seller_wallet.public_key)
                                         tx = {
                                             'nonce': nonce,
@@ -1628,13 +1698,13 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'value': web3.toWei(amount, 'ether'),
                                             'gas': 21000,
                                             'gasPrice': web3.toWei(
-                                                '{blockchain_gasFee}'.format(blockchain_gasFee=gas_price), 'gwei')
+                                                '{blockchain_gasFee}'.format(blockchain_gasFee=gas_price),
+                                                'gwei')
                                         }
 
                                         signed_transaction = web3.eth.account.signTransaction(transaction_dict=tx,
                                                                                               private_key=decrypted_private_key)
                                         tx_hash = web3.eth.sendRawTransaction(signed_transaction.rawTransaction)
-
                                         seller_wallet.amount = str(
                                             round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
                                         seller_wallet.previous_bal = str(
@@ -1670,19 +1740,22 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [seller.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # notify buyer that the transaction was successful
                                         context = {
-
                                             'seller': "{first_name} {last_name}".format(first_name=seller.first_name,
                                                                                         last_name=seller.last_name),
-
                                             'buyer': buyer.first_name,
                                             'tradeType': "SELL {asset}".format(asset=asset),
                                             'currency': data['currency'],
@@ -1690,23 +1763,26 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
                                         recipient_list = [buyer.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
                                         trade_customer = buyer
-
                                         transaction_instance = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey'],
                                             trade_visitor=trade_customer,
                                             trade=trade_instance
                                         )
-
                                         transaction_instance.status = "COMPLETED"
                                         transaction_instance.save()
 
@@ -1722,10 +1798,8 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             },
                                             status=status.HTTP_201_CREATED
                                         )
-
                                     elif asset == 'USDT':
-                                        seller = P2PTransaction.objects.get(
-                                            transaction_key=data['transactionKey']).trade.trade_creator
+                                        seller = P2PTransaction.objects.get(transaction_key=data['transactionKey']).trade_visitor
                                         buyer_wallet = EthereumWallet.objects.get(user=buyer)
                                         seller_wallet = EthereumWallet.objects.get(user=seller)
 
@@ -1733,6 +1807,7 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             round(float(seller_wallet.amount) - float(data['cryptoUnits']), 8))
                                         buyer_wallet.available = str(
                                             round(float(buyer_wallet.available) + float(data['cryptoUnits']), 8))
+
                                         receiver_address = buyer_wallet.public_key
 
                                         amount = data['cryptoUnits']
@@ -1742,14 +1817,14 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             '0xdac17f958d2ee523a2206206994597c13d831ec7')
                                         tether_abi = json.loads(
                                             '[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]')
-
                                         tether_contract = web3.eth.contract(address=tether_address, abi=tether_abi)
+
                                         user_usdt_wallet = TetherUSDWallet.objects.get(user=seller)
                                         tether_user_address = Web3.toChecksumAddress(user_usdt_wallet.public_key)
+
                                         decrypted_private_key = web3.eth.account.decrypt(
                                             keyfile_json=user_usdt_wallet.encrypted_private_key,
-                                            password=seller.username
-                                        )
+                                            password=seller.username)
 
                                         nonce = web3.eth.getTransactionCount(tether_user_address)
                                         tx = tether_contract.functions.transfer(
@@ -1760,7 +1835,6 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                                 '{blockchain_gasFee}'.format(blockchain_gasFee=gas_price), 'gwei'),
                                             'nonce': nonce
                                         })
-
                                         signed_tx = web3.eth.account.signTransaction(tx,
                                                                                      private_key=decrypted_private_key)
                                         tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
@@ -1778,7 +1852,6 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                         buyer_wallet.save()
 
                                         # subtract money from both buyer and seller fiat wallet
-
                                         buyer_escrow_wallet = FiatWallet.objects.get(user=buyer)
                                         seller_escrow_wallet = FiatWallet.objects.get(user=seller)
 
@@ -1786,7 +1859,6 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             escrow_instance.escrow_fee)
                                         seller_escrow_wallet.balance = seller_escrow_wallet.balance - float(
                                             escrow_instance.escrow_fee)
-
                                         buyer_escrow_wallet.save()
                                         seller_escrow_wallet.save()
 
@@ -1796,53 +1868,62 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             'buyer': "{first_name} {last_name}".format(
                                                 first_name=buyer.first_name,
                                                 last_name=buyer.last_name),
-
                                             'tradeType': "SELL {asset}".format(asset=asset),
                                             'currency': data['currency'],
                                             'amount': amount,
                                             'narration': narration,
                                             'phone': buyer.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedSeller.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
+                                        from_email = email_settings.EMAIL_HOST_USER
                                         recipient_list = [seller.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # notify buyer that the transaction was successful
                                         context = {
                                             'seller': "{first_name} {last_name}".format(first_name=seller.first_name,
                                                                                         last_name=seller.last_name),
-                                            'buyer': buyer.first_name,
+                                            'buyer': request.user.first_name,
                                             'tradeType': "SELL {asset}".format(asset=asset),
                                             'currency': data['currency'],
                                             'amount': amount,
                                             'narration': narration,
-                                            'phone': buyer.profile.phone
+                                            'phone': request.user.profile.phone
                                         }
-
                                         html_ = get_template("p2p/emails/p2pTradeCompletedBuyer.html").render(context)
                                         subject = 'Vendescrow P2P Trade Completed'
-                                        recipient_list = [buyer.email]
+                                        from_email = email_settings.DEFAULT_FROM_EMAIL
+                                        recipient_list = [request.user.email]
 
-                                        send_email(subject=subject, html=html_, recipient_list=recipient_list)
+                                        from django.core.mail import EmailMessage
+                                        message = EmailMessage(
+                                            subject, html_, from_email, recipient_list
+                                        )
+                                        message.fail_silently = False
+                                        message.send()
 
                                         # set transaction status to completed
                                         trade_instance = P2PTrade.objects.get(slug=data['trade'])
-                                        trade_customer = buyer
+                                        trade_customer = request.user
                                         transaction_instance = P2PTransaction.objects.get(
                                             transaction_key=data['transactionKey'],
                                             trade_visitor=trade_customer,
                                             trade=trade_instance
                                         )
-
                                         transaction_instance.status = "COMPLETED"
                                         transaction_instance.save()
 
                                         # activate the trade again
                                         trade_instance.active = True
                                         trade_instance.save()
+
                                         return Response(
                                             {
                                                 'message': "transaction successful",
@@ -1851,8 +1932,13 @@ class P2PTradeBUYTransactionAPIView(APIView):
                                             },
                                             status=status.HTTP_201_CREATED
                                         )
-                                return Response(response, status=status_code)
-                    return Response({"message": "Transaction not found"}, status=status_code)
+                                    break
+                                else:
+                                    return Response({"message": "Seller has not received transaction"},
+                                                    status=status_code)
+                        break
+                    else:
+                        return Response({"message": "Transaction not found"}, status=status_code)
 
 
 class ModifyP2PTradeStatusAPIView(APIView):
