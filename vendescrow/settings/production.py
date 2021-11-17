@@ -115,8 +115,8 @@ CORS_ALLOW_CREDENTIALS = True
 ASGI_APPLICATION = 'vendescrow.asgi.application'
 
 # heroku config - gives latest redis credentials
-CELERY_BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-3-209-155-39.compute-1.amazonaws.com:12589'
-BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-3-209-155-39.compute-1.amazonaws.com:12589'
+CELERY_BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-34-195-152-131.compute-1.amazonaws.com:7999'
+BROKER_URL = 'redis://:p2196718fddb40d4cae789847f5ce368fb6245550cb84eef2a45d41dd30ea202a@ec2-34-195-152-131.compute-1.amazonaws.com:7999'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
