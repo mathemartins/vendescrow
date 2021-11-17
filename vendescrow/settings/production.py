@@ -55,7 +55,7 @@ INSTALLED_APPS += [
     'widget_tweaks',
     'markdown_deux',
     'pagedown',
-    'channels',
+    # 'channels',
 ]
 
 # User created

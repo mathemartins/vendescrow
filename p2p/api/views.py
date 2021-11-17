@@ -1,16 +1,14 @@
 import datetime
 import json
-import os
 
 import requests
 
 from django.db.models import Q
 from django.template.loader import get_template
 from django.utils import timezone
-from pymono import Mono
 from rest_framework import mixins, status
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, get_object_or_404
+from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -1986,13 +1984,16 @@ class ModifyP2PTradeStatusAPIView(APIView):
 
 
 class P2PTradeListPerUserAPIView(ListAPIView):
+    """
+        Trades created by user viewing it at the time
+    """
     authentication_classes = [BasicAuthentication, SessionAuthentication, JSONWebTokenAuthentication]
     serializer_class = P2PTradeSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     paginate_by = 500
 
     def get_queryset(self):
-        viewer_username = P2PTrade.objects.get(trade_creator=self.request.user, active=True)
+        viewer_username = P2PTrade.objects.filter(trade_creator=self.request.user).first()
         return P2PTrade.objects.filter(trade_creator__username=viewer_username)
 
 

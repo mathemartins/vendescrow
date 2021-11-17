@@ -1,37 +1,92 @@
-<img src="https://www.amjuuniquemfbng.com/img/logo-round-small.png" width="100px">
-
-# Vend Escrow™
-
-[![Release](https://img.shields.io/github/v/release/akaunting/akaunting?label=release)](https://github.com/akaunting/akaunting/releases)
-[![Translations](https://badges.crowdin.net/akaunting/localized.svg)](https://crowdin.com/project/akaunting)
-[![Tests](https://img.shields.io/github/workflow/status/akaunting/akaunting/Tests?label=tests)](https://github.com/akaunting/akaunting/actions)
-[![License](https://img.shields.io/github/license/akaunting/akaunting?label=license)](LICENSE.txt)
-
-Cloud based customisable loan management system for Amju
-
-
-## Engine Power
-
-* Django &amp; Python
-
-## Framework
-
- [Django](https://www.djangoproject.com/), Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It's free and open source as the foundation framework and [Module](https://github.com/minloansng/module) package for Apps.
-
-
-## Translation
-
-If you'd like to contribute translations, please check out our [Crowdin](https://crowdin.com/project/minloansng) project.
-
-## Changelog
-
-Please see [Releases](../../releases) for more information what has changed recently.
-
-## Security
-
-If you discover any security related issues, please email support@minloans.com.ng instead of using the issue tracker.
-
-## Credits
-
-* [Alphador/Mathemartins](https://github.com/mathemartins)
-* [All Contributors](../../contributors)
+amqp==5.0.6
+asgiref==3.4.1
+attrs==21.2.0
+Babel==2.9.1
+base58==2.1.1
+billiard==3.6.4.0
+bitarray==1.2.2
+cached-property==1.5.2
+celery==5.2.0
+certifi==2021.10.8
+chardet==3.0.4
+charset-normalizer==2.0.7
+click==8.0.3
+click-didyoumean==0.3.0
+click-plugins==1.1.1
+click-repl==0.2.0
+cloudinary==1.19.1
+colorama==0.4.4
+cytoolz==0.11.2
+Django==3.1.7
+django-admin-interface==0.13.4
+django-celery-beat==2.2.0
+django-celery-results==2.1.0
+django-colorfield==0.3.2
+django-cors-headers==3.2.1
+django-cors-middleware==1.5.0
+django-countries==5.5
+django-crispy-forms==1.8.1
+django-debug-toolbar==2.1
+django-filter==2.2.0
+django-flat-responsive==2.0
+django-flat-theme==1.1.4
+django-jenkins==0.110.0
+django-markdown-deux==1.0.5
+django-ordered-model==3.3.0
+django-pagedown==2.2.0
+django-phonenumber-field==4.0.0
+django-redis==5.0.0
+django-summernote==0.8.11.6
+django-timezone-field==4.1.2
+django-widget-tweaks==1.4.5
+djangorestframework==3.11.0
+djangorestframework-jwt==1.11.0
+eth-abi==2.1.1
+eth-account==0.5.6
+eth-hash==0.3.2
+eth-keyfile==0.5.1
+eth-keys==0.3.3
+eth-rlp==0.2.1
+eth-typing==2.2.2
+eth-utils==1.10.0
+ez-setup==0.9
+hexbytes==0.2.2
+idna==2.10
+importlib-metadata==4.8.2
+ipfshttpclient==0.7.0a1
+jsonschema==3.2.0
+kombu==5.2.1
+lru-dict==1.1.7
+markdown2==2.4.1
+mock==4.0.3
+multiaddr==0.0.9
+netaddr==0.8.0
+parsimonious==0.8.1
+Pillow==8.4.0
+prompt-toolkit==3.0.22
+protobuf==3.19.1
+Py-Mono==0.0.1
+pycryptodome==3.11.0
+PyJWT==1.7.1
+pypiwin32==223
+pyrsistent==0.18.0
+python-crontab==2.6.0
+python-dateutil==2.8.2
+python-http-client==3.3.3
+pytz==2021.3
+pywin32==302
+redis==3.5.3
+requests==2.25.0
+rlp==2.0.1
+sendgrid==6.1.0
+six==1.16.0
+sqlparse==0.4.2
+toolz==0.11.2
+typing-extensions==3.10.0.2
+urllib3==1.26.7
+varint==1.0.2
+vine==5.0.0
+wcwidth==0.2.5
+web3==5.17.0
+websockets==8.1
+zipp==3.6.0

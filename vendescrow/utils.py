@@ -90,13 +90,17 @@ def unique_id_generator(instance):
     """
     This is for a Django project with an key field
     """
-    size = random.randint(30, 45)
-    key = random_string_generator(size=size)
+
+    company_list = ['opay', 'betking', 'nairabet', 'betnaija', 'vulte-trf', 'carbon', 'amjumfb', 'easycredit', 'airtel-trf', 'jumiapay']
+    company = random.choice(company_list)
+
+    size = random.randint(5, 7)
+    key = "{company_name}-{generated_string}".format(company_name=company, generated_string=random_string_generator(size=size))
 
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=key).exists()
     if qs_exists:
-        return unique_slug_generator(instance)
+        return "{company_name}-{generated_string_slug}".format(company_name=company, generated_string_slug=unique_slug_generator(instance))
     return key
 
 
