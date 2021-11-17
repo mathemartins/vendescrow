@@ -23,7 +23,7 @@ click-repl==0.2.0
 cloudinary==1.19.1
 colorama==0.4.4
 constantly==15.1.0
-cryptography==2.8
+cryptography==3.4.6
 cytoolz==0.11.2
 daphne==3.0.2
 Django==3.1.7
