@@ -72,6 +72,7 @@ phonenumbers==8.11.1
 Pillow==8.4.0
 prompt-toolkit==3.0.22
 protobuf==3.19.1
+psycopg2==2.8.4
 Py-Mono==0.0.1
 pycparser==2.21
 pycryptodome==3.11.0
