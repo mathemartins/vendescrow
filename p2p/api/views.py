@@ -423,13 +423,13 @@ class P2PTradeSELLTransactionAPIView(APIView):
             for index in range(len(data_list)):
                 for key in data_list[index]:
                     narration: str = data_list[index]['narration']
-                    amount: float = data_list[index]['amount'] / 100
+                    amount: int = data_list[index]['amount'] / 100
                     date: str = data_list[index]['date']
                     today = datetime.date.today()
                     date_list = list()
                     date_list.append(today)
                     this_day = str(date_list[0])
-                    if amount == float(transaction_instance.fiat_paid) and this_day in date and narration == str(transaction_instance.transaction_key):
+                    if amount == int(transaction_instance.fiat_paid) and this_day in date:
                         print("found!")
                         # check seller account immediately
 
@@ -457,7 +457,7 @@ class P2PTradeSELLTransactionAPIView(APIView):
                                 amount: float = data_list[index]['amount'] / 100
                                 date: str = data_list[index]['date']
                                 print(date)
-                                if amount == float(transaction_instance.fiat_paid) and this_day in date and narration == str(transaction_instance.transaction_key):
+                                if amount == int(transaction_instance.fiat_paid) and this_day in date:
                                     print("found again!")
                                     if asset == 'BTC':
                                         print("i got to btc")
