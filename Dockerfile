@@ -17,4 +17,6 @@ ADD . .
 
 #CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "vendescrow.wsgi:application"]
 
-CMD gunicorn vendescrow.wsgi:application --bind 0.0.0.0:$PORT
+#CMD gunicorn vendescrow.wsgi:application --bind 0.0.0.0:$PORT
+CMD daphne vendescrow.asgi:application --port $PORT --bind 0.0.0.0 -v2
+CMD celery -A vendescrow worker -B --loglevel=info
